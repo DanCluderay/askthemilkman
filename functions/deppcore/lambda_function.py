@@ -5,6 +5,14 @@ import boto3
 import uuid
 from datetime import datetime, timedelta, time
 import shopify
+from phpserialize import serialize, unserialize
+import requests
+import ast
+
+
+keyp:str ="461824c0a06d4be0e94851deeabc3965"
+passp:str  ="9bb4f551ba4888c9199b7a9509f0e872"
+urlstart:str ="https://dans-daily-deals.myshopify.com/admin"
 
 CURRENT_USERID = 0
 CURRENT_ORDERID = 0
@@ -383,7 +391,10 @@ def on_intent(intent_request, session, context):
 
         return placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
     elif intent_name == "WhatsOnMyShoppingList":
-        return whats_on_my_shopping_list(intent, session)
+        print("somthing")
+    elif intent_name == "CreateOrder":
+        print("creating order")
+        return Create_Order()
     elif intent_name == "MakeAnOrder" and intent_name == "DeliverMyOrder":
         print("order and deliver triggered")
         return place_order_and_deliver(intent, session)
@@ -651,4 +662,25 @@ def add_something_to_an_order(intent, session):
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+def Create_Order():
+    print("order creating")
+    lastupdatetime: str = '2017-07-14 15:57:11'  # last update timestamp
+    o = requests.get(urlstart + '/orders.json?updated_at_min=' + lastupdatetime + '&fields=id',
+                     auth=(keyp, passp))  # get the latest orders ID's
+    dicto: dict = ast.literal_eval(o.text)  # convert text to dictionary
+    print("call made to shopify")
+    for val in dicto['orders']:  # loop the orders dictionary that contain just order ID's
+        k: dict = val  # convert the string to a dictionary
+        j: int = k.get('id', 0)  # get the value of the ID
+        print("order stuff " + str(j))
 
+    session_attributes = {}
+    card_title = "Order created"
+    speech_output = "Order created"
+
+    reprompt_text = "Order created"
+
+    should_end_session = False
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+#Create_Order()
