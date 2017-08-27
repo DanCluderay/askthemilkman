@@ -1,0 +1,10 @@
+{
+  "name": "apex-deepretail",
+  "description": "",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::468084156317:role/apex-deepretail_lambda_function",
+  "runtime": "python3.6",
+  "handler": "lambda_function.lambda_handler",
+  "environment": {}
+}
