@@ -9,7 +9,6 @@ from phpserialize import serialize, unserialize
 import requests
 import ast
 
-
 keyp:str ="461824c0a06d4be0e94851deeabc3965"
 passp:str  ="9bb4f551ba4888c9199b7a9509f0e872"
 urlstart:str ="https://dans-daily-deals.myshopify.com/admin"
@@ -17,6 +16,85 @@ urlstart:str ="https://dans-daily-deals.myshopify.com/admin"
 CURRENT_USERID = 0
 CURRENT_ORDERID = 0
 
+def on_intent(intent_request, session, context):
+    """ Called when the user specifies an intent for this skill """
+
+    print("on_intent requestId=" + intent_request['requestId'] +
+          ", sessionId=" + session['sessionId'])
+
+    hasallpart = True
+    intent = intent_request['intent']
+    print(intent)
+    intent_name = intent_request['intent']['name']
+
+    if intent_name == "MakeAnOrder":
+        sl = intent_request['intent']['slots']
+        print("slots: " + str(sl))
+        # l='{"name": "MakeAnOrder", "slots": {"productsize": {"name": "productsize", "value": "4 pint"}, "WhenToDeliver": {"name": "WhenToDeliver", "value": "now"}, "DeliverOrAdd": {"name": "DeliverOrAdd", "value": "deliver"}, "addmilk": {"name": "addmilk", "value": "whole milk"}, "howmany": {"name": "howmany", "value": "1"}}}'
+        lp = json.dumps(sl)
+        json1_data = json.loads(str(lp))
+        print("unknown - " + str(json1_data))
+        productsize: str = ''
+        whentodeliver: str = ''
+        delivery_or_add: str = ''
+        producttype: str = ''
+        howmany: str = ''
+
+        # can we loop the dict here?
+        for key, val in json1_data.items():
+            print("{} = {}".format(key, val))
+
+        if len(json1_data["productsize"]["value"]) > 0:
+            productsize = str(json1_data["productsize"]["value"])
+
+        if len(json1_data["WhenToDeliver"]["value"]) > 0:
+            whentodeliver = str(json1_data["WhenToDeliver"]["value"])
+
+        if len(json1_data["DeliverOrAdd"]["value"]) > 0:
+            delivery_or_add = str(json1_data["DeliverOrAdd"]["value"])
+
+        if len(json1_data["addmilk"]["value"]) > 0:
+            producttype = str(json1_data["addmilk"]["value"])
+
+        if len(json1_data["howmany"]["value"]) > 0:
+            howmany = str(json1_data["howmany"]["value"])
+
+        hasallpart: bool = False
+        if len(productsize) > 0 and len(whentodeliver) > 0 and len(delivery_or_add) > 0 and len(
+                producttype) > 0 and len(
+            howmany) > 0:
+            hasallpart = True
+
+        return placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
+    elif intent_name == "WhatsOnMyShoppingList":
+        print("somthing")
+    elif intent_name == "CreateOrder":
+        print("creating order")
+        return Create_Order()
+    elif intent_name == "OrderDelivered":
+        print("creating order")
+        return Create_Order()
+    elif intent_name == "MakeAnOrder" and intent_name == "DeliverMyOrder":
+        print("order and deliver triggered")
+        return place_order_and_deliver(intent, session)
+    elif intent_name == "AddToAnOrder":
+        # return get_welcome_response()
+        print("adding somthing to an order")
+        return add_something_to_an_order(intent, session)
+    elif intent_name == "WhatsMyName":
+        # return get_welcome_response()
+        print("calling finding customer name")
+        return find_customer_name(intent, session)
+    elif intent_name == "DeliverMyOrderOn":
+        return deliver_my_order(intent, session)
+    elif intent_name == "HowMuchIsMyOrder":
+        return how_much_is_my_order(intent, session)
+    elif intent_name == "AMAZON.HelpIntent":
+        return get_welcome_response()
+    elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
+        return handle_session_end_request()
+    else:
+        raise ValueError("Invalid intent")
 
 # this
 # Connect to the database
@@ -326,7 +404,7 @@ def on_session_started(session_started_request, session):
     print("the userid" + str(id))
     print("the userid" + str(username))
     CURRENT_USERID = int(str(userinfo.get('customers_autoid')))
-
+    CURRENT_ORDERID = checkforexistingcustomerorder(CURRENT_USERID)
 
 def on_launch(launch_request, session):
     """ Called when the user launches the skill without specifying what they
@@ -340,82 +418,7 @@ def on_launch(launch_request, session):
     return get_welcome_response()
 
 
-def on_intent(intent_request, session, context):
-    """ Called when the user specifies an intent for this skill """
 
-    print("on_intent requestId=" + intent_request['requestId'] +
-          ", sessionId=" + session['sessionId'])
-
-    hasallpart = True
-    intent = intent_request['intent']
-    print(intent)
-    intent_name = intent_request['intent']['name']
-
-    if intent_name == "MakeAnOrder":
-        sl = intent_request['intent']['slots']
-        print("slots: " + str(sl))
-        # l='{"name": "MakeAnOrder", "slots": {"productsize": {"name": "productsize", "value": "4 pint"}, "WhenToDeliver": {"name": "WhenToDeliver", "value": "now"}, "DeliverOrAdd": {"name": "DeliverOrAdd", "value": "deliver"}, "addmilk": {"name": "addmilk", "value": "whole milk"}, "howmany": {"name": "howmany", "value": "1"}}}'
-        lp = json.dumps(sl)
-        json1_data = json.loads(str(lp))
-        print("unknown - " + str(json1_data))
-        productsize: str = ''
-        whentodeliver: str = ''
-        delivery_or_add: str = ''
-        producttype: str = ''
-        howmany: str = ''
-
-        # can we loop the dict here?
-        for key, val in json1_data.items():
-            print("{} = {}".format(key, val))
-
-        if len(json1_data["productsize"]["value"]) > 0:
-            productsize = str(json1_data["productsize"]["value"])
-
-        if len(json1_data["WhenToDeliver"]["value"]) > 0:
-            whentodeliver = str(json1_data["WhenToDeliver"]["value"])
-
-        if len(json1_data["DeliverOrAdd"]["value"]) > 0:
-            delivery_or_add = str(json1_data["DeliverOrAdd"]["value"])
-
-        if len(json1_data["addmilk"]["value"]) > 0:
-            producttype = str(json1_data["addmilk"]["value"])
-
-        if len(json1_data["howmany"]["value"]) > 0:
-            howmany = str(json1_data["howmany"]["value"])
-
-        hasallpart: bool = False
-        if len(productsize) > 0 and len(whentodeliver) > 0 and len(delivery_or_add) > 0 and len(
-                producttype) > 0 and len(
-            howmany) > 0:
-            hasallpart = True
-
-        return placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
-    elif intent_name == "WhatsOnMyShoppingList":
-        print("somthing")
-    elif intent_name == "CreateOrder":
-        print("creating order")
-        return Create_Order()
-    elif intent_name == "MakeAnOrder" and intent_name == "DeliverMyOrder":
-        print("order and deliver triggered")
-        return place_order_and_deliver(intent, session)
-    elif intent_name == "AddToAnOrder":
-        # return get_welcome_response()
-        print("adding somthing to an order")
-        return add_something_to_an_order(intent, session)
-    elif intent_name == "WhatsMyName":
-        # return get_welcome_response()
-        print("calling finding customer name")
-        return find_customer_name(intent, session)
-    elif intent_name == "DeliverMyOrderOn":
-        return deliver_my_order(intent, session)
-    elif intent_name == "HowMuchIsMyOrder":
-        return how_much_is_my_order(intent, session)
-    elif intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
-    elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
-        return handle_session_end_request()
-    else:
-        raise ValueError("Invalid intent")
 
 
 def on_session_ended(session_ended_request, session):
@@ -617,13 +620,13 @@ def deliver_my_order(intent, session):
 
 
 def update_order_delivery_date(delivery_date):
-    orderid = checkforexistingcustomerorder(CURRENT_USERID)
+    CURRENT_ORDERID = checkforexistingcustomerorder(CURRENT_USERID)
 
     sql = "UPDATE `orders` SET `delivery_date`='" + str(f"{delivery_date:%Y-%m-%d}") + "' WHERE order_autoid='" + str(
-        orderid) + "'"
+        CURRENT_ORDERID) + "'"
     print(sql)
     db_sql_write(sql)
-    print("perform a query on this order = " + str(orderid))
+    print("perform a query on this order = " + str(CURRENT_ORDERID))
 
 
 def add_something_to_an_order(intent, session):
@@ -662,18 +665,25 @@ def add_something_to_an_order(intent, session):
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+
 def Create_Order():
     print("order creating")
-    lastupdatetime: str = '2017-07-14 15:57:11'  # last update timestamp
-    o = requests.get(urlstart + '/orders.json?updated_at_min=' + lastupdatetime + '&fields=id',
-                     auth=(keyp, passp))  # get the latest orders ID's
-    dicto: dict = ast.literal_eval(o.text)  # convert text to dictionary
-    print("call made to shopify")
-    for val in dicto['orders']:  # loop the orders dictionary that contain just order ID's
-        k: dict = val  # convert the string to a dictionary
-        j: int = k.get('id', 0)  # get the value of the ID
-        print("order stuff " + str(j))
+    '''
+    things we need to create an order
+    + get all the items in the list
+    ++ Product varient and qty
+    
+    '''
 
+
+
+    orderjson = { 'order': { 'email': 'cluderayd@gmail.com', 'fulfillment_status': 'fulfilled', 'line_items': [ { 'variant_id': 49135009492, 'quantity': 1 } ] } }
+    fullstring=urlstart + "/orders.json"
+
+    l = requests.post(url=fullstring,json=orderjson,
+                     auth=(keyp, passp))
+
+    print(str(l))
     session_attributes = {}
     card_title = "Order created"
     speech_output = "Order created"
@@ -684,3 +694,27 @@ def Create_Order():
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 #Create_Order()
+
+
+'''
+lastupdatetime: str = '2017-01-14 15:57:11'  # last update timestamp
+    o = requests.get(urlstart + '/orders.json?updated_at_min=' + lastupdatetime + '&fields=id',
+                     auth=(keyp, passp))  # get the latest orders ID's
+    dicto: dict = ast.literal_eval(o.text)  # convert text to dictionary
+    print("call made to shopify")
+    for val in dicto['orders']:  # loop the orders dictionary that contain just order ID's
+        k: dict = val  # convert the string to a dictionary
+        j: int = k.get('id', 0)  # get the value of the ID
+        print("order stuff " + str(j))
+
+    lo="{ \"order\": { \"email\": \"foo@example.com\", \"fulfillment_status\": \"fulfilled\", \"send_receipt\": true, \"send_fulfillment_receipt\": true, \"line_items\": [ { \"variant_id\": 49135009492, \"quantity\": 1 } ] } }"
+    op = "{'order':{'line_items':[{'variant_id':49135009492,'quantity':1}],'customer':{'id':6719939092},'financial_status':'pending'}}"
+    kk = { 'order': { 'email': 'cluderayd@gmail.com', 'fulfillment_status': 'fulfilled', 'line_items': [ { 'variant_id': 49135009492, 'quantity': 1 } ] } }
+
+    fp={ 'order': { 'line_items': [ { 'variant_id': 49135009492, 'quantity': 1 } ] } }
+
+    fullstring=urlstart + "/orders.json"
+
+    l = requests.post(url=fullstring,json=kk,
+                     auth=(keyp, passp))
+'''
