@@ -693,8 +693,69 @@ def Create_Order():
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
-#Create_Order()
 
+def pay_auth():
+    username:str="hJYxsw7HLbj40cB8udES8CDRFLhuJ8G54O6rDpUXvE6hYDrria"
+    password:str="o2iHSrFybYMZpmWOQMuhsXP52V4fBtpuSDshrKDSWsBY1OiN6hwd9Kb12z4j5Us5u"
+    url:str="https://pi-test.sagepay.com/api/v1/merchant-session-keys/"
+    body={"vendorName":"sandbox"}
+    head = {"Content-type": "application/json",
+               "Authorization": "Basic aEpZeHN3N0hMYmo0MGNCOHVkRVM4Q0RSRkxodUo4RzU0TzZyRHBVWHZFNmhZRHJyaWE6bzJpSFNyRnliWU1acG1XT1FNdWhzWFA1MlY0ZkJ0cHVTRHNocktEU1dzQlkxT2lONmh3ZDlLYjEyejRqNVVzNXU="}
+    ret=requests.post(url,json=body,auth=(username,password),headers=head)
+    d:dict=ast.literal_eval(ret.text)
+    merchant_session:str=str(d.get("merchantSessionKey"))
+    merchant_expiry:str=str(d.get("expiry"))
+    print(str(merchant_session))
+    print(str(merchant_expiry))
+    return d
+
+def sage_generateCI(merchantSessionKey):
+    merchant_session: str = str(merchantSessionKey.get("merchantSessionKey"))
+    url: str = "https://pi-test.sagepay.com/api/v1/card-identifiers/"
+    body = {"cardDetails": {"cardholderName": "Card Holder","cardNumber": "4929000000006","expiryDate": "1120","securityCode": "123"}}
+    head = {"Content-type": "application/json",
+            "Authorization": "Bearer " + str(merchant_session) + ""}
+    ret = requests.post(url, json=body, headers=head)
+
+    d: dict = ast.literal_eval(ret.text)
+    cardid: str = str(d.get("cardIdentifier"))
+    print(cardid)
+    return cardid
+
+def sage_process_transaction(merchantSessionKey,cardid,orderid):
+    merchant_session: str = str(merchantSessionKey.get("merchantSessionKey"))
+    username: str = "hJYxsw7HLbj40cB8udES8CDRFLhuJ8G54O6rDpUXvE6hYDrria"
+    password: str = "o2iHSrFybYMZpmWOQMuhsXP52V4fBtpuSDshrKDSWsBY1OiN6hwd9Kb12z4j5Us5u"
+    url: str = "https://pi-test.sagepay.com/api/v1/transactions/"
+
+    body = {"paymentMethod": { "card": { "merchantSessionKey": merchant_session , "cardIdentifier": cardid } }, "transactionType":"Payment", "vendorTxCode":orderid, "amount":2000, "currency":"GBP", "customerFirstName":"Sam", "customerLastName":"Jones", "billingAddress":{ "address1":"407 St. John Street", "city":"London", "postalCode":"EC1V 4AB", "country":"GB" }, "entryMethod":"Ecommerce", "apply3DSecure":"Disable", "applyAvsCvcCheck":"Disable", "description":"Testing", "customerEmail":"test.emaili@domain.com", "customerPhone":"0845 111 4455", "shippingDetails":{ "recipientFirstName":"Sam", "recipientLastName":"Jones", "shippingAddress1":"407 St John Street", "shippingCity":"London", "shippingPostalCode":"EC1V 4AB", "shippingCountry":"GB" } }
+
+    head = {"Content-type": "application/json","Authorization": "Basic aEpZeHN3N0hMYmo0MGNCOHVkRVM4Q0RSRkxodUo4RzU0TzZyRHBVWHZFNmhZRHJyaWE6bzJpSFNyRnliWU1acG1XT1FNdWhzWFA1MlY0ZkJ0cHVTRHNocktEU1dzQlkxT2lONmh3ZDlLYjEyejRqNVVzNXU="}
+
+    ret = requests.post(url, json=body,auth=(username,password), headers=head)
+    print(ret)
+
+def sage_process_repeat_transaction(ref_trans,neworderid):
+
+    username: str = "hJYxsw7HLbj40cB8udES8CDRFLhuJ8G54O6rDpUXvE6hYDrria"
+    password: str = "o2iHSrFybYMZpmWOQMuhsXP52V4fBtpuSDshrKDSWsBY1OiN6hwd9Kb12z4j5Us5u"
+    url: str = "https://pi-test.sagepay.com/api/v1/transactions/"
+
+    body = { "transactionType":"Repeat", "referenceTransactionId": ref_trans, "vendorTxCode":neworderid, "amount":2000, "currency":"GBP", "description":"Great product repeated", "shippingDetails":{ "recipientFirstName":"Sam", "recipientLastName":"Jones", "shippingAddress1":"407 St John Street", "shippingCity":"London", "shippingPostalCode":"EC1V 4AB", "shippingCountry":"GB" } }
+
+    head = {"Content-type": "application/json",
+            "Authorization": "Basic aEpZeHN3N0hMYmo0MGNCOHVkRVM4Q0RSRkxodUo4RzU0TzZyRHBVWHZFNmhZRHJyaWE6bzJpSFNyRnliWU1acG1XT1FNdWhzWFA1MlY0ZkJ0cHVTRHNocktEU1dzQlkxT2lONmh3ZDlLYjEyejRqNVVzNXU="}
+
+    ret = requests.post(url, json=body, auth=(username, password), headers=head)
+    print(ret)
+
+
+
+
+sessk=pay_auth()
+cardid=sage_generateCI(sessk)
+sage_process_transaction(sessk,cardid,123)
+sage_process_repeat_transaction(123,321)
 
 '''
 lastupdatetime: str = '2017-01-14 15:57:11'  # last update timestamp
