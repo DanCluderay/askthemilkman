@@ -1,4 +1,5 @@
 from __future__ import print_function
+
 import pymysql.cursors
 import json
 import boto3
@@ -8,14 +9,18 @@ import shopify
 from phpserialize import serialize, unserialize
 import requests
 import ast
+import deepcore
+#from .dacc import dac_code as dac #datacontroller
+from dac import dac_code
+from cust import customer_functions
+from alexa_responce import responce_code
+from alexa_intent_functions import alexa_intent_function_code as aifc
+from global_vars import globalvars as gv
+from local_shopify import local_shopify_code as l_shopify
+from .cust import customer_functions as cust
+from .orders import order_code as order_code
 
 
-keyp:str ="461824c0a06d4be0e94851deeabc3965"
-passp:str  ="9bb4f551ba4888c9199b7a9509f0e872"
-urlstart:str ="https://dans-daily-deals.myshopify.com/admin"
-
-CURRENT_USERID = 0
-CURRENT_ORDERID = 0
 
 def on_intent(intent_request, session, context):
     """ Called when the user specifies an intent for this skill """
@@ -66,18 +71,23 @@ def on_intent(intent_request, session, context):
             howmany) > 0:
             hasallpart = True
 
-        return placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
+        return aifc.placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
+
     elif intent_name == "WhatsOnMyShoppingList":
         print("somthing")
     elif intent_name == "CreateOrder":
         print("creating order")
-        return Create_Order()
+        return l_shopify.Create_Order()
     elif intent_name == "OrderDelivered":
         print("creating order")
-        return Create_Order()
+        return l_shopify.Create_Order()
     elif intent_name == "MakeAnOrder" and intent_name == "DeliverMyOrder":
         print("order and deliver triggered")
-        return place_order_and_deliver(intent, session)
+        return aifc.place_order_and_deliver(intent, session)
+    elif intent_name == "whatsonmyorder":
+        # return get_welcome_response()
+        print("find out what is on the order")
+        return add_something_to_an_order(intent, session)
     elif intent_name == "AddToAnOrder":
         # return get_welcome_response()
         print("adding somthing to an order")
@@ -85,174 +95,17 @@ def on_intent(intent_request, session, context):
     elif intent_name == "WhatsMyName":
         # return get_welcome_response()
         print("calling finding customer name")
-        return find_customer_name(intent, session)
+        return cust.find_customer_name(intent, session)
     elif intent_name == "DeliverMyOrderOn":
         return deliver_my_order(intent, session)
     elif intent_name == "HowMuchIsMyOrder":
-        return how_much_is_my_order(intent, session)
+        return aifc.how_much_is_my_order(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
         raise ValueError("Invalid intent")
-
-# this
-# Connect to the database
-def create_conn():
-    con = pymysql.connect(host='cluderay.clmxvwimtl0m.eu-west-1.rds.amazonaws.com',
-                          user='cluderay',
-                          password='cluderay',
-                          db='fred',
-                          charset='utf8mb4',
-                          cursorclass=pymysql.cursors.DictCursor)
-    return con
-
-
-def dbreadquery(userid):
-    connection = create_conn()
-    try:
-
-        with connection.cursor() as cursor:
-            # Read a single record
-            sql = "SELECT Customers.*, Customers.amazon_id  FROM fred.Customers Customers WHERE (Customers.amazon_id = '" + userid + "')"
-            cursor.execute(sql)
-            result = cursor.fetchone()
-            print("customer details " + str(result))
-            return result
-    finally:
-        connection.close()
-
-
-def db_sql_write(sql):
-    connection = create_conn()
-    try:
-        with connection.cursor() as cursor:
-            # Read a single record
-            cursor.execute(sql)
-            connection.commit()
-
-            return 1
-    finally:
-        connection.close()
-
-
-def dbreadquery_sql(sql):
-    connection = create_conn()
-    try:
-        with connection.cursor() as cursor:
-            # Read a single record
-            cursor.execute(sql)
-            result = cursor.fetchall()
-            connection.commit()
-            print("customer details " + str(result))
-            return result
-    finally:
-        connection.close()
-
-
-def dbquery(orderstring):
-    connection = create_conn()
-    try:
-        with connection.cursor() as cursor:
-            # Create a new record
-            sql = "INSERT INTO `test_orders` (`test`, `ordertest`) VALUES (%s, %s)"
-            cursor.execute(sql, ('2', orderstring))
-
-        # connection is not autocommit by default. So you must commit to save
-        # your changes.
-        connection.commit()
-
-        with connection.cursor() as cursor:
-            # Read a single record
-            sql = "SELECT `test`, `ordertest` FROM `test_orders` WHERE 1"
-            cursor.execute(sql)
-            result = cursor.fetchone()
-            print(result)
-    finally:
-        connection.close()
-
-
-def create_newUser(userid):
-    connection = create_conn()
-    try:
-        with connection.cursor() as cursor:
-            # Create a new record
-            sql = "INSERT INTO `Customers` (`amazon_id`) VALUES (%s)"
-            cursor.execute(sql, userid)
-
-        # connection is not autocommit by default. So you must commit to save
-        # your changes.
-        connection.commit()
-
-
-    finally:
-        connection.close()
-
-
-def create_customer_job(customerid, product, qty, size, task_type, taskdate, originalquote):
-    connection = create_conn()
-    try:
-        with connection.cursor() as cursor:
-            # Create a new record
-            sql = "INSERT INTO `test_orders` (`test`, `ordertest`) VALUES (%s, %s)"
-            #cursor.execute(sql, ('2', orderstring))
-
-        # connection is not autocommit by default. So you must commit to save
-        # your changes.
-        connection.commit()
-
-        with connection.cursor() as cursor:
-            # Read a single record
-            sql = "SELECT `test`, `ordertest` FROM `test_orders` WHERE 1"
-            cursor.execute(sql)
-            result = cursor.fetchone()
-            print(result)
-    finally:
-        connection.close()
-
-
-def mq(v):
-    client = boto3.client('iot-data', region_name='eu-west-1', aws_access_key_id='AKIAJ35UPJ3TR23R56XA',
-                          aws_secret_access_key='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')
-    response = client.publish(
-        topic='dancluderay',
-        qos=1,
-        payload=json.dumps({"msg": v})
-
-    )
-
-
-# --------------- Helpers that build all of the responses ----------------------
-
-def build_speechlet_response(title, output, reprompt_text, should_end_session):
-    return {
-        'outputSpeech': {
-            'type': 'PlainText',
-            'text': output
-        },
-        'card': {
-            'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
-        },
-        'reprompt': {
-            'outputSpeech': {
-                'type': 'PlainText',
-                'text': reprompt_text
-            }
-        },
-        'shouldEndSession': should_end_session
-    }
-
-
-def build_response(session_attributes, speechlet_response):
-    return {
-        'version': '1.0',
-        'sessionAttributes': session_attributes,
-        'response': speechlet_response
-    }
-
 
 # --------------- Functions that control the skill's behavior ------------------
 
@@ -268,7 +121,7 @@ def get_welcome_response():
     reprompt_text = "Please tell me what you would like to order and when you would like it delivered"
 
     should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
+    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
 
@@ -278,7 +131,7 @@ def handle_session_end_request():
                     "Have a nice day! "
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
-    return build_response({}, build_speechlet_response(
+    return responce_code.build_response({}, responce_code.build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
 
@@ -286,103 +139,8 @@ def create_shopping_list_attributes(stuff):
     return {"shoppinglist": stuff}
 
 
-def place_order_and_deliver(intent, session):
-    print("place order and deliver calue " + str(intent))
-
-    session_attributes = {}
-    card_title = "Order Delivery"
-    speech_output = "Yes, i can deliver your order now"
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
 
 
-def how_much_is_my_order(intent, session):
-    print("This is the cost " + str(intent) + " to the order")
-
-    session_attributes = {}
-    card_title = "Your Shopping list"
-    speech_output = "Youve spent £10 this week"
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
-def whats_on_my_shopping_list(intent, session):
-    print("whats_on_my_shopping_list " + str(intent) + " to the order")
-
-    session_attributes = {}
-    card_title = "Your Shopping list"
-    speech_output = "I've 10 things on your shopping list"
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
-def add_item_to_order(intent, session):
-    print("Ive added " + str(intent) + " to the order")
-
-    session_attributes = {}
-    card_title = "I've added milk to your order"
-    speech_output = "I've added milk to your order"
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
-def placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany):
-    print("Ive added " + str(intent) + " to the order")
-
-    session_attributes = {}
-    card_title = "I've added milk to your order"
-
-    s_howmany: str = ''
-    if howmany == '1' or str(howmany) == 'a':
-        s_howmany = 'a'
-    else:
-        s_howmany = str(howmany)
-
-    s_deliverwhen: str = ''
-    if str(whentodeliver) == 'Monday':
-        s_deliverwhen = 'on Monday'
-    elif str(whentodeliver) == 'Tuesday':
-        s_deliverwhen = 'on Tuesday'
-    elif str(whentodeliver) == 'Wednesday':
-        s_deliverwhen = 'on Wednesday'
-    elif str(whentodeliver) == 'Thursday':
-        s_deliverwhen = 'on Thursday'
-    elif str(whentodeliver) == 'Friday':
-        s_deliverwhen = 'on Friday'
-    elif str(whentodeliver) == 'Saturday':
-        s_deliverwhen = 'on Saturday'
-    elif str(whentodeliver) == 'Sunday':
-        s_deliverwhen = 'on Sunday'
-    else:
-        s_deliverwhen = str(whentodeliver)
-
-    speech_output = "Great, we'll " + str(delivery_or_add) + " " + s_howmany + " " + str(
-        productsize) + " bottle of " + str(producttype) + " " + str(whentodeliver)
-    # mq(speech_output)
-    print('about to go to db')
-    dbquery(speech_output)
-    print(speech_output)
-
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
 
 
 # --------------- Events ------------------
@@ -393,19 +151,19 @@ def on_session_started(session_started_request, session):
     print("on_session_started requestId=" + session_started_request['requestId']
           + ", sessionId=" + session['sessionId'])
     id = str(session['user'].get('userId'))
-    userinfo = dbreadquery(id)
+    userinfo = dac_code.dbreadquery(id)
     # check to see is userinfo is empty
     if userinfo is None:
         print("new user")
-        create_newUser(id)
-        userinfo = dbreadquery(id)
+        customer_functions.create_newUser(id)
+        userinfo = dac_code.dbreadquery(id)
 
     print("user info" + str(userinfo))
     username = userinfo.get('fname')
     print("the userid" + str(id))
     print("the userid" + str(username))
     CURRENT_USERID = int(str(userinfo.get('customers_autoid')))
-    CURRENT_ORDERID = checkforexistingcustomerorder(CURRENT_USERID)
+    #CURRENT_ORDERID = checkforexistingcustomerorder(CURRENT_USERID)
 
 def on_launch(launch_request, session):
     """ Called when the user launches the skill without specifying what they
@@ -460,75 +218,7 @@ def lambda_handler(event, context):
         return on_session_ended(event['request'], event['session'])
 
 
-def find_customer_name(session_started_request, session):
-    """ Called when the session starts """
-    session_attributes = {}
-    print("finding customer info")
 
-    id = str(session['user'].get('userId'))
-    userinfo = dbreadquery(id)
-    # check to see is userinfo is empty
-    if userinfo is None:
-        print("new user")
-        create_newUser(id)
-    else:
-        print("ALL user info " + str(userinfo))
-        username = userinfo.get('fname')
-        print("THE userid " + str(id))
-        print("THE username " + str(username))
-
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    card_title = "Your name is"
-    speech_output = "Your name is " + str(username)
-    should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
-def create_new_order(customerid):
-    neworderid = 0
-    guid = str(uuid.uuid4())
-    connection = create_conn()
-    try:
-        with connection.cursor() as cursor:
-            # Create a new record
-            sql = "INSERT INTO `orders` (`customerid`, `GUID`,`order_status_int`,`order_status`) VALUES (" + str(
-                customerid) + ", '" + str(guid) + "',0,'BUILDING')"
-            print("insert new order sql - " + sql)
-            db_sql_write(sql)
-            sql = "SELECT orders.order_autoid  FROM fred.orders orders WHERE (orders.GUID = '" + str(guid) + "')"
-            print("get order id sql - " + sql)
-            result = dbreadquery_sql(sql)
-
-            if result is None:
-                # create a new order
-                print("ccould not create an order")
-            else:
-
-                neworderid = result.get('order_autoid')
-    finally:
-        connection.close()
-    return neworderid
-
-
-def checkforexistingcustomerorder(customerid):
-    orderid = 0
-    # get
-    sqlcode = "SELECT orders.order_autoid  FROM fred.orders orders WHERE (orders.customerid = " + str(
-        customerid) + ") AND (orders.order_status_int = 0)"
-    result = dbreadquery_sql(sqlcode)
-
-    if result is None:
-        # create a new order
-        print("create new order")
-        orderid = create_new_order(customerid)
-    else:
-
-        orderid = result.get('order_autoid')
-        print("Found order id = " + str(orderid))
-
-    return orderid
 
 
 def set_delivery_date(when2):
@@ -615,18 +305,18 @@ def deliver_my_order(intent, session):
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "Did you get that?"
     should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
+    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
 
 
 def update_order_delivery_date(delivery_date):
-    CURRENT_ORDERID = checkforexistingcustomerorder(CURRENT_USERID)
+    CURRENT_ORDERID = customer_functions.checkforexistingcustomerorder(gv.CURRENT_USERID)
 
     sql = "UPDATE `orders` SET `delivery_date`='" + str(f"{delivery_date:%Y-%m-%d}") + "' WHERE order_autoid='" + str(
         CURRENT_ORDERID) + "'"
     print(sql)
-    db_sql_write(sql)
+    dac_code.db_sql_write(sql)
     print("perform a query on this order = " + str(CURRENT_ORDERID))
 
 
@@ -639,14 +329,21 @@ def add_something_to_an_order(intent, session):
 
     # get the customer info
     sql = "SELECT Customers.* FROM fred.Customers Customers WHERE (Customers.amazon_id = '" + str(id) + "')"
-    results = dbreadquery_sql(sql)
-    if results is None:
+    print("sql of customer query " + sql)
+    results:dict = dac_code.dbreadquery_sql(sql)
+    print("theresults " + str(results))
+    customercount=0
+    customer_dict:dict={}
+    for listofcustomer in results:
+        customercount=customercount+1
+        customer_dict=listofcustomer
+    if customercount==0:
         print("we cannot find a customer")
     else:
-        customerid = results.get('customers_autoid')
+        customerid = customer_dict.get('customers_autoid')
 
     # is there an order already? if not create one
-    orderid = checkforexistingcustomerorder(customerid)
+    orderid = customer_functions.checkforexistingcustomerorder(customerid)
 
     # find out the product details
     # first find out the product type
@@ -657,160 +354,23 @@ def add_something_to_an_order(intent, session):
     sql = "INSERT INTO `order_items` (`oitems_orderid`, `order_date`, `Items_product_id`, `item_description`, `items_cost_ex_vat`, `vatcode`, `qty`) VALUES ('" + str(
         orderid) + "', '" + str('2017-01-01 00:00:00') + "', '1', '" + str(productname) + "', '0.075', '1', '1')"
     # print("insert new order sql - " + sql)
-    db_sql_write(sql)
+    dac_code.db_sql_write(sql)
 
     reprompt_text = "Did you get that?"
     should_end_session = False
     card_title = "We've added something to your order"
     speech_output = "We've added something to your order"
     should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
+    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
-def Create_Order():
-    print("order creating")
-    '''
-    things we need to create an order
-    + get all the items in the list
-    ++ Product varient and qty
-    
-    '''
 
 
 
-    orderjson = { 'order': { 'email': 'cluderayd@gmail.com', 'fulfillment_status': 'fulfilled', 'line_items': [ { 'variant_id': 49135009492, 'quantity': 1 } ] } }
-    fullstring=urlstart + "/orders.json"
-
-    l = requests.post(url=fullstring,json=orderjson,
-                     auth=(keyp, passp))
-
-    print(str(l))
-    session_attributes = {}
-    card_title = "Order created"
-    speech_output = "Order created"
-
-    reprompt_text = "Order created"
-
-    should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-def pay_auth():
-    username:str="hJYxsw7HLbj40cB8udES8CDRFLhuJ8G54O6rDpUXvE6hYDrria"
-    password:str="o2iHSrFybYMZpmWOQMuhsXP52V4fBtpuSDshrKDSWsBY1OiN6hwd9Kb12z4j5Us5u"
-    url:str="https://pi-test.sagepay.com/api/v1/merchant-session-keys/"
-    body={"vendorName":"sandbox"}
-    head = {"Content-type": "application/json",
-               "Authorization": "Basic aEpZeHN3N0hMYmo0MGNCOHVkRVM4Q0RSRkxodUo4RzU0TzZyRHBVWHZFNmhZRHJyaWE6bzJpSFNyRnliWU1acG1XT1FNdWhzWFA1MlY0ZkJ0cHVTRHNocktEU1dzQlkxT2lONmh3ZDlLYjEyejRqNVVzNXU="}
-    ret=requests.post(url,json=body,auth=(username,password),headers=head)
-    d:dict=json.loads(ret.text)
-    merchant_session:str=str(d.get("merchantSessionKey"))
-    merchant_expiry:str=str(d.get("expiry"))
-    print(str(merchant_session))
-    print(str(merchant_expiry))
-    return d
-
-def sage_generateCI(merchantSessionKey):
-    merchant_session: str = str(merchantSessionKey.get("merchantSessionKey"))
-    url: str = "https://pi-test.sagepay.com/api/v1/card-identifiers/"
-    body = {"cardDetails": {"cardholderName": "Card Holder","cardNumber": "4929000000006","expiryDate": "1120","securityCode": "123"}}
-    head = {"Content-type": "application/json",
-            "Authorization": "Bearer " + str(merchant_session) + ""}
-    ret = requests.post(url, json=body, headers=head)
-
-    d: dict = json.loads(ret.text)
-    cardid: str = str(d.get("cardIdentifier"))
-    print(cardid)
-    return cardid
-
-def sage_process_transaction(merchantSessionKey,cardid,orderid):
-    merchant_session: str = str(merchantSessionKey.get("merchantSessionKey"))
-    username: str = "hJYxsw7HLbj40cB8udES8CDRFLhuJ8G54O6rDpUXvE6hYDrria"
-    password: str = "o2iHSrFybYMZpmWOQMuhsXP52V4fBtpuSDshrKDSWsBY1OiN6hwd9Kb12z4j5Us5u"
-    url: str = "https://pi-test.sagepay.com/api/v1/transactions/"
-
-    body = {"paymentMethod": { "card": { "merchantSessionKey": str(merchant_session) , "cardIdentifier": str(cardid) } }, "transactionType":"Payment", "vendorTxCode":str(orderid), "amount":2000, "currency":"GBP", "customerFirstName":"Sam", "customerLastName":"Jones", "billingAddress":{ "address1":"407 St. John Street", "city":"London", "postalCode":"EC1V 4AB", "country":"GB" }, "entryMethod":"Ecommerce", "apply3DSecure":"Disable", "applyAvsCvcCheck":"Disable", "description":"Testing", "customerEmail":"test.emaili@domain.com", "customerPhone":"0845 111 4455", "shippingDetails":{ "recipientFirstName":"Sam", "recipientLastName":"Jones", "shippingAddress1":"407 St John Street", "shippingCity":"London", "shippingPostalCode":"EC1V 4AB", "shippingCountry":"GB" } }
-
-    head = {"Content-type": "application/json","Authorization": "Basic aEpZeHN3N0hMYmo0MGNCOHVkRVM4Q0RSRkxodUo4RzU0TzZyRHBVWHZFNmhZRHJyaWE6bzJpSFNyRnliWU1acG1XT1FNdWhzWFA1MlY0ZkJ0cHVTRHNocktEU1dzQlkxT2lONmh3ZDlLYjEyejRqNVVzNXU="}
-
-    ret = requests.post(url, json=body,auth=(username,password), headers=head)
-    retstr = ret.text
-    print(retstr)
-    d: dict =json.loads(retstr)
-
-    sagetx_id: str = str(d.get("transactionId"))
-    print(sagetx_id)
-    return sagetx_id
-
-def sage_process_repeat_transaction(ref_trans,neworderid,amount):
-    '''Make a repeat purchase'''
-
-    username: str = "hJYxsw7HLbj40cB8udES8CDRFLhuJ8G54O6rDpUXvE6hYDrria"
-    password: str = "o2iHSrFybYMZpmWOQMuhsXP52V4fBtpuSDshrKDSWsBY1OiN6hwd9Kb12z4j5Us5u"
-    url: str = "https://pi-test.sagepay.com/api/v1/transactions/"
-
-    body = { "transactionType":"Repeat", "referenceTransactionId": str(ref_trans), "vendorTxCode":str(neworderid), "amount":amount, "currency":"GBP", "description":"Great product repeated", "shippingDetails":{ "recipientFirstName":"Sam", "recipientLastName":"Jones", "shippingAddress1":"407 St John Street", "shippingCity":"London", "shippingPostalCode":"EC1V 4AB", "shippingCountry":"GB" } }
-
-    head = {"Content-type": "application/json",
-            "Authorization": "Basic aEpZeHN3N0hMYmo0MGNCOHVkRVM4Q0RSRkxodUo4RzU0TzZyRHBVWHZFNmhZRHJyaWE6bzJpSFNyRnliWU1acG1XT1FNdWhzWFA1MlY0ZkJ0cHVTRHNocktEU1dzQlkxT2lONmh3ZDlLYjEyejRqNVVzNXU="}
-    print(body)
-    ret = requests.post(url, json=body, auth=(username, password), headers=head)
-    print(ret)
-
-def proccess_collections():
-    #get a list of all transactions that are pending collection
-    sqlstring="SELECT collections.id, collections.Customerid, collections.amount, collections.repeat_transactionID, collections.Parent_transaction, collections.date_due, collections.transaction_status, collections.status_string, collections.orderid FROM fred.collections collections WHERE (collections.date_due < '2017-09-01 00:00:00') AND (collections.transaction_status = 0)"
-    res=dbreadquery_sql(sqlstring)
-    customerid:int=0
-    amount:float=0.0
-    Parent_transaction:str=""
-    repeat_transactionID:str=""
-    transaction_status:int=0
-    for i in range(len(res)):
-        rec:dict=i
-        customerid=rec.get('Customerid',0)
-        amount=rec.get('amount',0.0)
-        Parent_transaction = rec.get('Parent_transaction','')
-        repeat_transactionID = rec.get('repeat_transactionID','')
-        transaction_status = rec.get('transaction_status',0)
-
-
-    return 1
-
-def create_new_customer_transaction():
-    #get customer details - ID, Billing date, card token, previous succesfull transaction and shipping address
-    trans_data:dict={}
-    trans_data['customerid']=1
-    trans_data['Fname']='dan'
-    trans_data['Sname'] = 'cluderay'
-    trans_data['AddressLine1'] = '80 long lane'
-    trans_data['City'] = 'Notts'
-    trans_data['Postcode'] = 's819ar'
-    trans_data['Country'] = 'GB'
-    trans_data['billingday']='FRIDAY'
-    trans_data['PST']='hksahkdakjsdhkasd'
-    trans_data['parenttransaction'] = 1
-
-    trans_data['cardtoken'] = '12312312332'
-
-
-    #calculate the billing date based on day of week
-    trans_data['billingdate'] = '2017-9-01'
-
-
-
-    #get order - goods total, orderid
-    trans_data['orderid'] = '101'
-    trans_data['amount'] = 10
-
-    sql="INSERT INTO `collections`(`Customerid`, `amount`, `referenceTransactionId`, `date_due`, `Parent_transaction`, `transaction_status`, `status_string`, `orderid`, `cardtoken`, `tranactiontype`, `currency`, `transdescription`, `recipientFirstName`, `recipientLastName`, `shippingAddress1`, `shippingCity`, `shippingPostalCode`, `shippingCountry`)    " \
-        "VALUES('" + str(trans_data.get('customerid')) + "','" + str(trans_data.get('amount')) + "','" + str(trans_data.get('PST')) + "','" + str(trans_data.get('billingdate')) + "', '" + str(trans_data.get('parenttransaction')) + "', '1', 'PENDING', '" + str(trans_data.get('orderid')) + "', '" + str(trans_data.get('cardtoken')) + "', 'Repeat', 'GBP', 'food','" + str(trans_data.get('Fname')) + "','" + str(trans_data.get('Sname')) + "','" + str(trans_data.get('AddressLine1')) + "','" + str(trans_data.get('City')) + "','" + str(trans_data.get('Postcode')) + "','" + str(trans_data.get('Country')) + "')"
-    print(sql)
-
-    return 1
+#dc.anotherthing()
 #proccess_collections()
-create_new_customer_transaction()
-
+#create_new_customer_collection()
+#checkforexistingcustomerorder("gggamzn1.ask.account.AGBI6UIAJIORPZLCDVIAOACMXHGO4IPHYPWTDZJSA4ASWDOXFBEV25F2UAH4OIXX2UXYZMMBP5ZMPETMAPA6CFUCTRXCKS6JZOQBOZ3YU2XOMEIPI6EMZYOT4KKHVK6XCJYS32ONDHTULJXJK5E3CVN4TU4E2WSCNMPUJBGY4MAV7ZOBJJEFM32IFJJLVSJJLKA24TGWSTVTIJA")
 '''
 #get a session key
 sessk=pay_auth()
