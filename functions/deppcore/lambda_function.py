@@ -97,7 +97,8 @@ def on_intent(intent_request, session, context):
         print("calling finding customer name")
         return cust.find_customer_name(intent, session)
     elif intent_name == "DeliverMyOrderOn":
-        return deliver_my_order(intent, session)
+        #order_code.deliver_my_order()
+        return order_code.deliver_my_order(intent, session)
     elif intent_name == "HowMuchIsMyOrder":
         return aifc.how_much_is_my_order(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
@@ -219,105 +220,6 @@ def lambda_handler(event, context):
 
 
 
-
-
-def set_delivery_date(when2):
-    new_delivery_date = datetime.today()
-    DAY_OF_WEEK_now = datetime.today().isoweekday()
-    DESIRED_DAY_OF_WEEK = 0  # default value
-    ACTUAL_DAY_OF_WEEK = 0  # the result variavble
-    day_of_week_calc = 0
-    ADD_DAYS = 0
-    if when2.upper() == 'TOMORROW':
-        ADD_DAYS = 1
-
-    elif when2.upper() == 'ASAP':
-        pass
-    elif when2.upper() == 'AS SOON AS POSSIBLE':
-        pass
-    elif when2.upper() == 'THIS EVENING':
-        action_date = datetime.now()
-    elif when2.upper() == 'TOMORROW MORNING':
-        ADD_DAYS = 1
-    elif when2.upper() == 'TOMORROW EVENING':
-        ADD_DAYS = 1
-    elif when2.upper() == 'SUNDAY':
-
-        DESIRED_DAY_OF_WEEK = 7
-        day_of_week_calc = 1
-    elif when2.upper() == 'MONDAY':
-
-        DESIRED_DAY_OF_WEEK = 1
-        day_of_week_calc = 1
-    elif when2.upper() == 'TUESDAY':
-
-        DESIRED_DAY_OF_WEEK = 2
-        day_of_week_calc = 1
-    elif when2.upper() == 'WEDNESDAY':
-
-        DESIRED_DAY_OF_WEEK = 3
-        day_of_week_calc = 1
-    elif when2.upper() == 'THURSDAY':
-
-        DESIRED_DAY_OF_WEEK = 4
-        day_of_week_calc = 1
-    elif when2.upper() == 'FRIDAY':
-
-        DESIRED_DAY_OF_WEEK = 5
-        day_of_week_calc = 1
-    elif when2.upper() == 'SATURDAY':
-
-        DESIRED_DAY_OF_WEEK = 6
-        day_of_week_calc = 1
-    else:
-        return 0
-
-    if day_of_week_calc == 1:
-
-        # work out howmany days to add on
-        if DAY_OF_WEEK_now > DESIRED_DAY_OF_WEEK:
-            # add 7 days to desired day
-            DESIRED_DAY_OF_WEEK = DESIRED_DAY_OF_WEEK + 7
-
-        ACTUAL_DAY_OF_WEEK = (DESIRED_DAY_OF_WEEK - DAY_OF_WEEK_now)
-        new_delivery_date = datetime.now() + timedelta(days=ACTUAL_DAY_OF_WEEK)
-
-    else:
-        new_delivery_date = datetime.now() + timedelta(days=ADD_DAYS)
-
-    return new_delivery_date
-
-
-def deliver_my_order(intent, session):
-    print("Intent " + str(intent))
-
-    delivery_request = str(intent['slots']['delivery_date']['value'])
-    return_date = set_delivery_date(delivery_request)
-    print("return date = " + str(return_date))
-    update_order_delivery_date(return_date)
-
-    return_text = "Great, we deliver it on " + str(return_date.strftime("%A") + " the " + str(return_date.date()))
-    session_attributes = {}
-    card_title = "Order Delivery"
-
-    speech_output = return_text
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
-
-def update_order_delivery_date(delivery_date):
-    CURRENT_ORDERID = customer_functions.checkforexistingcustomerorder(gv.CURRENT_USERID)
-
-    sql = "UPDATE `orders` SET `delivery_date`='" + str(f"{delivery_date:%Y-%m-%d}") + "' WHERE order_autoid='" + str(
-        CURRENT_ORDERID) + "'"
-    print(sql)
-    dac_code.db_sql_write(sql)
-    print("perform a query on this order = " + str(CURRENT_ORDERID))
 
 
 def add_something_to_an_order(intent, session):
