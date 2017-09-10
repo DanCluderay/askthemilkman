@@ -1,7 +1,10 @@
+#!/usr/bin/python
+# Filename: mymodule.py
 from __future__ import print_function
 
-import pymysql.cursors
 import json
+
+import pymysql.cursors
 import boto3
 import uuid
 from datetime import datetime, timedelta, time
@@ -11,16 +14,17 @@ import requests
 import ast
 import deepcore
 #from .dacc import dac_code as dac #datacontroller
-from dac import dac_code
-from cust import customer_functions
-from alexa_responce import responce_code
-from alexa_intent_functions import alexa_intent_function_code as aifc
-from global_vars import globalvars as gv
-from local_shopify import local_shopify_code as l_shopify
-from .cust import customer_functions as cust
-from .orders import order_code as order_code
 
-
+import dac_code
+#from cust import customer_functions
+import customer_functions as customer_functions
+import responce_code
+import alexa_intent_function_code  as aifc
+import globalvars as gv
+import local_shopify_code as l_shopify
+import customer_functions as cust
+#from orders import order_code as order_code
+import order_code
 
 def on_intent(intent_request, session, context):
     """ Called when the user specifies an intent for this skill """
@@ -72,6 +76,8 @@ def on_intent(intent_request, session, context):
             hasallpart = True
 
         return aifc.placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
+    elif intent_name=="connectalexa":
+        print('running connectalexa...')
 
     elif intent_name == "WhatsOnMyShoppingList":
         print("somthing")
@@ -94,6 +100,8 @@ def on_intent(intent_request, session, context):
         return add_something_to_an_order(intent, session)
     elif intent_name == "WhatsMyName":
         # return get_welcome_response()
+        print('user intent: ' + str(intent))
+        print('user session: ' + str(session))
         print("calling finding customer name")
         return cust.find_customer_name(intent, session)
     elif intent_name == "DeliverMyOrderOn":
@@ -197,6 +205,8 @@ def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
+    print('MAIN EVENT: ' + str(event))
+    print('MAIN CONTEXT: ' + str(context))
     print("event.session.application.applicationId=" + event['session']['application']['applicationId'])
 
     """
@@ -214,6 +224,7 @@ def lambda_handler(event, context):
     if event['request']['type'] == "LaunchRequest":
         return on_launch(event['request'], event['session'])
     elif event['request']['type'] == "IntentRequest":
+
         return on_intent(event['request'], event['session'], context)
     elif event['request']['type'] == "SessionEndedRequest":
         return on_session_ended(event['request'], event['session'])
@@ -266,8 +277,8 @@ def add_something_to_an_order(intent, session):
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
-
-
+#cust.find_customer_name('intent', 'session')
+#order_code.create_new_order(123)
 
 #dc.anotherthing()
 #proccess_collections()
