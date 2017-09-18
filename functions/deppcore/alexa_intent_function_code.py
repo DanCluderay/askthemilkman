@@ -1,13 +1,60 @@
-from alexa_responce import responce_code
-from dac import dac_code
+import responce_code
+import dac_code
+import customer_functions
+import globalvars as gv
+
+def do_you_deliver_to_my_address(intent, session):
+
+    custdict: dict = {}
+    sessionid=''
+    #get the customer data
+    custdict=customer_functions.get_customer_details(gv)
+
+    #if the customer has a shop assigned then we just answer -YES! we've already done the search
+
+    #if no then we need to perform the query and set the shop covered
+
+    dowedeliver:int=0
+    speech_output:str = ""
+    if dowedeliver==0 :
+        #we dont deliver
+        speech_output="Sorry, we don't deliver in your area yet"
+        pass
+    elif dowedeliver==1:
+        #we deliver with a really fast service
+        speech_output = "Great news, we have a 1 hour service in your area"
+        pass
+    elif dowedeliver==2:
+        #we deliver with a 1 day service
+        speech_output = "Good news, we have a same day service in your area"
+        pass
+    elif dowedeliver==3:
+        #plus one day delivery
+        speech_output = "We can deliver goods next day for your area"
+        pass
+
+    session_attributes = {}
+    card_title = "Does the milkman deliver to your address"
+     #
+    reprompt_text = "Did you get that?"
+    should_end_session = False
+    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
+
 
 def configer_to_account(intent, session):
     pass
-
+    #reserve a word to the
+    session_attributes = {}
+    card_title = "Alexa connection"
+    speech_output = "Your special password to enter is <break time=\"0.5s\"/>  DOG "  #
+    reprompt_text = "Did you get that?"
+    should_end_session = False
+    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 
 def place_order_and_deliver(intent, session):
     print("place order and deliver calue " + str(intent))
-
     session_attributes = {}
     card_title = "Order Delivery"
     speech_output = "Yes, i can deliver your order now"
@@ -16,12 +63,11 @@ def place_order_and_deliver(intent, session):
     reprompt_text = "Did you get that?"
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 
 
 def how_much_is_my_order(intent, session):
     print("This is the cost " + str(intent) + " to the order")
-
     session_attributes = {}
     card_title = "Your Shopping list"
     speech_output = "Youve spent £10 this week"
@@ -30,11 +76,10 @@ def how_much_is_my_order(intent, session):
     reprompt_text = "Did you get that?"
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 
 def whats_on_my_shopping_list(intent, session):
     print("whats_on_my_shopping_list " + str(intent) + " to the order")
-
     session_attributes = {}
     card_title = "Your Shopping list"
     speech_output = "I've 10 things on your shopping list"
@@ -43,7 +88,7 @@ def whats_on_my_shopping_list(intent, session):
     reprompt_text = "Did you get that?"
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 
 
 def add_item_to_order(intent, session):
@@ -57,7 +102,7 @@ def add_item_to_order(intent, session):
     reprompt_text = "Did you get that?"
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 
 
 def placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany):
@@ -100,5 +145,5 @@ def placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, p
     reprompt_text = "Did you get that?"
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 

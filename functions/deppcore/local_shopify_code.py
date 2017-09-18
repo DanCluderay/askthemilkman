@@ -1,6 +1,6 @@
 import requests
 import responce_code
-
+import globalvars as gv
 
 
 def Create_Order():

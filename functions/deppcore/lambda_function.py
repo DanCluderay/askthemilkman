@@ -1,9 +1,11 @@
 #!/usr/bin/python
 # Filename: mymodule.py
 from __future__ import print_function
+from session_vars import Singleton
 
 import json
-
+import paho
+import globalvars as gv
 import pymysql.cursors
 import boto3
 import uuid
@@ -14,7 +16,7 @@ import requests
 import ast
 import deepcore
 #from .dacc import dac_code as dac #datacontroller
-
+import com_msg
 import dac_code
 #from cust import customer_functions
 import customer_functions as customer_functions
@@ -25,6 +27,7 @@ import local_shopify_code as l_shopify
 import customer_functions as cust
 #from orders import order_code as order_code
 import order_code
+
 
 def on_intent(intent_request, session, context):
     """ Called when the user specifies an intent for this skill """
@@ -78,7 +81,10 @@ def on_intent(intent_request, session, context):
         return aifc.placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
     elif intent_name=="connectalexa":
         print('running connectalexa...')
-
+        return aifc.configer_to_account(intent, session)
+    elif intent_name=="doyoudelivertomyaddress":
+        #doyoudelivertomyaddress
+        return aifc.do_you_deliver_to_my_address(intent,session)
     elif intent_name == "WhatsOnMyShoppingList":
         print("somthing")
     elif intent_name == "CreateOrder":
@@ -93,11 +99,11 @@ def on_intent(intent_request, session, context):
     elif intent_name == "whatsonmyorder":
         # return get_welcome_response()
         print("find out what is on the order")
-        return add_something_to_an_order(intent, session)
+        return order_code.add_something_to_an_order(intent, session)
     elif intent_name == "AddToAnOrder":
         # return get_welcome_response()
         print("adding somthing to an order")
-        return add_something_to_an_order(intent, session)
+        return order_code.add_something_to_an_order(intent, session)
     elif intent_name == "WhatsMyName":
         # return get_welcome_response()
         print('user intent: ' + str(intent))
@@ -131,7 +137,7 @@ def get_welcome_response():
 
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 
 
 def handle_session_end_request():
@@ -141,7 +147,7 @@ def handle_session_end_request():
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return responce_code.build_response({}, responce_code.build_speechlet_response(
-        card_title, speech_output, None, should_end_session))
+        card_title, speech_output, None, should_end_session),authenticate=False)
 
 
 def create_shopping_list_attributes(stuff):
@@ -160,18 +166,30 @@ def on_session_started(session_started_request, session):
     print("on_session_started requestId=" + session_started_request['requestId']
           + ", sessionId=" + session['sessionId'])
     id = str(session['user'].get('userId'))
+    val = 'accessToken' in session['user']
+    if val==True:
+        #we have a token for this customer - store it
+        accessT = str(session['user'].get('accessToken'))
+
+    print('is userid in dict' + str(val))
+    se = Singleton()
+    se.set_amazon_userid(id)
     userinfo = dac_code.dbreadquery(id)
     # check to see is userinfo is empty
     if userinfo is None:
         print("new user")
         customer_functions.create_newUser(id)
+
         userinfo = dac_code.dbreadquery(id)
 
     print("user info" + str(userinfo))
     username = userinfo.get('fname')
     print("the userid" + str(id))
     print("the userid" + str(username))
-    CURRENT_USERID = int(str(userinfo.get('customers_autoid')))
+    tempnum = int(str(userinfo.get('customers_autoid')))
+    se.set_internal_userid(tempnum)
+    print("This is the Single responce - amazon: " +str(se.get_amaozn_userid()))
+    print("This is the Single responce - userid: " +str(se.get_internal_userid()))
     #CURRENT_ORDERID = checkforexistingcustomerorder(CURRENT_USERID)
 
 def on_launch(launch_request, session):
@@ -201,81 +219,67 @@ def on_session_ended(session_ended_request, session):
 
 # --------------- Main handler ------------------
 
+
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
-    print('MAIN EVENT: ' + str(event))
-    print('MAIN CONTEXT: ' + str(context))
-    print("event.session.application.applicationId=" + event['session']['application']['applicationId'])
+    mev=str(event)
+    mco=str(context)
+    print('MAIN EVENT: ' + mev)
+    print('MAIN CONTEXT: ' + mco)
+    checkword="{'session':"
 
-    """
-    Uncomment this if statement and populate with your skill's application ID to
-    prevent someone else from configuring a skill that sends requests to this
-    function.
-    """
-    # if (event['session']['application']['applicationId'] !=
-    #         "amzn1.echo-sdk-ams.app.[unique-value-here]"):
-    #     raise ValueError("Invalid Application ID")
+    fo=mev[0:10]
+    print(mev)
+    if 'func' in event.keys():
+        print("Entering Func code")
+        return on_function_call(event)
+    else:   #This is an alexa call
+        print("event.session.application.applicationId=" + event['session']['application']['applicationId'])
 
-    if event['session']['new']:
-        on_session_started({'requestId': event['request']['requestId']},
-                           event['session'])
-    if event['request']['type'] == "LaunchRequest":
-        return on_launch(event['request'], event['session'])
-    elif event['request']['type'] == "IntentRequest":
+        """
+        Uncomment this if statement and populate with your skill's application ID to
+        prevent someone else from configuring a skill that sends requests to this
+        function.
+        """
+        # if (event['session']['application']['applicationId'] !=
+        #         "amzn1.echo-sdk-ams.app.[unique-value-here]"):
+        #     raise ValueError("Invalid Application ID")
 
-        return on_intent(event['request'], event['session'], context)
-    elif event['request']['type'] == "SessionEndedRequest":
-        return on_session_ended(event['request'], event['session'])
+        if event['session']['new']:
+            on_session_started({'requestId': event['request']['requestId']},
+                               event['session'])
+        if event['request']['type'] == "LaunchRequest":
+            return on_launch(event['request'], event['session'])
+        elif event['request']['type'] == "IntentRequest":
 
+            return on_intent(event['request'], event['session'], context)
+        elif event['request']['type'] == "SessionEndedRequest":
+            return on_session_ended(event['request'], event['session'])
 
+def on_function_call(event):
+    function_name: str = ""
+    function_params: str = ""
+    function_name = event.get('func')
+    function_params = event.get('val')
 
+    if function_name == 'test':
+        return "here is a test"
+    elif function_name == 'get_customers':
+        fd= customer_functions.get_all_customers(1)
 
-
-def add_something_to_an_order(intent, session):
-    # find what varient they mean? - e.g if they say weetabix, or milk what size and type to they mean.a
-    session_attributes = {}
-    print("Adding something to my order")
-    customerid = 0
-    id = str(session['user'].get('userId'))
-
-    # get the customer info
-    sql = "SELECT Customers.* FROM fred.Customers Customers WHERE (Customers.amazon_id = '" + str(id) + "')"
-    print("sql of customer query " + sql)
-    results:dict = dac_code.dbreadquery_sql(sql)
-    print("theresults " + str(results))
-    customercount=0
-    customer_dict:dict={}
-    for listofcustomer in results:
-        customercount=customercount+1
-        customer_dict=listofcustomer
-    if customercount==0:
-        print("we cannot find a customer")
+        return fd
+    elif function_name=="mqtt_call":
+        com_msg.make_mqtt_call(function_params)
+        pass
     else:
-        customerid = customer_dict.get('customers_autoid')
+        return "func = " + str(function_name) + " val= " + str(function_params)
 
-    # is there an order already? if not create one
-    orderid = customer_functions.checkforexistingcustomerorder(customerid)
+    return 1
 
-    # find out the product details
-    # first find out the product type
-    print("INTENT - " + str(intent))
 
-    # add items to order
-    productname = str(intent['slots']['product']['value'])
-    sql = "INSERT INTO `order_items` (`oitems_orderid`, `order_date`, `Items_product_id`, `item_description`, `items_cost_ex_vat`, `vatcode`, `qty`) VALUES ('" + str(
-        orderid) + "', '" + str('2017-01-01 00:00:00') + "', '1', '" + str(productname) + "', '0.075', '1', '1')"
-    # print("insert new order sql - " + sql)
-    dac_code.db_sql_write(sql)
 
-    reprompt_text = "Did you get that?"
-    should_end_session = False
-    card_title = "We've added something to your order"
-    speech_output = "We've added something to your order"
-    should_end_session = False
-    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
 
 #cust.find_customer_name('intent', 'session')
 #order_code.create_new_order(123)

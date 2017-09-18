@@ -8,8 +8,12 @@
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/alexa_intent_functions" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/dac" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/alexa_responce" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/global_vars" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/local_shopify" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/global_vars" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/shopify" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/session_vars" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/paho" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/com_msg" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
