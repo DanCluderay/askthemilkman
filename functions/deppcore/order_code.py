@@ -4,6 +4,7 @@ import customer_functions
 import responce_code
 from datetime import datetime, timedelta, time
 import globalvars as gv
+import com_msg
 '''
 from dac import dac_code
 from cust import customer_functions
@@ -55,7 +56,7 @@ def deliver_my_order(intent, session):
     reprompt_text = "Did you get that?"
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
 
 
 
@@ -166,9 +167,9 @@ def add_something_to_an_order(intent, session):
 
     # add items to order
     productname = str(intent['slots']['product']['value'])
-    sql = "INSERT INTO `order_items` (`oitems_orderid`, `order_date`, `Items_product_id`, `item_description`, `items_cost_ex_vat`, `vatcode`, `qty`) VALUES ('" + str(
+    sql = "INSERT INTO `order_items` (`oitems_orderid`, `order_date`, `Items_product_varientid`, `item_description`, `items_cost_ex_vat`, `vatcode`, `qty`) VALUES ('" + str(
         orderid) + "', '" + str('2017-01-01 00:00:00') + "', '1', '" + str(productname) + "', '0.075', '1', '1')"
-    # print("insert new order sql - " + sql)
+    print("insert new order sql - " + sql)
     dac_code.db_sql_write(sql)
 
     reprompt_text = "Did you get that?"
@@ -176,5 +177,6 @@ def add_something_to_an_order(intent, session):
     card_title = "We've added something to your order"
     speech_output = "We've added something to your order"
     should_end_session = False
+    com_msg.make_mqtt_call(topic="fred",payload="Items Added: " + str(productname))
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        card_title, speech_output, reprompt_text, should_end_session),authenticate=False)

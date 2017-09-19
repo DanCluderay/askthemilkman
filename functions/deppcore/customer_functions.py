@@ -4,11 +4,72 @@ import order_code as order_code
 import responce_code
 
 
+
+def get_internal_userid(intent, session):
+    id = str(session['user'].get('userId'))
+    val = 'accessToken' in session['user']
+    if val == True:
+        # we have a token for this customer - store it
+        accessT = str(session['user'].get('accessToken'))
+
+    print('is userid in dict' + str(val))
+    #se = Singleton()
+    #se.set_amazon_userid(id)
+    userinfo = dac_code.dbreadquery(id)
+    # check to see is userinfo is empty
+    if userinfo is None:
+        print("new user")
+        customer_functions.create_newUser(id)
+
+        userinfo = dac_code.dbreadquery(id)
+
+    print("user info" + str(userinfo))
+    username = userinfo.get('fname')
+    print("the userid" + str(id))
+    print("the userid" + str(username))
+    tempnum = int(str(userinfo.get('customers_autoid')))
+    #se.set_internal_userid(tempnum)
+    return tempnum
+
+def get_customer_current_order_number_from_id(customerid):
+    #get the latest order details from a customer
+    sqlcode: str = ''
+    sqlcode = "SELECT orders.order_autoid FROM fred.orders orders WHERE orders.customerid = " + str(customerid) + " ORDER BY orders.orders_date DESC limit 1"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    orderid: int = 0
+    orderdict: dict = {}
+    if len(result) == 1:  # we have a result
+        orderdict = result[0]
+        # we need to run an update command
+        orderid = orderdict.get('order_autoid')
+
+    return orderid
+
+def get_customer_current_order(customerid):
+    #get the latest order details from a customer
+    sqlcode: str = ''
+    sqlcode = "SELECT orders.customerid, orders.order_autoid, orders.ordervalue, orders.order_status, orders.orders_date, orders.order_status_int, orders.GUID, orders.delivery_status, orders.delivery_address_Line1, orders.delivery_address_Line2, orders.delivery_address_City, orders.delivery_address_Town, orders.delivery_address_Postcode, orders.delivery_address_Country, orders.Customer_First_Name, orders.CustomerTitle, orders.Customer_Second_Name, orders.delivery_date, orders.ORDERID FROM fred.orders orders WHERE orders.customerid = " + str(customerid) + " ORDER BY orders.orders_date DESC limit 1"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    print(sqlcode)
+    print(result)
+    return result
+
+def get_customer_order_items(orderid):
+    #get the item details of an order
+    sqlcode: str = ''
+    sqlcode = "SELECT order_items.order_items_autoid, order_items.oitems_orderid, order_items.order_date, order_items.Items_product_varientid, order_items.item_description, order_items.items_cost_ex_vat, order_items.vatcode, order_items.qty FROM fred.order_items order_items WHERE (order_items.oitems_orderid = " + str(orderid) + ")"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    print(sqlcode)
+    print(result)
+    return result
+
 def get_all_customers(shopid):
     #checkif this customer is registered already
     sqlcode: str = ''
     sqlcode = "SELECT * FROM fred.Customers Customers WHERE 1"
     result = dac_code.dbreadquery_sql(sqlcode)
+    print(sqlcode)
+    print(result)
     return result
 
 def check_customer_by_amazonid(amazonid):

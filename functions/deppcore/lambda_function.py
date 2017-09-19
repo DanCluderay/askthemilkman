@@ -78,7 +78,16 @@ def on_intent(intent_request, session, context):
             howmany) > 0:
             hasallpart = True
 
+
+
         return aifc.placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, producttype, howmany)
+    elif intent_name=="WhatsMyOrderNumber":
+        print('Enter WhatsMyOrderNumber code to return Your orderID...')
+        return aifc.whatsMyOrderNumber(intent, session)
+    elif intent_name == "WhatsMyCustomerNumber":
+        print('Enter WhatsMyCustomerNumber code to return Your customer id...')
+        return aifc.get_customerNumber(intent, session)
+
     elif intent_name=="connectalexa":
         print('running connectalexa...')
         return aifc.configer_to_account(intent, session)
@@ -263,11 +272,21 @@ def on_function_call(event):
     function_params: str = ""
     function_name = event.get('func')
     function_params = event.get('val')
-
+    print('in on_function_call code:')
     if function_name == 'test':
         return "here is a test"
     elif function_name == 'get_customers':
         fd= customer_functions.get_all_customers(1)
+
+        return fd
+    elif function_name == 'get_customer_order':
+        print('calling get_customer_order')
+        fd= customer_functions.get_customer_current_order(function_params)
+
+        return fd
+    elif function_name == 'get_customer_order_items':
+        print('calling get_customer_order_items')
+        fd= customer_functions.get_customer_order_items(function_params)
 
         return fd
     elif function_name=="mqtt_call":

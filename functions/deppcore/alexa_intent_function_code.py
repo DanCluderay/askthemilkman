@@ -2,6 +2,55 @@ import responce_code
 import dac_code
 import customer_functions
 import globalvars as gv
+from session_vars import Singleton
+
+
+def get_customerNumber(intent, session):
+    se = Singleton()
+
+    # find the customer ID from amazonID
+    customernubmer = customer_functions.get_internal_userid(intent, session)
+    speech_output = "Your order customer number is " + str(customernubmer)
+    print(speech_output)
+    session_attributes = {}
+    card_title = "DEBUG - This is your customer id"
+    #
+    reprompt_text = "Did you get that?"
+    should_end_session = False
+    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session), authenticate=False)
+
+
+def whatsMyOrderNumber(intent, session):
+    print("whatsMyOrderNumber... creating singleton class" )
+    se = Singleton()
+
+    #find the customer ID from amazonID
+    amid=se.get_amaozn_userid()
+    print("whatsMyOrderNumber... getting amzonid" + str(amid))
+    print("whatsMyOrderNumber... gettign customer id")
+    customerid:int=customer_functions.check_customer_by_amazonid(amid)
+    print("whatsMyOrderNumber... customer ID is " + str(customerid))
+    orderid:int=customer_functions.get_customer_current_order_number_from_id(customerid)
+    print("whatsMyOrderNumber... order ID is " + str(orderid))
+    if orderid==0:
+        #create a new order
+        print("whatsMyOrderNumber... creating new order")
+        yourOrderNum=customer_functions.create_new_order(customerid)
+    else:
+        yourOrderNum = orderid
+
+
+    speech_output="Your order number is " + str(yourOrderNum)
+    print(speech_output)
+    session_attributes = {}
+    card_title = "DEBUG - This is your orderid"
+    #
+    reprompt_text = "Did you get that?"
+    should_end_session = False
+    return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session), authenticate=False)
+
 
 def do_you_deliver_to_my_address(intent, session):
 
