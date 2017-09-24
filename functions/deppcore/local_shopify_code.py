@@ -33,6 +33,18 @@ def Create_Order():
         card_title, speech_output, reprompt_text, should_end_session))
     
     '''
+
+
+def update_customer_address(BillingType,CustomerID,AddressLine1,AddressLine2,AddressLine3,AddressTown,AddressCity,AddressPostcode,contact_phone,AddressCountry,Contact_name,Company_name,Default,shopify_id,AddressHash):
+    sqlcode:str="UPDATE fred.Customer_Addresses SET BillingType = '" + str(BillingType) + "', CustomerID = '" + str(CustomerID) + "', AddressLine1 = '" + str(AddressLine1) + "', AddressLine2 = '" + str(AddressLine2) + "', AddressLine3 = '" + str(AddressLine3) + "', AddressTown = '" + str(AddressTown) + "', AddressCity = '" + str(AddressCity) + "', AddressPostcode = '" + str(AddressPostcode) + "', contact_phone = '" + str(contact_phone) + "', AddressCountry = '" + str(AddressCountry) + "', Contact_name = '" + str(Contact_name) + "', Company_name = '" + str(Company_name) + "', `Default` = '" + str(Default) + "', shopify_id = '" + str(shopify_id) + "', AddressHash = '" + str(AddressHash) + "' WHERE "
+    print(sqlcode)
+    dac_code.db_sql_write(sqlcode)
+
+def insert_customer_address(BillingType,CustomerID,AddressLine1,AddressLine2,AddressLine3,AddressTown,AddressCity,AddressPostcode,contact_phone,AddressCountry,Contact_name,Company_name,Default,shopify_id,AddressHash):
+    sqlcode:str="INSERT INTO fred.Customer_Addresses(BillingType, CustomerID, AddressLine1, AddressLine2, AddressLine3, AddressTown, AddressCity, AddressPostcode, contact_phone, AddressCountry, Contact_name, Company_name, `Default`, shopify_id, AddressHash) VALUES (:BillingType, :CustomerID, :AddressLine1, :AddressLine2, :AddressLine3, :AddressTown, :AddressCity, :AddressPostcode, :contact_phone, :AddressCountry, :Contact_name, :Company_name, :Default, :shopify_id, :AddressHash);"
+    print(sqlcode)
+    dac_code.db_sql_write(sqlcode)
+
 def update_customer_in_db(shop_first_name,shop_last_name,postcode,addressline1,addressline2,addresstown,addresscity,addressCountry,shop_id,shop_email):
     sqlcode: str = "UPDATE fred.Customers SET title = '', fname = '" + str(shop_first_name) + "', sname = '" + str(shop_last_name) + "', postcode = '" + str(postcode) + "', localshop = '1', shippingAddressLine1 = '" + str(addressline1) + "', shippingAddressLine2 = '" + str(addressline2) + "', shippingTown = '" + str(addresstown) + "', shippingCity = '" + str(addresscity) + "', shippingCountry = '" + str(addressCountry) + "', websiteid = '1', website_userid = '" + str(shop_id) + "' WHERE (Customers.email = '" + str(shop_email) + "')"
     print(sqlcode)
