@@ -5,6 +5,16 @@ import responce_code
 
 
 
+def check_if_customer_exists_email(email):
+    sqlcode: str = "SELECT Customers.email  FROM fred.Customers Customers WHERE (Customers.email = '" + email + "' )"
+    returnValue:bool=False
+    result = dac_code.dbreadquery_sql(sqlcode)
+    if len(result) > 0:
+        returnValue= True # we have a result
+
+
+
+    return returnValue
 def get_internal_userid(intent, session):
     id = str(session['user'].get('userId'))
     val = 'accessToken' in session['user']
@@ -48,7 +58,10 @@ def get_customer_current_order_number_from_id(customerid):
 def get_customer_current_order(customerid):
     #get the latest order details from a customer
     sqlcode: str = ''
-    sqlcode = "SELECT orders.customerid, orders.order_autoid, orders.ordervalue, orders.order_status, orders.orders_date, orders.order_status_int, orders.GUID, orders.delivery_status, orders.delivery_address_Line1, orders.delivery_address_Line2, orders.delivery_address_City, orders.delivery_address_Town, orders.delivery_address_Postcode, orders.delivery_address_Country, orders.Customer_First_Name, orders.CustomerTitle, orders.Customer_Second_Name, orders.delivery_date, orders.ORDERID FROM fred.orders orders WHERE orders.customerid = " + str(customerid) + " ORDER BY orders.orders_date DESC limit 1"
+    sqlcode = "SELECT orders.customerid, orders.order_autoid,DATE_FORMAT(orders.delivery_date, '%Y-%m-%d %T.%f') as delivery_date, DATE_FORMAT(orders.orders_date, '%Y-%m-%d %T.%f') as orders_date, orders.ordervalue, orders.order_status, orders.order_status_int, orders.GUID, orders.delivery_status, orders.delivery_address_Line1, orders.delivery_address_Line2, orders.delivery_address_City, orders.delivery_address_Town, orders.delivery_address_Postcode, orders.delivery_address_Country, orders.Customer_First_Name, orders.CustomerTitle, orders.Customer_Second_Name, orders.ORDERID FROM fred.orders orders WHERE orders.customerid = " + str(
+        customerid) + " ORDER BY orders.orders_date DESC limit 1"
+
+    #sqlcode = "SELECT orders.customerid, orders.order_autoid, orders.ordervalue, orders.order_status, orders.orders_date, orders.order_status_int, orders.GUID, orders.delivery_status, orders.delivery_address_Line1, orders.delivery_address_Line2, orders.delivery_address_City, orders.delivery_address_Town, orders.delivery_address_Postcode, orders.delivery_address_Country, orders.Customer_First_Name, orders.CustomerTitle, orders.Customer_Second_Name, orders.delivery_date, orders.ORDERID FROM fred.orders orders WHERE orders.customerid = " + str(customerid) + " ORDER BY orders.orders_date DESC limit 1"
     result = dac_code.dbreadquery_sql(sqlcode)
     print(sqlcode)
     print(result)
@@ -57,7 +70,10 @@ def get_customer_current_order(customerid):
 def get_customer_order_items(orderid):
     #get the item details of an order
     sqlcode: str = ''
-    sqlcode = "SELECT order_items.order_items_autoid, order_items.oitems_orderid, order_items.order_date, order_items.Items_product_varientid, order_items.item_description, order_items.items_cost_ex_vat, order_items.vatcode, order_items.qty FROM fred.order_items order_items WHERE (order_items.oitems_orderid = " + str(orderid) + ")"
+    sqlcode = "SELECT order_items.order_items_autoid,order_items.DealRetail, order_items.oitems_orderid, order_items.Items_product_varientid, order_items.item_description, order_items.items_cost_ex_vat, order_items.vatcode, order_items.qty FROM fred.order_items order_items WHERE (order_items.oitems_orderid = " + str(
+        orderid) + ")"
+
+    #sqlcode = "SELECT order_items.order_items_autoid, order_items.oitems_orderid, order_items.order_date, order_items.Items_product_varientid, order_items.item_description, order_items.items_cost_ex_vat, order_items.vatcode, order_items.qty FROM fred.order_items order_items WHERE (order_items.oitems_orderid = " + str(orderid) + ")"
     result = dac_code.dbreadquery_sql(sqlcode)
     print(sqlcode)
     print(result)

@@ -1,7 +1,7 @@
 import responce_code
 import dac_code
 import customer_functions
-import globalvars as gv
+
 from session_vars import Singleton
 
 
@@ -46,18 +46,19 @@ def whatsMyOrderNumber(intent, session):
     session_attributes = {}
     card_title = "DEBUG - This is your orderid"
     #
-    reprompt_text = "Did you get that?"
+    reprompt_text = ""
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session), authenticate=False)
 
 
 def do_you_deliver_to_my_address(intent, session):
+    se = Singleton()
 
     custdict: dict = {}
     sessionid=''
     #get the customer data
-    custdict=customer_functions.get_customer_details(gv)
+    custdict=customer_functions.get_customer_details(se.get_internal_userid())
 
     #if the customer has a shop assigned then we just answer -YES! we've already done the search
 
@@ -191,7 +192,7 @@ def placeanorder(intent, session, productsize, whentodeliver, delivery_or_add, p
     dac_code(speech_output)
     print(speech_output)
 
-    reprompt_text = "Did you get that?"
+    reprompt_text = ""
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session),authenticate=False)

@@ -2,30 +2,14 @@
 # Filename: mymodule.py
 from __future__ import print_function
 from session_vars import Singleton
-
 import json
-import paho
-import globalvars as gv
-import pymysql.cursors
-import boto3
-import uuid
-from datetime import datetime, timedelta, time
-import shopify
-from phpserialize import serialize, unserialize
-import requests
-import ast
-import deepcore
-#from .dacc import dac_code as dac #datacontroller
 import com_msg
 import dac_code
-#from cust import customer_functions
 import customer_functions as customer_functions
 import responce_code
 import alexa_intent_function_code  as aifc
-import globalvars as gv
 import local_shopify_code as l_shopify
 import customer_functions as cust
-#from orders import order_code as order_code
 import order_code
 
 
@@ -244,6 +228,13 @@ def lambda_handler(event, context):
     if 'func' in event.keys():
         print("Entering Func code")
         return on_function_call(event)
+    elif 'resource' in event.keys():
+
+        print("Entering shopify API code")
+        if 'X-Shopify-Topic' in event['headers'].keys():# we have an event
+
+            l_shopify.webhook_head(event)
+
     else:   #This is an alexa call
         print("event.session.application.applicationId=" + event['session']['application']['applicationId'])
 

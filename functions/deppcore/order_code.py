@@ -3,15 +3,9 @@ import dac_code
 import customer_functions
 import responce_code
 from datetime import datetime, timedelta, time
-import globalvars as gv
+from session_vars import Singleton
 import com_msg
-'''
-from dac import dac_code
-from cust import customer_functions
-from alexa_responce import responce_code
-from datetime import datetime, timedelta, time
-from global_vars import globalvars as gv
-'''
+
 
 def create_new_order(customerid):
     neworderid = 0
@@ -46,14 +40,14 @@ def deliver_my_order(intent, session):
     print("return date = " + str(return_date))
     update_order_delivery_date(return_date)
 
-    return_text = "Great, we deliver it on " + str(return_date.strftime("%A") + " the " + str(return_date.date()))
+    return_text = "ok, we'll deliver it on " + str(return_date.strftime("%A") + "  " + str(return_date.date()))
     session_attributes = {}
     card_title = "Order Delivery"
 
     speech_output = return_text
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Did you get that?"
+    reprompt_text = ""
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
@@ -61,7 +55,8 @@ def deliver_my_order(intent, session):
 
 
 def update_order_delivery_date(delivery_date):
-    CURRENT_ORDERID = customer_functions.checkforexistingcustomerorder(gv.CURRENT_USERID)
+    se = Singleton()
+    CURRENT_ORDERID = customer_functions.checkforexistingcustomerorder(se.get_internal_userid())
 
     sql = "UPDATE `orders` SET `delivery_date`='" + str(f"{delivery_date:%Y-%m-%d}") + "' WHERE order_autoid='" + str(
         CURRENT_ORDERID) + "'"
@@ -133,6 +128,8 @@ def set_delivery_date(when2):
     else:
         new_delivery_date = datetime.now() + timedelta(days=ADD_DAYS)
 
+    #mqtt call to client
+    com_msg.make_mqtt_call(topic="fred", payload="Change of delivery address ")
     return new_delivery_date
 
 
@@ -167,16 +164,16 @@ def add_something_to_an_order(intent, session):
 
     # add items to order
     productname = str(intent['slots']['product']['value'])
-    sql = "INSERT INTO `order_items` (`oitems_orderid`, `order_date`, `Items_product_varientid`, `item_description`, `items_cost_ex_vat`, `vatcode`, `qty`) VALUES ('" + str(
-        orderid) + "', '" + str('2017-01-01 00:00:00') + "', '1', '" + str(productname) + "', '0.075', '1', '1')"
+    sql = "INSERT INTO `order_items` (`oitems_orderid`, `order_date`, `Items_product_varientid`, `item_description`, `items_cost_ex_vat`, `vatcode`, `qty`,`DealRetail`) VALUES ('" + str(
+        orderid) + "', '" + str('2017-01-01 00:00:00') + "', '1', '" + str(productname) + "', '0.075', '1', '1','1')"
     print("insert new order sql - " + sql)
     dac_code.db_sql_write(sql)
 
-    reprompt_text = "Did you get that?"
+    reprompt_text = "Anything else?"
     should_end_session = False
-    card_title = "We've added something to your order"
-    speech_output = "We've added something to your order"
+    card_title = "We've added " + str(productname) + " to your order"
+    speech_output = "We've added " + str(productname) + " to your order"
     should_end_session = False
-    com_msg.make_mqtt_call(topic="fred",payload="Items Added: " + str(productname))
+    com_msg.make_mqtt_call(topic="",payload="Items Added: " + str(productname))
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session),authenticate=False)
