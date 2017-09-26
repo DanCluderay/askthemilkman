@@ -14,6 +14,7 @@
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/session_vars" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/paho" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/com_msg" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/class_obj" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
