@@ -5,16 +5,23 @@ import responce_code
 
 
 
-def check_if_customer_exists_email(email):
-    sqlcode: str = "SELECT Customers.email  FROM fred.Customers Customers WHERE (Customers.email = '" + email + "' )"
+def check_if_customer_address_exists_shopifyID(shopifyid):
+    sqlcode: str = "SELECT Customer_Addresses.shopify_address_id  FROM fred.Customer_Addresses Customer_Addresses WHERE (Customer_Addresses.shopify_address_id = '" + shopifyid + "' )"
     returnValue:bool=False
     result = dac_code.dbreadquery_sql(sqlcode)
     if len(result) > 0:
         returnValue= True # we have a result
+    return returnValue
 
-
+def check_if_customer_exists_email(email):
+    sqlcode: str = "SELECT Customers.email  FROM fred.Customers Customers WHERE (Customers.email = '" + email + "' )"
+    returnValue: bool = False
+    result = dac_code.dbreadquery_sql(sqlcode)
+    if len(result) > 0:
+        returnValue = True  # we have a result
 
     return returnValue
+
 def get_internal_userid(intent, session):
     id = str(session['user'].get('userId'))
     val = 'accessToken' in session['user']
