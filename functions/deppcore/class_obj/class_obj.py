@@ -268,6 +268,11 @@ class CustomerDetails():
         self.phone:str=""
         self.tags:str=""
         self.last_order_name:str=""
+        self.iCustomerAddress:CustomerAddress=[]
+
+    def __getitem__(self, index):
+        return self
+
 
 
 class CustomerAddress():
@@ -294,3 +299,24 @@ class CustomerAddress():
         self.default: str = ""
         self.Billtype:int=0
         self.address3:str=""
+
+    def __getitem__(self, index):
+        return self
+
+
+g=CustomerDetails()
+
+g.iCustomerAddress=[CustomerAddress()]
+m:CustomerAddress=CustomerAddress()
+n:CustomerAddress=CustomerAddress()
+o:CustomerAddress=CustomerAddress()
+g.iCustomerAddress.insert(len(g.iCustomerAddress),m)
+g.iCustomerAddress.insert(len(g.iCustomerAddress),n)
+g.iCustomerAddress.insert(len(g.iCustomerAddress),o)
+g.iCustomerAddress[0].last_name="cluderay"
+print(g.iCustomerAddress[0].last_name)
+pass
+
+
+
+
