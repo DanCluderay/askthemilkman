@@ -11,7 +11,7 @@ import alexa_intent_function_code  as aifc
 import local_shopify_code as l_shopify
 import customer_functions as cust
 import order_code
-
+import pos_core
 
 def on_intent(intent_request, session, context):
     """ Called when the user specifies an intent for this skill """
@@ -270,7 +270,7 @@ def on_function_call(event):
         fd= customer_functions.get_all_customers(1)
 
         return fd
-    elif function_name == 'get_customer_order':
+    elif function_name == 'c':
         print('calling get_customer_order')
         fd= customer_functions.get_customer_current_order(function_params)
 
@@ -282,7 +282,16 @@ def on_function_call(event):
         return fd
     elif function_name=="mqtt_call":
         com_msg.make_mqtt_call(function_params)
-        pass
+
+    elif function_name=="get_all_shops":
+        return pos_core.get_all_store_locations()
+
+    elif function_name=="add_new_store_location":
+        return pos_core.add_store_location(function_params)
+
+    elif function_name=="update_store_location":
+        return pos_core.update_store_location(function_params)
+
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 

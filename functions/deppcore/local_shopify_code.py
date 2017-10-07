@@ -6,7 +6,7 @@ import dac_code
 import customer_functions
 import hashlib
 import ast
-from class_obj import AnOrder
+from class_obj import AnOrder,CustomerDetails, CustomerAddress
 
 
 def Create_Order():
@@ -35,30 +35,49 @@ def Create_Order():
         card_title, speech_output, reprompt_text, should_end_session))
     
     '''
-
-
-def update_customer_address(firstname,lastname,shop_id, BillingType,CustomerID,AddressLine1,AddressLine2,AddressLine3,AddressTown,AddressCity,AddressPostcode,contact_phone,AddressCountry,Contact_name,Company_name,Default,shopify_address_id,AddressHash):
-    sqlcode:str="UPDATE fred.Customer_Addresses SET BillingType = '" + str(BillingType) + "', CustomerID = '" + str(CustomerID) + "', AddressLine1 = '" + str(AddressLine1) + "', AddressLine2 = '" + str(AddressLine2) + "', AddressLine3 = '" + str(AddressLine3) + "', AddressTown = '" + str(AddressTown) + "', AddressCity = '" + str(AddressCity) + "', AddressPostcode = '" + str(AddressPostcode) + "', contact_phone = '" + str(contact_phone) + "', AddressCountry = '" + str(AddressCountry) + "', Contact_name = '" + str(Contact_name) + "', Company_name = '" + str(Company_name) + "', `Default_address` = '" + str(Default) + "', shopify_address_id = '" + str(shopify_address_id) + "', AddressHash = '" + str(AddressHash) + "' WHERE shopify_address_id = '" + str(shopify_address_id)  +"'"
+'''Updates the customer address table'''
+def update_customer_address_via_obj(ad:CustomerAddress):
+    sqlcode:str="UPDATE fred.Customer_Addresses SET BillingType = '0', CustomerID = " + str(ad.customer_id) + ", first_name = '" + str(ad.first_name) + "', last_name = '" + str(ad.last_name) + "', AddressLine1 = '" + str(ad.address1) + "', AddressLine2 = '" + str(ad.address2) + "', AddressLine3 = '', AddressCity = '" + str(ad.city) + "', AddressProvince = '" + str(ad.province) + "', AddressPostcode = '" + str(ad.zip) + "', contact_phone = '" + str(ad.phone) + "', AddressCountry = '" + str(ad.country) + "', Contact_name = '" + str(ad.name) + "', Company_name = '" + str(ad.company) + "', `Default_address` = '" + str(ad.default) + "', shopify_address_id = '" + str(ad.id) + "', AddressHash = '' WHERE shopify_address_id = '" + str(ad.id)  + "'"
+    print(sqlcode)
+    dac_code.db_sql_write(sqlcode)
+'''insterts new addresses'''
+def insert_customer_address_via_obj(ad:CustomerAddress):
+    sqlcode:str="INSERT INTO fred.Customer_Addresses(BillingType, CustomerID, first_name, last_name, AddressLine1, AddressLine2, AddressLine3, AddressCity, AddressProvince, AddressPostcode, contact_phone, AddressCountry, Contact_name, Company_name, `Default_address`, shopify_address_id, AddressHash) VALUES ('0'," + ad.customer_id + ",'" + ad.first_name + "','" + ad.last_name + "','" + ad.address1 + "','" + ad.address2 + "','','" + ad.city + "','" + ad.province + "','" + ad.zip + "','" + ad.phone + "','" + ad.country + "','" + ad.name + "','" + ad.company + "','" + ad.default + "','" + ad.id + "','');"
     print(sqlcode)
     dac_code.db_sql_write(sqlcode)
 
-def insert_customer_address(firstname,lastname,shop_id,BillingType,CustomerID,AddressLine1,AddressLine2,AddressLine3,AddressTown,AddressCity,AddressPostcode,contact_phone,AddressCountry,Contact_name,Company_name,Default,shopify_address_id,AddressHash):
-    sqlcode:str="INSERT INTO fred.Customer_Addresses(BillingType, CustomerID, AddressLine1, AddressLine2, AddressLine3, AddressTown, AddressCity, AddressPostcode, contact_phone, AddressCountry, Contact_name, Company_name, `Default_address`, shopify_address_id, AddressHash) VALUES ('" + BillingType + "','" + CustomerID + "','" + AddressLine1 + "','" + AddressLine2 + "','" + AddressLine3 + "','" + AddressTown + "','" + AddressCity + "','" + AddressPostcode + "','" + contact_phone + "','" + AddressCountry + "','" + Contact_name + "','" + Company_name + "','" + Default + "','" + shopify_address_id + "','" + AddressHash + "');"
+
+
+
+def update_customer_in_db_via_obj(ob:CustomerDetails):
+    sqlcode: str = "UPDATE fred.Customers SET title = '', fname = '" + str(ob.first_name) + "', sname = '" + str(ob.last_name) + "', websiteid='" + str(ob.websiteID) + "', email='" + str(ob.email1) +  "', hometel='" + str(ob.phone) + "', accepts_marketing='" + str(convert_string_to_int(ob.accepts_marketing)) + "', web_created_at='" + str(ob.created_at) + "', web_updated_at='" + str(ob.updated_at) + "', web_State='" + str(ob.state) + "', web_last_order_id='" + str(convert_int_for_sql(ob.last_order_id)) + "', web_note='" + str(ob.note) + "', verified_email=" + str(convert_string_to_int(ob.verified_email)) + ", multipass_identifier='" + str(ob.multipass_identifier) + "', tax_exempt=" + str(convert_string_to_int(ob.tax_exempt)) + ", web_tags='" + str(ob.tags) + "', web_Last_order_ID_str='" + str(ob.last_order_name) + "' WHERE (Customers.shopify_userid = " + str(ob.shopifyCustomerID) + ")"
     print(sqlcode)
     dac_code.db_sql_write(sqlcode)
 
-def update_customer_in_db(shop_first_name,shop_last_name,postcode,addressline1,addressline2,addresstown,addresscity,addressCountry,shop_id,shop_email):
-    sqlcode: str = "UPDATE fred.Customers SET title = '', fname = '" + str(shop_first_name) + "', sname = '" + str(shop_last_name) + "', postcode = '" + str(postcode) + "', localshop = '1', shippingAddressLine1 = '" + str(addressline1) + "', shippingAddressLine2 = '" + str(addressline2) + "', shippingTown = '" + str(addresstown) + "', shippingCity = '" + str(addresscity) + "', shippingCountry = '" + str(addressCountry) + "', websiteid = '1', website_userid = '" + str(shop_id) + "' WHERE (Customers.email = '" + str(shop_email) + "')"
+def insert_customer_in_db_via_obj(ob:CustomerDetails):
+    print("updating address via object")
+    sqlcode: str = "INSERT INTO fred.Customers(fname, sname, websiteid, shopify_userid, email, hometel, accepts_marketing, web_created_at, web_updated_at, web_LifetimeOrderCount, web_LifeTimeOrderSpend, web_State, web_last_order_id, web_note, verified_email, multipass_identifier, tax_exempt, web_tags, web_Last_order_ID_str) VALUES ('" + str(ob.first_name) + "','" + str(ob.last_name) + "','" + str(ob.websiteID) + "','" + str(ob.shopifyCustomerID) + "','" + str(ob.email1) + "','" + str(ob.phone) + "','" + str(convert_string_to_int(ob.accepts_marketing)) + "','" + str(ob.created_at) + "','" + str(ob.updated_at) + "','" + str(ob.orders_count) + "','" + str(ob.total_spent) + "','" + str(ob.state) + "'," + str(convert_int_for_sql(ob.last_order_id)) + ",'" + str(ob.note) + "','" + str(convert_string_to_int(ob.verified_email)) + "','"  + "', '"+ str(convert_string_to_int(ob.tax_exempt)) + "','" + str(ob.tags) + "','" + str(ob.last_order_name) + "');"
     print(sqlcode)
     dac_code.db_sql_write(sqlcode)
 
-def insert_customer_in_db(shop_first_name,shop_last_name,postcode,addressline1,addressline2,addresstown,addresscity,addressCountry,shop_id,shop_email):
-    sqlcode: str = "INSERT INTO fred.Customers(title, fname, sname, postcode, localshop, amazon_id, shippingAddressLine1, shippingAddressLine2, shippingTown, shippingCity, CustomerBillingDayofWeek, shippingCountry, websiteid, website_userid, email) VALUES ('','" + str(
-        shop_first_name) + "','" + str(shop_last_name) + "','" + str(postcode) + "', '1','','" + str(
-        addressline1) + "','" + str(addressline2) + "', '" + str(addresstown) + "','" + str(
-        addresscity) + "','','" + str(addressCountry) + "','1', '" + str(shop_id) + "','" + str(shop_email) + "');"
-    print(sqlcode)
-    dac_code.db_sql_write(sqlcode)
+
+
+def convert_string_to_int(thestring:str):
+    ret_val:int=0
+    if thestring=="True":
+        ret_val=1
+    else:
+        ret_val=0
+
+    return ret_val
+
+def convert_int_for_sql(theint:int):
+    ret_val:int=0
+    if theint==None:
+        ret_val=0
+    else:
+        ret_val=theint
+    return ret_val
 
 def webhook_head(event):
     print("Entering shopify API code")
@@ -76,7 +95,26 @@ def webhook_head(event):
             pass
 
         elif callingfunction == "customers/update" or callingfunction == "customers/create":
-            proccess_customer_updated(bodytext=bodytext)
+            customer_object:CustomerDetails=CustomerDetails.convert_json_bodytext_to_Customer(self=CustomerDetails,bodytext=bodytext)
+            if customer_functions.check_if_customer_exists_shopify_customerid(customer_object.shopifyCustomerID):
+                print("calling object customer update")
+                print("email! " + str(customer_object.email1))
+                update_customer_in_db_via_obj(customer_object)
+            else:
+                print("calling object customer Insert")
+                print("email! " + str(customer_object.email1))
+                insert_customer_in_db_via_obj(customer_object)
+            print("Address Len " + str(len(CustomerDetails.iCustomerAddress)))
+            x:int=0
+            for ob in CustomerDetails.iCustomerAddress:
+                print(str(CustomerDetails.iCustomerAddress[x].first_name))
+                print(str(ob.first_name))
+                if customer_functions.check_if_customer_address_exists_shopifyID(CustomerDetails.iCustomerAddress[x].id) == True:
+                    update_customer_address_via_obj(CustomerDetails.iCustomerAddress[x])
+                else:
+                    insert_customer_address_via_obj(CustomerDetails.iCustomerAddress[x])
+                print("x value " + str(x))
+                x=x+1
 
         elif callingfunction == "orders/paid":
             #pull the order into the system
@@ -90,137 +128,6 @@ def webhook_head(event):
 
         com_msg.make_mqtt_call(topic=str(callingfunction), payload=event.get('body'))
         return "bee"
-
-def proccess_customer_updated(bodytext):
-    # update customer in database
-    shop_id: str = ""
-    bodydata: dict = json.loads(bodytext)
-    shop_id = bodydata.get('id')
-    print(shop_id)
-
-    shop_email: str = ""
-    shop_email = bodydata.get('email')
-    print(shop_email)
-
-    shop_accepts_marketing: str = ""
-    shop_accepts_marketing = bodydata.get('accepts_marketing', "")
-    print(shop_accepts_marketing)
-
-    shop_created_at: str = ""
-    shop_created_at = bodydata.get('created_at', "")
-    print(shop_created_at)
-
-    shop_updated_at: str = ""
-    shop_updated_at = bodydata.get('updated_at', "")
-    print(shop_updated_at)
-
-    shop_first_name: str = ""
-    shop_first_name = bodydata.get('first_name', "")
-    print(shop_first_name)
-
-    shop_last_name: str = ""
-    shop_last_name = bodydata.get('last_name', "")
-
-    shop_orders_count: str = ""
-    shop_orders_count = bodydata.get('orders_count', "")
-
-    shop_state: str = ""
-    shop_state = bodydata.get('state', "")
-
-    shop_total_spent: str = ""
-    shop_total_spent = bodydata.get('total_spent', "")
-
-    shop_last_order_id: str = ""
-    shop_last_order_id = bodydata.get('last_order_id', "")
-
-    shop_note: str = ""
-    shop_note = bodydata.get('note', "")
-
-    shop_verified_email: str = ""
-    shop_verified_email = bodydata.get('verified_email', "")
-
-    shop_multipass_identifier: str = ""
-    shop_multipass_identifier = bodydata.get('multipass_identifier', "")
-
-    shop_tax_exempt: str = ""
-    shop_tax_exempt = bodydata.get('tax_exempt', "")
-
-    shop_phone: str = ""
-    shop_phone = bodydata.get('phone', "")
-
-    shop_tags: str = ""
-    shop_tags = bodydata.get('tags', "")
-
-    shop_last_order_name: str = ""
-    shop_last_order_name = bodydata.get('last_order_name', "")
-
-    shop_addresses: str = ""
-    shop_addresses = bodydata.get('addresses', "")
-    print("Address body: " + str(shop_addresses))
-    addressline1: str = ""
-    addressline2: str = ""
-    addresstown: str = ""
-    addresscity: str = ""
-    postcode: str = ""
-    addressCountry: str = ""
-
-    # loop the address
-    address_str: str = str(shop_addresses)
-
-    result = ast.literal_eval(address_str)
-
-    print("result len" + str(len(result)))
-
-    for address in result:
-        lp = json.dumps(address)
-        string_withDBQuotes = lp.replace("'", "\"")
-        address_data: dict = json.loads(str(string_withDBQuotes))
-        addressID = str(address_data.get('id'))
-        customerID = str(address_data.get('customer_id'))
-        firstname = str(address_data.get('first_name'))
-        lastname = str(address_data.get('last_name'))
-        company = str(address_data.get('company'))
-        address1 = str(address_data.get('address1'))
-        address2 = str(address_data.get('address2'))
-        city = str(address_data.get('city'))
-        province = str(address_data.get('province'))
-        zip = str(address_data.get('zip'))
-        phone = str(address_data.get('phone'))
-        country = str(address_data.get('country'))
-        name = str(address_data.get('name'))
-        country_code = str(address_data.get('country_code'))
-        country_name = str(address_data.get('country_name'))
-        default = str(address_data.get('default'))
-        print("default address = " + default)
-        biltype = '0'
-        add3 = ''
-
-        AddressHash = ""
-        shopify_id = ""
-        AddressCity = ""
-        if customer_functions.check_if_customer_address_exists_shopifyID(addressID) == True:
-
-            update_customer_address(AddressHash=AddressHash, shopify_address_id=addressID, AddressCity=AddressCity,
-                                    firstname=firstname, lastname=lastname, BillingType=biltype, CustomerID=customerID,
-                                    AddressLine1=address1, AddressLine2=address2, AddressLine3=add3, AddressTown=city,
-                                    AddressPostcode=zip, contact_phone=phone, AddressCountry=country_name,
-                                    Contact_name=name, Company_name=company, Default=default, shop_id=addressID)
-        else:
-            insert_customer_address(AddressHash=AddressHash, shopify_address_id=addressID, AddressCity=AddressCity,
-                                    firstname=firstname, lastname=lastname, BillingType=biltype, CustomerID=customerID,
-                                    AddressLine1=address1, AddressLine2=address2, AddressLine3=add3, AddressTown=city,
-                                    AddressPostcode=zip, contact_phone=phone, AddressCountry=country_name,
-                                    Contact_name=name, Company_name=company, Default=default, shop_id=addressID)
-
-    update_customer_in_db(shop_first_name=shop_first_name, shop_last_name=shop_last_name, postcode=postcode,
-                          addressline1=addressline1, addressline2=addressline2, addresstown=addresstown,
-                          addresscity=addresscity, addressCountry=addressCountry, shop_id=shop_id,
-                          shop_email=shop_email)
-    print("updating existing customer")
-    # update glabally
-    # payload:str='{ "topic":"customer", "shop":"all" }'
-    payload: str = '{"topic": "customer","scope": "all_shops","ID": {"customerid": "123"}}'
-    com_msg.make_mqtt_call(topic="", payload=payload)
 
 
 def proccess_order_updated(bodytext):

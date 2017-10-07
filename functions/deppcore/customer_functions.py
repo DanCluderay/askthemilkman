@@ -5,8 +5,8 @@ import responce_code
 
 
 
-def check_if_customer_address_exists_shopifyID(shopifyid):
-    sqlcode: str = "SELECT Customer_Addresses.shopify_address_id  FROM fred.Customer_Addresses Customer_Addresses WHERE (Customer_Addresses.shopify_address_id = '" + shopifyid + "' )"
+def check_if_customer_address_exists_shopifyID(Customer_Address_shopifyid):
+    sqlcode: str = "SELECT Customer_Addresses.shopify_address_id  FROM fred.Customer_Addresses Customer_Addresses WHERE (Customer_Addresses.CustomerID = " + str(Customer_Address_shopifyid) + ")"
     returnValue:bool=False
     result = dac_code.dbreadquery_sql(sqlcode)
     if len(result) > 0:
@@ -15,6 +15,15 @@ def check_if_customer_address_exists_shopifyID(shopifyid):
 
 def check_if_customer_exists_email(email):
     sqlcode: str = "SELECT Customers.email  FROM fred.Customers Customers WHERE (Customers.email = '" + email + "' )"
+    returnValue: bool = False
+    result = dac_code.dbreadquery_sql(sqlcode)
+    if len(result) > 0:
+        returnValue = True  # we have a result
+    return returnValue
+
+
+def check_if_customer_exists_shopify_customerid(shopify_userid):
+    sqlcode: str = "SELECT Customers.email  FROM fred.Customers Customers WHERE (Customers.shopify_userid = " + str(shopify_userid) + " )"
     returnValue: bool = False
     result = dac_code.dbreadquery_sql(sqlcode)
     if len(result) > 0:

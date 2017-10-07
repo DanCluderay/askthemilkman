@@ -1,5 +1,5 @@
-
-
+import json
+import ast
 class AnOrder():
 
     def __init__(self):
@@ -248,32 +248,115 @@ class AnOrder():
 
 class CustomerDetails():
 
-    def __init__(self):
-
-        self.id:int=0
-        self.email:str=""
-        self.accepts_marketing:bool=False
-        self.created_at:str=""
-        self.updated_at:str=""
-        self.first_name:str=""
-        self.last_name:str=""
-        self.orders_count:int=0
-        self.state:str=""
-        self.total_spent:float=0.0
-        self.last_order_id:int=0
-        self.note:str=""
-        self.verified_email:bool=True
-        self.multipass_identifier:str=""
-        self.tax_exempt:bool=""
-        self.phone:str=""
-        self.tags:str=""
-        self.last_order_name:str=""
-        self.iCustomerAddress:CustomerAddress=[]
+    def __init__(self, test: bool = False):
+        if test == True:
+            self.shopifyCustomerID: int = 1234
+            self.email1: str = "dan@approvedfood.co.uk"
+            self.accepts_marketing: bool = False
+            self.created_at: str = "2017-10-10 00:00:00"
+            self.updated_at: str = "2017-10-10 00:00:00"
+            self.first_name: str = "dab"
+            self.last_name: str = "cluderay"
+            self.orders_count: int = 12
+            self.state: str = "disabled"
+            self.total_spent: float = 123.49
+            self.last_order_id: int = 1231312
+            self.note: str = "Hey i like your biscuits"
+            self.verified_email: bool = True
+            self.multipass_identifier: str = "None"
+            self.tax_exempt: bool = "False"
+            self.phone: str = "01909 732798"
+            self.tags: str = "nothing, something"
+            self.last_order_name: str = "123412342134"
+            self.zip: str = "S819ar"
+            self.iCustomerAddress: CustomerAddress = []
+            self.localshop: int = 12
+            self.amazonid: str = "1231231231231231231231"
+            self.customerBillingDayOfWeek: str = "Monday"
+            self.websiteID: int = 1
+        else:
+            self.shopifyCustomerID: int = 0
+            self.email1: str = ""
+            self.accepts_marketing: bool = False
+            self.created_at: str = ""
+            self.updated_at: str = ""
+            self.first_name: str = ""
+            self.last_name: str = ""
+            self.orders_count: int = 0
+            self.state: str = ""
+            self.total_spent: float = 0.0
+            self.last_order_id: int = 0
+            self.note: str = ""
+            self.verified_email: bool = True
+            self.multipass_identifier: str = ""
+            self.tax_exempt: bool = ""
+            self.phone: str = ""
+            self.tags: str = ""
+            self.last_order_name: str = ""
+            self.zip: str = ""
+            self.iCustomerAddress: CustomerAddress = []
+            self.localshop: int = 0
+            self.amazonid: str = ""
+            self.customerBillingDayOfWeek: str = ""
+            self.websiteID: int = 1
 
     def __getitem__(self, index):
         return self
 
+    def convert_json_bodytext_to_Customer(self,bodytext):
 
+        bodydata: dict = json.loads(bodytext)
+        self.shopifyCustomerID = bodydata.get('id')
+        print(self.shopifyCustomerID)
+
+        self.email1 = bodydata.get('email')
+        print(self.email1)
+
+        self.accepts_marketing = bodydata.get('accepts_marketing', "")
+        print(self.accepts_marketing )
+
+        self.created_at = bodydata.get('created_at', "")
+        print(self.created_at)
+
+        self.updated_at = bodydata.get('updated_at', "")
+        print(self.updated_at)
+
+        self.first_name = bodydata.get('first_name', "")
+        print(self.first_name)
+
+        self.last_name = bodydata.get('last_name', "")
+
+        self.orders_count = bodydata.get('orders_count', 0)
+
+        self.state = bodydata.get('state', "")
+
+        self.total_spent = bodydata.get('total_spent', "")
+
+        self.last_order_id = bodydata.get('last_order_id', "")
+
+        self.note = bodydata.get('note', "")
+
+        self.verified_email = bodydata.get('verified_email', "")
+
+        self.multipass_identifier = bodydata.get('multipass_identifier', "")
+
+        self.tax_exempt = bodydata.get('tax_exempt', "")
+
+        self.phone = bodydata.get('phone', "")
+
+        self.tags = bodydata.get('tags', "")
+
+        self.last_order_name = bodydata.get('zip', "")
+
+        self.zip = bodydata.get('last_order_name', "")
+        self.websiteID = 1
+        shop_addresses: str = ""
+        shop_addresses = bodydata.get('addresses', "")
+        print("Address body: " + str(shop_addresses))
+        c=CustomerAddress()
+        self.iCustomerAddress=c.convert_json_bodytext_to_CustomerAddress(shop_addresses)
+
+        return self
 
 class CustomerAddress():
 
@@ -287,7 +370,9 @@ class CustomerAddress():
 
         self.address1: str = ""
         self.address2: str = ""
+        self.town:str=""
         self.city: str = ""
+
         self.province: str = ""
         self.zip: str = ""
         self.phone: str = ""
@@ -303,19 +388,55 @@ class CustomerAddress():
     def __getitem__(self, index):
         return self
 
+    def convert_json_bodytext_to_CustomerAddress(self,bodytext):
+        result = ast.literal_eval(str(bodytext))
 
-g=CustomerDetails()
+        print("result len" + str(len(result)))
+        ret_list=[]
+        for address in result:
+            lp = json.dumps(address)
+            string_withDBQuotes = lp.replace("'", "\"")
+            address_data: dict = json.loads(str(string_withDBQuotes))
+            new_address:CustomerAddress=CustomerAddress()
+            new_address.id = str(address_data.get('id'))
+            new_address.customer_id = str(address_data.get('customer_id'))
+            new_address.first_name = str(address_data.get('first_name'))
+            new_address.last_name = str(address_data.get('last_name'))
+            new_address.company = str(address_data.get('company'))
+            new_address.address1 = str(address_data.get('address1'))
+            new_address.address2 = str(address_data.get('address2'))
+            new_address.city = str(address_data.get('city'))
+            new_address.province = str(address_data.get('province'))
+            new_address.zip = str(address_data.get('zip'))
+            new_address.phone = str(address_data.get('phone'))
+            new_address.country = str(address_data.get('country'))
+            new_address.name = str(address_data.get('name'))
+            new_address.country_code = str(address_data.get('country_code'))
+            new_address.country_name = str(address_data.get('country_name'))
+            new_address.default = str(address_data.get('default'))
+            print("default address = " + new_address.default)
+            biltype = '0'
+            add3 = ''
+            #if len(ret_list)==0:
+            #    ret_list.insert(0,new_address)
+            #else:
+            ret_list.insert(len(ret_list), new_address)
+        return ret_list
 
-g.iCustomerAddress=[CustomerAddress()]
-m:CustomerAddress=CustomerAddress()
-n:CustomerAddress=CustomerAddress()
-o:CustomerAddress=CustomerAddress()
-g.iCustomerAddress.insert(len(g.iCustomerAddress),m)
-g.iCustomerAddress.insert(len(g.iCustomerAddress),n)
-g.iCustomerAddress.insert(len(g.iCustomerAddress),o)
-g.iCustomerAddress[0].last_name="cluderay"
-print(g.iCustomerAddress[0].last_name)
-pass
+g=CustomerDetails(test=True)
+
+b='{ "id": 6719939092, "email": "cluderayd@gmail.com", "accepts_marketing": false, "created_at": "2017-07-02T17:39:01+01:00", "updated_at": "2017-09-27T15:52:55+01:00", "first_name": "Nic", "last_name": "cluderay", "orders_count": 13, "state": "disabled", "total_spent": "1.57", "last_order_id": 5988531732, "note": null, "verified_email": true, "multipass_identifier": null, "tax_exempt": false, "phone": null, "tags": "", "last_order_name": "#1016", "addresses": [ { "id": 6844291348, "customer_id": 6719939092, "first_name": "Nic", "last_name": "cluderay", "company": "NA", "address1": "80 long lane", "address2": "carlton in lindrick", "city": "worksop WILLY", "province": "Notts", "country": "United Kingdom", "zip": "s819ar", "phone": "07881621603", "name": "Nic cluderay", "province_code": null, "country_code": "GB", "country_name": "United Kingdom", "default": false }, { "id": 6924203668, "customer_id": 6719939092, "first_name": "Dan", "last_name": "Cluderay", "company": "", "address1": "approved group", "address2": "parkway close todger", "city": "sheffield", "province": "", "country": "United Kingdom", "zip": "S94WJ", "phone": "", "name": "Dan Cluderay", "province_code": null, "country_code": "GB", "country_name": "United Kingdom", "default": true } ], "default_address": { "id": 6924203668, "customer_id": 6719939092, "first_name": "Dan", "last_name": "Cluderay", "company": "", "address1": "approved group", "address2": "parkway close todger", "city": "sheffield", "province": "", "country": "United Kingdom", "zip": "S94WJ", "phone": "", "name": "Dan Cluderay", "province_code": null, "country_code": "GB", "country_name": "United Kingdom", "default": true } }'
+h=g.convert_json_bodytext_to_Customer(b)
+# g.iCustomerAddress=[CustomerAddress()]
+# m:CustomerAddress=CustomerAddress()
+# n:CustomerAddress=CustomerAddress()
+# o:CustomerAddress=CustomerAddress()
+# g.iCustomerAddress.insert(len(g.iCustomerAddress),m)
+# g.iCustomerAddress.insert(len(g.iCustomerAddress),n)
+# g.iCustomerAddress.insert(len(g.iCustomerAddress),o)
+# g.iCustomerAddress[0].last_name="cluderay"
+# print(g.iCustomerAddress[0].last_name)
+#pass
 
 
 
