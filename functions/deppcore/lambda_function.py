@@ -294,7 +294,9 @@ def on_function_call(event):
 
     elif function_name=="get_productview_by_prodID":
         return pos_core.get_productview_by_ProductID(function_params)
-
+    #
+    elif function_name=="get_gridlocations":
+        return pos_core.get_gridlocations(function_params)
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 

@@ -66,6 +66,13 @@ def get_productview_by_ProductID(productid):
         x['transit']=random.randint(100,200)
     return result
 
+
+def get_gridlocations(gridref):
+    sqlstring = "SELECT Location_Grid.LocGridID, Location_Grid.LocName, Location_Grid.LocType, Location_Grid.LocParent, Location_Grid.Updated_at, Location_Grid.Created_at FROM fred.Location_Grid Location_Grid"
+
+    result = dac_code.dbreadquery_sql(sqlstring)
+    return result
+
 #get_productview_by_ProductID("1")
 
 def get_all_products():
@@ -74,4 +81,4 @@ def get_all_products():
 
     print(pd)
 
-get_all_products()
+#get_all_products()
