@@ -292,6 +292,9 @@ def on_function_call(event):
     elif function_name=="update_store_location":
         return pos_core.update_store_location(function_params)
 
+    elif function_name=="get_productview_by_prodID":
+        return pos_core.get_productview_by_ProductID(function_params)
+
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 
