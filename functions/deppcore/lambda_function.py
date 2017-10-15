@@ -310,7 +310,7 @@ def on_function_call(event):
 
     elif function_name=="add_store_layout_row":
         return pos_core.add_store_layout_row()
-    elif function_name=="edit__store_layout_row":
+    elif function_name=="edit_store_layout_row":
         return pos_core.edit__store_layout_row(function_params)
 
 

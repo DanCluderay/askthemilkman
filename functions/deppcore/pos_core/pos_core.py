@@ -185,6 +185,8 @@ def edit__store_layout_row(para):
     id = int(ob['id'])
 
     sqlstring: str = "UPDATE fred.storelayout SET BuildingID =" + str(BuildingID) + ", LocGrid_ID =" + str(LocGrid_ID) + ", Control_Type =" + str(Control_Type) + ", Control_Y =" + str(Control_X) + ", Control_X =" + str(Control_Y) + ", Control_Z =" + str(Control_Z) + " WHERE id=" + str(id)
+    print("Updating Store layout " + sqlstring)
+
     dac_code.db_sql_write(sqlstring)
 
     #callingfunction = "global/locations_updated"
