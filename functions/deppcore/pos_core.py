@@ -160,7 +160,7 @@ def add_store_layout_row(para):
     #callingfunction = "global/locations_updated"
     #paypacket: str = "{ 'updatetask':'locations_updated'}"
     #com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
-    return get_gridlocations("")
+    return get_location_Store_Zone_Layout(LocGrid_ID)
 
 def edit__store_layout_row(para):
     BuildingID: int = 0
@@ -190,7 +190,7 @@ def edit__store_layout_row(para):
     #callingfunction = "global/locations_updated"
     #paypacket: str = "{ 'updatetask':'locations_updated'}"
     #com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
-    return get_gridlocations("")
+    return get_location_Store_Zone_Layout(LocGrid_ID)
 
 
         #get_location_Store_Zone_Layout(4)
