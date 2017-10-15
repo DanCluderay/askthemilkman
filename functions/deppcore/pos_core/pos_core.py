@@ -68,7 +68,7 @@ def get_productview_by_ProductID(productid):
 
 
 def get_gridlocations(gridref):
-    sqlstring = "SELECT Location_Grid.LocGridID, Location_Grid.LocName, Location_Grid.LocType, Location_Grid.LocParent, Location_Grid.Updated_at, Location_Grid.Created_at FROM fred.Location_Grid Location_Grid"
+    sqlstring = "SELECT Location_Grid.LocGridID, Location_Grid.LocName, Location_Grid.LocType, Location_Grid.LocParent, Location_Grid.PickOrder, Location_Grid.FullName, Location_Grid.ShortName FROM fred.Location_Grid Location_Grid ORDER BY Location_Grid.PickOrder ASC"
 
     result = dac_code.dbreadquery_sql(sqlstring)
     return result
@@ -92,13 +92,14 @@ def add_node_to_loc_grid(para):
     loctype  = int(ob['LocType'])
     locparent = int(ob['LocParent'])
 
-    sqlstring: str = "INSERT INTO fred.Location_Grid(LocName, LocParent, LocType) VALUES ('" + locname + "','" + locparent + "','" + loctype + "');"
+    sqlstring: str = "INSERT INTO fred.Location_Grid(LocName, LocParent, LocType) VALUES ('" + locname + "','" + str(locparent) + "','" + str(loctype) + "');"
     print(sqlstring)
     dac_code.db_sql_write(sqlstring)
 
     callingfunction = "global/locations_updated"
     paypacket: str = "{ 'updatetask':'locations_updated'}"
     com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
+    return get_gridlocations("")
 
 def edit_node_to_loc_grid(para):
     locname: str = ""
@@ -114,11 +115,82 @@ def edit_node_to_loc_grid(para):
 
     locid= int(ob['LocParent'])
 
-    sqlstring: str = "UPDATE fred.Location_Grid SET LocName = '" + locname + "', LocParent = '" + locparent + "' LocType = '" + loctype + "' WHERE LocGridID=" + locid
+    sqlstring: str = "UPDATE fred.Location_Grid SET LocName = '" + locname + "', LocParent = '" + str(locparent) + "' LocType = '" + str(loctype) + "' WHERE LocGridID=" + locid
     print(sqlstring)
     dac_code.db_sql_write(sqlstring)
 
     callingfunction = "global/locations_updated"
     paypacket: str = "{ 'updatetask':'locations_updated'}"
     com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
-#get_all_products()
+    return get_gridlocations("")
+
+def get_location_types():
+    sqlcode = "SELECT Location_Type.LocationTypeID, Location_Type.LocationName  FROM fred.Location_Type Location_Type"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def get_location_Store_Zone_Layout(storeid):
+
+    sqlcode = "SELECT storelayout.id, storelayout.BuildingID, storelayout.LocGrid_ID, storelayout.Control_Type, storelayout.Control_X, storelayout.Control_Y FROM fred.storelayout storelayout WHERE (storelayout.BuildingID = " + str(storeid) + ")"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def add_store_layout_row(para):
+    BuildingID: int = 0
+    LocGrid_ID: int = 0
+    Control_Type: int = 0
+    Control_Y:int=0
+    Control_X: int = 0
+    Control_Z: int = 0
+
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    print(str(ob))
+    BuildingID = str(ob['BuildingID'])
+    LocGrid_ID = int(ob['LocGrid_ID'])
+    Control_Type = int(ob['Control_Type'])
+    Control_X = int(ob['Control_X'])
+    Control_Y = int(ob['Control_Y'])
+    Control_Z = int(ob['Control_Z'])
+
+    sqlstring: str = "INSERT INTO fred.storelayout(BuildingID, LocGrid_ID, Control_Type, Control_Y, Control_X, Control_Z) VALUES (" + str(BuildingID) + "," + str(LocGrid_ID) + "," + str(Control_Type) + "," + str(Control_Y) + "," + str(Control_X) + "," + str(Control_Z) + ");"
+    print(sqlstring)
+    dac_code.db_sql_write(sqlstring)
+
+    #callingfunction = "global/locations_updated"
+    #paypacket: str = "{ 'updatetask':'locations_updated'}"
+    #com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
+    return get_gridlocations("")
+
+def edit__store_layout_row(para):
+    BuildingID: int = 0
+    LocGrid_ID: int = 0
+    Control_Type: int = 0
+    Control_Y:int=0
+    Control_X: int = 0
+    Control_Z: int = 0
+
+    id:int=0  #Where clause
+
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    print(str(ob))
+    BuildingID = str(ob['BuildingID'])
+    LocGrid_ID = int(ob['LocGrid_ID'])
+    Control_Type = int(ob['Control_Type'])
+    Control_X = int(ob['Control_X'])
+    Control_Y = int(ob['Control_Y'])
+    Control_Z = int(ob['Control_Z'])
+
+    id = int(ob['id'])
+
+    sqlstring: str = "UPDATE fred.storelayout SET BuildingID =" + str(BuildingID) + ", LocGrid_ID =" + str(LocGrid_ID) + ", Control_Type =" + str(Control_Type) + ", Control_Y =" + str(Control_X) + ", Control_X =" + str(Control_Y) + ", Control_Z =" + str(Control_Z) + " WHERE id=" + str(id)
+    dac_code.db_sql_write(sqlstring)
+
+    #callingfunction = "global/locations_updated"
+    #paypacket: str = "{ 'updatetask':'locations_updated'}"
+    #com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
+    return get_gridlocations("")
+
+
+        #get_location_Store_Zone_Layout(4)

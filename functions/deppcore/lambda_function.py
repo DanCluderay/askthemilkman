@@ -297,6 +297,23 @@ def on_function_call(event):
     #
     elif function_name=="get_gridlocations":
         return pos_core.get_gridlocations(function_params)
+
+    elif function_name=="add_node_to_loc_grid":
+        return pos_core.add_node_to_loc_grid(function_params)
+    #
+    elif function_name=="edit_node_to_loc_grid":
+        return pos_core.edit_node_to_loc_grid(function_params)
+    elif function_name=="get_location_types":
+        return pos_core.get_location_types()
+    elif function_name=="get_location_Store_Zone_Layout":
+        return pos_core.get_location_Store_Zone_Layout(function_params)
+
+    elif function_name=="add_store_layout_row":
+        return pos_core.add_store_layout_row()
+    elif function_name=="edit__store_layout_row":
+        return pos_core.edit__store_layout_row(function_params)
+
+
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 
