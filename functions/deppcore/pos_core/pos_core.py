@@ -4,6 +4,7 @@ import json
 import random
 import shopify
 import requests
+import uuid
 
 keyp:str ="461824c0a06d4be0e94851deeabc3965"
 passp:str  ="9bb4f551ba4888c9199b7a9509f0e872"
@@ -91,15 +92,21 @@ def add_node_to_loc_grid(para):
     locname = str(ob['LocName'])
     loctype  = int(ob['LocType'])
     locparent = int(ob['LocParent'])
+    GU:str=uuid.uuid4()
 
-    sqlstring: str = "INSERT INTO fred.Location_Grid(LocName, LocParent, LocType) VALUES ('" + locname + "','" + str(locparent) + "','" + str(loctype) + "');"
+    sqlstring: str = "INSERT INTO fred.Location_Grid(LocName, LocParent, LocType, GUID) VALUES ('" + locname + "','" + str(locparent) + "','" + str(loctype) + "','" + str(GU) + "');"
     print(sqlstring)
     dac_code.db_sql_write(sqlstring)
 
     callingfunction = "global/locations_updated"
     paypacket: str = "{ 'updatetask':'locations_updated'}"
     com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
-    return get_gridlocations("")
+    return get_location_gridID_fromGUID(GU)
+
+def get_location_gridID_fromGUID(GU):
+    sqlcode = "SELECT Location_Grid.LocGridID  FROM fred.Location_Grid Location_Grid WHERE (Location_Grid.GUID = '" + str(GU) + "')"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
 
 def edit_node_to_loc_grid(para):
     locname: str = ""
@@ -132,6 +139,11 @@ def get_location_types():
 def get_location_Store_Zone_Layout(storeid):
 
     sqlcode = "SELECT storelayout.id, storelayout.BuildingID, storelayout.LocGrid_ID, storelayout.Control_Type, storelayout.Control_X, storelayout.Control_Y FROM fred.storelayout storelayout WHERE (storelayout.BuildingID = " + str(storeid) + ")"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def get_location_Store_Zone_Funiture():
+    sqlcode = "SELECT store_control_type.store_control_type_id, store_control_type.store_control_name, store_control_type.store_control_name_desc, store_control_type.store_control_subtype FROM fred.store_control_type store_control_type"
     result = dac_code.dbreadquery_sql(sqlcode)
     return result
 

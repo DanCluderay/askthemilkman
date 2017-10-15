@@ -312,8 +312,8 @@ def on_function_call(event):
         return pos_core.add_store_layout_row()
     elif function_name=="edit_store_layout_row":
         return pos_core.edit__store_layout_row(function_params)
-
-
+    elif function_name=="get_location_Store_Zone_Funiture":
+        return pos_core.get_location_Store_Zone_Funiture()
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 
