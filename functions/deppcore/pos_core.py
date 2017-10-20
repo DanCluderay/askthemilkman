@@ -124,6 +124,10 @@ def edit_node_to_loc_grid(para):
     loctype = int(ob['LocType'])
     locparent = int(ob['LocParent'])
 
+    FullName = str(ob['FullName'])
+    ShortName  = str(ob['ShortName'])
+    PickOrder = str(ob['PickOrder'])
+
     locid= int(ob['LocParent'])
 
     sqlstring: str = "UPDATE fred.Location_Grid SET LocName = '" + locname + "', LocParent = '" + str(locparent) + "' LocType = '" + str(loctype) + "' WHERE LocGridID=" + locid
