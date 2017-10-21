@@ -128,9 +128,9 @@ def edit_node_to_loc_grid(para):
     ShortName  = str(ob['ShortName'])
     PickOrder = str(ob['PickOrder'])
 
-    locid= int(ob['LocParent'])
+    locid= int(ob['LocGridID'])
 
-    sqlstring: str = "UPDATE fred.Location_Grid SET LocName = '" + locname + "', LocParent = '" + str(locparent) + "' LocType = '" + str(loctype) + "' WHERE LocGridID=" + locid
+    sqlstring: str = "UPDATE fred.Location_Grid SET LocName = '" + str(locname) + "', LocParent = '" + str(locparent) + "', LocType = '" + str(loctype) + "' WHERE LocGridID=" + str(locid)
     print(sqlstring)
     dac_code.db_sql_write(sqlstring)
 
