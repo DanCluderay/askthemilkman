@@ -89,12 +89,16 @@ def add_node_to_loc_grid(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
     print(str(ob))
+    FullName = str(ob['FullName'])
+    ShortName  = str(ob['ShortName'])
+    PickOrder = str(ob['PickOrder'])
+
     locname = str(ob['LocName'])
     loctype  = int(ob['LocType'])
     locparent = int(ob['LocParent'])
     GU:str=uuid.uuid4()
 
-    sqlstring: str = "INSERT INTO fred.Location_Grid(LocName, LocParent, LocType, GUID) VALUES ('" + locname + "','" + str(locparent) + "','" + str(loctype) + "','" + str(GU) + "');"
+    sqlstring: str = "INSERT INTO fred.Location_Grid(LocName, LocParent, LocType, GUID, FullName, ShortName, PickOrder) VALUES ('" + locname + "','" + str(locparent) + "','" + str(loctype) + "','" + str(GU) + "','" + str(FullName) + "','" + str(ShortName) + "','" + str(PickOrder) + "');"
     print(sqlstring)
     dac_code.db_sql_write(sqlstring)
 
@@ -118,9 +122,13 @@ def edit_node_to_loc_grid(para):
     print(str(ob))
     locname = str(ob['LocName'])
     loctype = int(ob['LocType'])
-    locparent = int(ob['LocGridID'])
+    locparent = int(ob['LocParent'])
 
-    locid= int(ob['LocParent'])
+    FullName = str(ob['FullName'])
+    ShortName  = str(ob['ShortName'])
+    PickOrder = str(ob['PickOrder'])
+
+    locid= int(ob['LocGridID'])
 
     sqlstring: str = "UPDATE fred.Location_Grid SET LocName = '" + str(locname) + "', LocParent = '" + str(locparent) + "', LocType = '" + str(loctype) + "' WHERE LocGridID=" + str(locid)
     print(sqlstring)
@@ -138,7 +146,7 @@ def get_location_types():
 
 def get_location_Store_Zone_Layout(storeid):
 
-    sqlcode = "SELECT storelayout.id, storelayout.BuildingID, storelayout.LocGrid_ID, storelayout.Control_Type, storelayout.Control_X, storelayout.Control_Y FROM fred.storelayout storelayout WHERE (storelayout.BuildingID = " + str(storeid) + ")"
+    sqlcode = "SELECT storelayout.id, storelayout.BuildingID, storelayout.LocGrid_ID, storelayout.Control_Type, storelayout.Control_X, storelayout.Control_Y,Control_Size FROM fred.storelayout storelayout WHERE (storelayout.BuildingID = " + str(storeid) + ")"
     result = dac_code.dbreadquery_sql(sqlcode)
     return result
 
@@ -154,6 +162,7 @@ def add_store_layout_row(para):
     Control_Y:int=0
     Control_X: int = 0
     Control_Z: int = 0
+    Control_Size:int=0
 
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
@@ -164,8 +173,9 @@ def add_store_layout_row(para):
     Control_X = int(ob['Control_X'])
     Control_Y = int(ob['Control_Y'])
     Control_Z = int(ob['Control_Z'])
+    Control_Size = int(ob['Control_Size'])
 
-    sqlstring: str = "INSERT INTO fred.storelayout(BuildingID, LocGrid_ID, Control_Type, Control_Y, Control_X, Control_Z) VALUES (" + str(BuildingID) + "," + str(LocGrid_ID) + "," + str(Control_Type) + "," + str(Control_Y) + "," + str(Control_X) + "," + str(Control_Z) + ");"
+    sqlstring: str = "INSERT INTO fred.storelayout(BuildingID, LocGrid_ID, Control_Type, Control_Y, Control_X, Control_Z, Control_Size) VALUES (" + str(BuildingID) + "," + str(LocGrid_ID) + "," + str(Control_Type) + "," + str(Control_Y) + "," + str(Control_X) + "," + str(Control_Z) + "," + str(Control_Size) + ");"
     print(sqlstring)
     dac_code.db_sql_write(sqlstring)
 
@@ -193,10 +203,10 @@ def edit__store_layout_row(para):
     Control_X = int(ob['Control_X'])
     Control_Y = int(ob['Control_Y'])
     Control_Z = int(ob['Control_Z'])
-
+    Control_Size = int(ob['Control_Size'])
     id = int(ob['id'])
 
-    sqlstring: str = "UPDATE fred.storelayout SET BuildingID =" + str(BuildingID) + ", LocGrid_ID =" + str(LocGrid_ID) + ", Control_Type =" + str(Control_Type) + ", Control_Y =" + str(Control_Y) + ", Control_X =" + str(Control_X) + ", Control_Z =" + str(Control_Z) + " WHERE id=" + str(id)
+    sqlstring: str = "UPDATE fred.storelayout SET BuildingID =" + str(BuildingID) + ", LocGrid_ID =" + str(LocGrid_ID) + ", Control_Type =" + str(Control_Type) + ", Control_Y =" + str(Control_Y) + ", Control_X =" + str(Control_X) + ", Control_Z =" + str(Control_Z) + ", Control_Size="  + str(Control_Size) + " WHERE id=" + str(id)
     print("Updating Store layout " + sqlstring)
 
     dac_code.db_sql_write(sqlstring)
@@ -206,5 +216,49 @@ def edit__store_layout_row(para):
     #com_msg.make_mqtt_call(topic=str(callingfunction), payload=paypacket)
     return get_location_Store_Zone_Layout(LocGrid_ID)
 
+def get_product_use_cases():
+    sqlcode = "SELECT Product_Use_Case.id, Product_Use_Case.Statement, Product_Use_Case.ParentID,Product_Use_Case.TAG FROM fred.Product_Use_Case Product_Use_Case"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
 
-        #get_location_Store_Zone_Layout(4)
+def add_product_use_cases(para):
+
+    Statement: str = 0
+    ParentID: int = 0
+    TAG:str=""
+
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    print(str(ob))
+
+    Statement = str(ob['Statement'])
+    ParentID = int(ob['ParentID'])
+    TAG = str(ob['TAG'])
+
+    sqlstring: str = "INSERT INTO fred.Product_Use_Case(Statement, ParentID, TAG) VALUES ('" + str(Statement) + "'," + str(ParentID) + ",'" + str(TAG) + "');"
+    print("Updating Store layout " + sqlstring)
+
+    dac_code.db_sql_write(sqlstring)
+
+def edit_product_use_cases(para):
+
+    id: int = 0
+    Statement: str = 0
+    ParentID: int = 0
+    TAG:str=""
+
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    print(str(ob))
+
+    id = int(ob['id'])
+    Statement = str(ob['Statement'])
+    ParentID = int(ob['ParentID'])
+    TAG = str(ob['TAG'])
+
+    id = int(ob['id'])
+
+    sqlstring: str = "UPDATE fred.Product_Use_Case SET Statement = '" + Statement + "', ParentID = " + str(ParentID) + ", TAG = '" + TAG + "' WHERE id=" + str(id)
+    print("Updating Store layout " + sqlstring)
+
+    dac_code.db_sql_write(sqlstring)

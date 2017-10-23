@@ -314,6 +314,16 @@ def on_function_call(event):
         return pos_core.edit__store_layout_row(function_params)
     elif function_name=="get_location_Store_Zone_Funiture":
         return pos_core.get_location_Store_Zone_Funiture()
+
+    elif function_name=="get_product_use_cases":
+        return pos_core.get_product_use_cases()
+    elif function_name=="add_product_use_cases":
+        return pos_core.add_product_use_cases(function_params)
+    elif function_name=="edit_product_use_cases":
+        return pos_core.edit_product_use_cases(function_params)
+
+
+
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 
