@@ -49,7 +49,7 @@ def update_store_location(para):
     pass
 
 def get_productview_by_ProductID(productid):
-    sqlstring="SELECT Product_Varient_Location_Stock_qty.*, ProductTypes.ProductTypesautoid, ProductVarient.pv_Name, stores.store_name FROM ((fred.ProductVarient ProductVarient INNER JOIN fred.Product_Varient_Location_Stock_qty Product_Varient_Location_Stock_qty ON (ProductVarient.pv_autoID = Product_Varient_Location_Stock_qty.Varient_Instance_ID)) INNER JOIN fred.ProductTypes ProductTypes ON (ProductTypes.ProductTypesautoid = ProductVarient.product_type_id)) INNER JOIN fred.stores stores ON (stores.store_autoid = Product_Varient_Location_Stock_qty.Varient_Location_ID) WHERE (ProductTypes.ProductTypesautoid = " + productid  + ")"
+    sqlstring="SELECT Product_Instance.pv_autoID, Product_Instance.productID, Product_Instance.pv_Name FROM fred.Product_Instance Product_Instance INNER JOIN fred.Products Products ON (Product_Instance.productID = Products.ProductID) WHERE (Products.ProductID = " + str(productid) + ")"
 
     result = dac_code.dbreadquery_sql(sqlstring)
 
