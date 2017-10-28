@@ -10,12 +10,31 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
-def get_brand_products(para):
+def get_brand_products_by_id(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
     BrandID: str = str(ob['BrandID'])
     sqlcode = "SELECT Brand_Products.BrandProductID, Brand_Products.Brand, Brand_Products.ProductName FROM fred.Brand_Products Brand_Products WHERE (Brand_Products.Brand = " + BrandID + ")"
     result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def add_new_brand_product(para):
+
+    #pull out the parameters
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    Brand:str = str(ob['Brand'])
+    ProductName: str = str(ob['ProductName'])
+    GUID: str = uuid.uuid4()
+
+    # Insert the new row
+    sqlstring: str = "INSERT INTO fred.Brand_Products(Brand, ProductName, GUID) VALUES ('" + str(Brand) + "','" + str(ProductName) + "','" + str(GUID) + "');"
+    dac_code.db_sql_write(sqlstring)
+
+    #return the new primary key
+    sqlcode = "SELECT Brand_Products.BrandProductID FROM fred.Brand_Products Brand_Products WHERE (Brand_Products.GUID = '" + str(GUID) + "')"
+    result = dac_code.dbreadquery_sql(sqlcode)
+
     return result
 
 def get_all_product_sizes():
@@ -79,6 +98,8 @@ def get_all_brands():
     result = dac_code.dbreadquery_sql(sqlcode)
     return result
 
+
+
 def add_new_brand(para):
 
     #pull out the parameters
@@ -93,7 +114,7 @@ def add_new_brand(para):
     dac_code.db_sql_write(sqlstring)
 
     #return the new primary key
-    sqlcode = "SELECT Brands.BrandId FROM fred.Brands Brands WHERE (Brands.GUID = '" + str(GUID) + "')"
+    sqlcode = "SELECT Brands.BrandID FROM fred.Brands Brands WHERE (Brands.GUID = '" + str(GUID) + "')"
     result = dac_code.dbreadquery_sql(sqlcode)
 
     return result

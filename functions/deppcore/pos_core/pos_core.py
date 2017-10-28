@@ -11,7 +11,7 @@ passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
 
-def get_brand_products(para):
+def get_brand_products_by_id(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
     BrandID: str = str(ob['BrandID'])
@@ -94,7 +94,7 @@ def add_new_brand(para):
     dac_code.db_sql_write(sqlstring)
 
     #return the new primary key
-    sqlcode = "SELECT Brands.BrandId FROM fred.Brands Brands WHERE (Brands.GUID = '" + str(GUID) + "')"
+    sqlcode = "SELECT Brands.BrandID FROM fred.Brands Brands WHERE (Brands.GUID = '" + str(GUID) + "')"
     result = dac_code.dbreadquery_sql(sqlcode)
 
     return result

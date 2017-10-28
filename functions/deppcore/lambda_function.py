@@ -331,8 +331,8 @@ def on_function_call(event):
 
     elif function_name == "get_all_product_sizes":
         return pos_core.get_all_product_sizes()
-    elif function_name == "get_brand_products":
-        return pos_core.get_brand_products(function_params)
+    elif function_name == "get_brand_products_by_id":
+        return pos_core.get_brand_products_by_id(function_params)
 
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
