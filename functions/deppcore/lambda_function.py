@@ -322,8 +322,15 @@ def on_function_call(event):
     elif function_name=="edit_product_use_cases":
         return pos_core.edit_product_use_cases(function_params)
 
+    elif function_name == "get_all_brands":
+        return pos_core.get_all_brands()
+    elif function_name == "add_new_brand":
+        return pos_core.add_new_brand(function_params)
+    elif function_name == "update_brand":
+        return pos_core.update_brand(function_params)
 
-
+    elif function_name == "get_all_product_sizes":
+        return pos_core.get_all_product_sizes()
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 

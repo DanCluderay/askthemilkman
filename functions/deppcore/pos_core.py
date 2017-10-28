@@ -10,11 +10,124 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+def get_brand_products(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    BrandID: str = str(ob['BrandID'])
+    sqlcode = "SELECT Brand_Products.BrandProductID, Brand_Products.Brand, Brand_Products.ProductName FROM fred.Brand_Products Brand_Products WHERE (Brand_Products.Brand = " + BrandID + ")"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def get_all_product_sizes():
+    sqlcode = "SELECT Product_Size_Units.ID, Product_Size_Units.Unit, Product_Size_Units.`TheOrder`, Product_Size_Units.GroupType FROM fred.Product_Size_Units Product_Size_Units ORDER BY Product_Size_Units.GroupType ASC, Product_Size_Units.`TheOrder` ASC"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def add_new_product(para):
+
+    #pull out the parameters
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    ProductName:str = str(ob['ProductName'])
+    ProductType: str = str(ob['ProductType'])
+
+    BrandID: str = str(ob['BrandID'])
+    ProductShortDescription: str = str(ob['ProductShortDescription'])
+    ProductFullName: str = str(ob['ProductFullName'])
+    ProductRealWeight: str = str(ob['ProductRealWeight'])
+    ProductLongDescription: str = str(ob['ProductLongDescription'])
+    ProductVateCode: str = str(ob['ProductVateCode'])
+    ProductVolumetricWeight: str = str(ob['ProductVolumetricWeight'])
+    ProductRRP: str = str(ob['ProductRRP'])
+
+    IsCasePick: str = str(ob['IsCasePick'])
+    ProductLenght: str = str(ob['ProductLenght'])
+    ProductWidth: str = str(ob['ProductWidth'])
+    ProductHeight: str = str(ob['ProductHeight'])
+    ProductTotalVolume: str = str(ob['ProductTotalVolume'])
+    SizeID: str = str(ob['SizeID'])
+    PreFix: str = str(ob['PreFix'])
+    PostFix: str = str(ob['PostFix'])
+    BrandInName: str = str(ob['BrandInName'])
+    ISLocked: str = str(ob['ISLocked'])
+    IsLockedBy: str = str(ob['IsLockedBy'])
+
+
+    GUID: str = uuid.uuid4()
+
+    # Insert the new row
+    sqlstring: str = "INSERT INTO fred.Products(ProductName, ProductType, BrandID, ProductShortDescription, ProductFullName, ProductRealWeight, ProductLongDescription, ProductVateCode, ProductVolumetricWeight, ProductRRP, IsCasePick, ProductLenght, ProductWidth, ProductHeight, ProductTotalVolume, SizeID, PreFix, PostFix, BrandInName, ISLocked, IsLockedBy, GUID) VALUES ('" + str(ProductName) + "','" + str(ProductType) + "','" + str(BrandID) + "','" + str(ProductShortDescription) + "','" +  str(ProductFullName) + "','" +  str(ProductRealWeight) + "','" +  str(ProductLongDescription) + "','" +  str(ProductVateCode) + "','" +  str(ProductVolumetricWeight) + "','" + str(ProductRRP) + "','" + str(IsCasePick) + "','" + str(ProductLenght) + "','" + str(ProductWidth) + "','" + str(ProductHeight) + "','" + str(ProductTotalVolume) + "','" + str(SizeID) + "','" + str(PreFix) + "','" + str(PostFix) + "','" + str(BrandInName) + "','" + str(ISLocked) + "','" + str(IsLockedBy) + "','" + str(GUID) + ");"
+    dac_code.db_sql_write(sqlstring)
+
+    #return the new primary key
+    sqlcode = "SELECT Products.ProductID, Products.GUID  FROM fred.Products Products WHERE (Products.GUID = '" + str(GUID) + "')"
+    result = dac_code.dbreadquery_sql(sqlcode)
+
+    return result
+
+def get_product_from_id(para):
+    # pull out the parameters
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    ProductID: str = str(ob['ProductID'])
+    sqlcode = "SELECT Products.ProductID, Products.ProductName, Products.ProductType, Products.BrandID, Products.ProductShortDescription, Products.ProductFullName, Products.ProductRealWeight, Products.ProductLongDescription, Products.ProductVateCode, Products.ProductVolumetricWeight, Products.ProductRRP, Products.IsCasePick, Products.ProductLenght, Products.ProductWidth, Products.ProductHeight, Products.ProductTotalVolume, Products.SizeID, Products.PreFix, Products.PostFix, Products.BrandInName, Products.ISLocked, Products.IsLockedBy, Products.ProductImageURL, Products.GUID FROM fred.Products Products WHERE ProductID=" + ProductID
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def get_all_brands():
+    sqlcode = "SELECT Brands.BrandId, Brands.BrandName, Brands.BrandWeight, Brands.GUID FROM fred.Brands Brands ORDER BY Brands.SortOrder DESC, Brands.BrandName ASC"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+def add_new_brand(para):
+
+    #pull out the parameters
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    BrandName:str = str(ob['BrandName'])
+    BrandWeight: str = str(ob['BrandWeight'])
+    GUID: str = uuid.uuid4()
+
+    # Insert the new row
+    sqlstring: str = "INSERT INTO fred.Brands(BrandName, BrandWeight, GUID) VALUES ('" + str(BrandName) + "','" + str(BrandWeight) + "','" + str(GUID) + "');"
+    dac_code.db_sql_write(sqlstring)
+
+    #return the new primary key
+    sqlcode = "SELECT Brands.BrandId FROM fred.Brands Brands WHERE (Brands.GUID = '" + str(GUID) + "')"
+    result = dac_code.dbreadquery_sql(sqlcode)
+
+    return result
+
+def update_brand(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    print(str(ob))
+    BrandName:str = str(ob['BrandName'])
+    BrandWeight: str = str(ob['BrandWeight'])
+    BrandId: str = str(ob['BrandId'])
+
+    #update the database
+    sqlstring: str = "UPDATE fred.Brands SET BrandName ='" + str(BrandName) + "', BrandWeight ='" + str(BrandWeight) + "' WHERE Brands.BrandId=" + str(BrandId)
+    dac_code.db_sql_write(sqlstring)
+
+
+
+pass
+
+
+
+
+
+
+
+
+
 
 def get_all_store_locations():
     sqlcode = "SELECT stores.store_autoid, stores.store_name, stores.store_shortcode  FROM fred.stores stores"
     result = dac_code.dbreadquery_sql(sqlcode)
     return result
+
 
 
 def add_store_location(para):
