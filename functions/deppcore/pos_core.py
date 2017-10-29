@@ -10,6 +10,15 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+
+def get_brand_products_by_id(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    BrandID: str = str(ob['BrandProductID'])
+    sqlcode = "SELECT Product_Barcodes.ProductBarcodeID, Product_Barcodes.BrandProductID, Product_Barcodes.BarcodeType, Product_Barcodes.Barcode, Product_Barcodes.CaseQTY, Product_Barcodes.CreatedDateTime, Product_Barcodes.UpdatedDateTime, Product_Barcodes.IsDeleted FROM fred.Product_Barcodes Product_Barcodes WHERE (Product_Barcodes.BrandProductID = " + BrandProductID + "))"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
 def get_brand_products_by_id(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)

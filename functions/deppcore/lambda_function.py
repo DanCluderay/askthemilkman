@@ -308,6 +308,8 @@ def on_function_call(event):
     elif function_name=="get_location_Store_Zone_Layout":
         return pos_core.get_location_Store_Zone_Layout(function_params)
 
+
+    ############################## Store Layout ###################################
     elif function_name=="add_store_layout_row":
         return pos_core.add_store_layout_row(function_params)
     elif function_name=="edit_store_layout_row":
@@ -315,6 +317,7 @@ def on_function_call(event):
     elif function_name=="get_location_Store_Zone_Funiture":
         return pos_core.get_location_Store_Zone_Funiture()
 
+    ############################## Product Use Cases ###################################
     elif function_name=="get_product_use_cases":
         return pos_core.get_product_use_cases()
     elif function_name=="add_product_use_cases":
@@ -322,6 +325,7 @@ def on_function_call(event):
     elif function_name=="edit_product_use_cases":
         return pos_core.edit_product_use_cases(function_params)
 
+    ############################## Brands ###################################
     elif function_name == "get_all_brands":
         return pos_core.get_all_brands()
     elif function_name == "add_new_brand":
@@ -329,10 +333,15 @@ def on_function_call(event):
     elif function_name == "update_brand":
         return pos_core.update_brand(function_params)
 
+    ############################## Product Sizes ############################
     elif function_name == "get_all_product_sizes":
         return pos_core.get_all_product_sizes()
+
+    ############################## Brand_ Product ############################
     elif function_name == "get_brand_products_by_id":
         return pos_core.get_brand_products_by_id(function_params)
+    elif function_name == "add_new_brand_product":
+        return pos_core.add_new_brand_product(function_params)
 
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
