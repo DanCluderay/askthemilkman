@@ -343,6 +343,12 @@ def on_function_call(event):
     elif function_name == "add_new_brand_product":
         return pos_core.add_new_brand_product(function_params)
 
+    ############################## Product Barcode ############################
+    elif function_name == "get_product_barcode_by_brandproduct":
+        return pos_core.get_product_barcode_by_brandproduct(function_params)
+    #elif function_name == "add_new_brand_product":
+    #    return pos_core.add_new_brand_product(function_params)
+
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 
