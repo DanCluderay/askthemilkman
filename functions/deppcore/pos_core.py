@@ -10,13 +10,30 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+def generic_update_command(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    TableName: str = str(ob['TableName'])#THERE MUST BE A FEILD CALLED TableName
+    Pk: str = str(ob['Pk'])  # THERE MUST BE A FEILD CALLED Pk
+    UpDateWhere: str = str(ob['UpDateWhere'])  # THERE MUST BE A FEILD CALLED UpDateWhere
+    #loop the dict
+    start_str="UPDATE fred." + TableName + " SET "
+    param_str=""
+    end_str=" WHERE " + str(TableName) + "." + str(Pk) +" = " + str(UpDateWhere)
+    for k, v in ob.items():
+        print(k, v)
+        temp:str=""
+        if param_str=="":
+            temp = k + "='" + str(v) + "' "
+        else:
+            temp = "," + k + "='" + str(v) + "' "
+        param_str=param_str+temp
 
-class DatetimeEncoder(json.JSONEncoder):
-    def default(self, obj):
-        try:
-            return super(DatetimeEncoder, obj).default(obj)
-        except TypeError:
-            return str(obj)
+    fullstring=start_str + param_str + end_str
+    dac_code.db_sql_write(fullstring)
+
+    pass
+
 
 def get_product_barcode_by_brandproduct(para):
     quoteless = para.replace("\'", "\"")

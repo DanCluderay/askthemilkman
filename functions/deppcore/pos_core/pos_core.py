@@ -11,12 +11,7 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
-class DatetimeEncoder(json.JSONEncoder):
-    def default(self, obj):
-        try:
-            return super(DatetimeEncoder, obj).default(obj)
-        except TypeError:
-            return str(obj)
+
 
 def get_product_barcode_by_brandproduct(para):
     quoteless = para.replace("\'", "\"")
