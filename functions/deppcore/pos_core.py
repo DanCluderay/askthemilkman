@@ -11,6 +11,19 @@ passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
 
+
+def get_product_stock(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    Job: str = str(ob['job'])
+    result=""
+    if Job=="get_all":
+        sqlcode = "SELECT Products.ProductID, Products.ProductFullName, 0 as StockForSale,0 as StockSoldNotPicked, 0 as StockReserve FROM fred.Products Products"
+        result = dac_code.dbreadquery_sql(sqlcode)
+
+    return result
+
+
 def generic_insert_command(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
