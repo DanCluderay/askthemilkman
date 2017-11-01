@@ -11,6 +11,13 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+def get_product_from_product_id(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    productid: str = str(ob['productid'])
+    sqlcode:str="SELECT Products.ProductID, Products.ProductName, Products.ProductFullName, Products.BrandID, Products.BrandInName, Products.BrandProduct, Products.ProductShortDescription, Products.ProductLongDescription, Products.ProductRealWeight, Products.ProductVolumetricWeight, Products.ProductVateCode, Products.ProductItemRRP, Products.ProductItemLenght, Products.ProductItemWidth, Products.ProductItemHeight, Products.ProductTotalVolume, Products.SizeString, Products.SizeRelative, Products.SizeUnit, Products.PreFix, Products.PostFix, Products.ISLocked, Products.IsLockedBy, Products.GUID, Products.InnerPackQty, Products.IsCasePick FROM fred.Products Products WHERE (Products.ProductID =" + str(productid) +")"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
 
 def get_product_stock(para):
     quoteless = para.replace("\'", "\"")

@@ -352,6 +352,8 @@ def on_function_call(event):
     ############################## Product Dataset ############################
     elif function_name == "update_product_dataset":
         return pos_core.update_product_dataset(function_params)
+    elif function_name == "get_product_from_product_id":
+        return pos_core.get_product_from_product_id(function_params)
 
     ############################## Stock Control ############################
     elif function_name == "get_product_stock":
