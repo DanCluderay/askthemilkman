@@ -10,30 +10,74 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
-def generic_update_command(para):
+
+def generic_insert_command(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
     TableName: str = str(ob['TableName'])#THERE MUST BE A FEILD CALLED TableName
     Pk: str = str(ob['Pk'])  # THERE MUST BE A FEILD CALLED Pk
-    UpDateWhere: str = str(ob['UpDateWhere'])  # THERE MUST BE A FEILD CALLED UpDateWhere
     #loop the dict
-    start_str="UPDATE fred." + TableName + " SET "
-    param_str=""
-    end_str=" WHERE " + str(TableName) + "." + str(Pk) +" = " + str(UpDateWhere)
+    nameparams=""
+    valueparams=""
+
     for k, v in ob.items():
         print(k, v)
         temp:str=""
-        if param_str=="":
-            temp = k + "='" + str(v) + "' "
+        if k == "TableName" or k == "Pk" or k == "UpDateWhere":
+            print("found " + k)
         else:
-            temp = "," + k + "='" + str(v) + "' "
-        param_str=param_str+temp
+            if nameparams=="":
+                temp = k
+                tempv = "'" + v + "'"
+            else:
+                temp = " ," + k
+                tempv = " ,'" + v + "'"
+            nameparams = nameparams + temp
+            valueparams = valueparams + tempv
 
-    fullstring=start_str + param_str + end_str
-    dac_code.db_sql_write(fullstring)
+    fullstring="INSERT INTO fred." + TableName + " (" + nameparams + ") VALUES (" + valueparams + ")"
+    print(fullstring)
+    return dac_code.db_sql_write(fullstring)
 
-    pass
 
+def generic_update_command(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    TableName: str = str(ob['TableName'])  # THERE MUST BE A FEILD CALLED TableName
+    Pk: str = str(ob['Pk'])  # THERE MUST BE A FEILD CALLED Pk
+    UpDateWhere: str = str(ob['UpDateWhere'])  # THERE MUST BE A FEILD CALLED UpDateWhere
+    # loop the dict
+    start_str = "UPDATE fred." + TableName + " SET "
+    param_str = ""
+    end_str = " WHERE " + str(TableName) + "." + str(Pk) + " = " + str(UpDateWhere)
+    for k, v in ob.items():
+        print(k, v)
+        temp: str = ""
+        if k == "TableName" or k == "Pk" or k == "UpDateWhere":
+            print("found " + k)
+        else:
+            if param_str == "":
+                temp = k + "='" + str(v) + "' "
+            else:
+                temp = "," + k + "='" + str(v) + "' "
+            param_str = param_str + temp
+
+    fullstring = start_str + param_str + end_str
+    print(fullstring)
+    return dac_code.db_sql_write(fullstring)
+
+
+def update_product_dataset(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    ProductID: str = str(ob['ProductID'])  # Check if its an insert or update by looking at if there is a ProductID
+
+    if ProductID == "0":
+        print("Performing product insert ProductID = " + str(ProductID))
+        return generic_insert_command(para)
+    else:
+        print("Performing product Update ProductID = " + str(ProductID))
+        return generic_update_command(para)
 
 def get_product_barcode_by_brandproduct(para):
     quoteless = para.replace("\'", "\"")

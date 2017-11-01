@@ -349,6 +349,11 @@ def on_function_call(event):
     #elif function_name == "add_new_brand_product":
     #    return pos_core.add_new_brand_product(function_params)
 
+    ############################## Product Dataset ############################
+    elif function_name == "update_product_dataset":
+        return pos_core.update_product_dataset(function_params)
+
+
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 
