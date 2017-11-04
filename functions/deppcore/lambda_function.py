@@ -337,6 +337,12 @@ def on_function_call(event):
     elif function_name == "get_all_product_sizes":
         return pos_core.get_all_product_sizes()
 
+    ############################## Case Configeration ############################
+    elif function_name == "get_caseconfig":
+        return pos_core.get_caseconfig(function_params)
+    elif function_name == "update_case_config_dataset":
+        return pos_core.update_case_config_dataset(function_params)
+
     ############################## Brand_ Product ############################
     elif function_name == "get_brand_products_by_id":
         return pos_core.get_brand_products_by_id(function_params)
@@ -358,6 +364,11 @@ def on_function_call(event):
     ############################## Stock Control ############################
     elif function_name == "get_product_stock":
         return pos_core.get_product_stock(function_params)
+
+    ############################## Product_Instance ############################
+    elif function_name == "update_product_instance_dataset":
+        return pos_core.update_product_instance_dataset(function_params)
+
 
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)

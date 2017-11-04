@@ -10,6 +10,40 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+def update_product_instance_dataset(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    pv_autoID: str = str(ob['pv_autoID'])  # Check if its an insert or update by looking at if there is a ProductID
+
+    if pv_autoID == "0":
+        print("Performing case config insert pv_autoID = " + str(pv_autoID))
+        return generic_insert_command_with_GUID(para)
+    else:
+        print("Performing case config Update pv_autoID = " + str(pv_autoID))
+        return generic_update_command(para)
+
+
+def update_case_config_dataset(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    CaseConfigID: str = str(ob['CaseConfigID'])  # Check if its an insert or update by looking at if there is a ProductID
+
+    if CaseConfigID == "0":
+        print("Performing case config insert CaseConfigID = " + str(CaseConfigID))
+        return generic_insert_command_with_GUID(para)
+    else:
+        print("Performing case config Update CaseConfigID = " + str(CaseConfigID))
+        return generic_update_command(para)
+
+def get_caseconfig(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    productid: str = str(ob['productid'])
+    sqlcode:str="SELECT ProductCaseConfig.CaseConfigID, ProductCaseConfig.ProductID, ProductCaseConfig.CaseDescription, ProductCaseConfig.CaseQty, ProductCaseConfig.CaseBarcode, ProductCaseConfig.Deleted, ProductCaseConfig.GUID FROM fred.ProductCaseConfig ProductCaseConfig WHERE (ProductCaseConfig.Deleted = 0) AND ProductID="+ str(productid) + " ORDER BY ProductCaseConfig.CaseQty ASC"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
+
 def get_product_from_product_id(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
@@ -29,6 +63,37 @@ def get_product_stock(para):
 
     return result
 
+def generic_insert_command_with_GUID(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    TableName: str = str(ob['TableName'])#THERE MUST BE A FEILD CALLED TableName
+    Pk: str = str(ob['Pk'])  # THERE MUST BE A FEILD CALLED Pk
+    #loop the dict
+    nameparams=""
+    valueparams=""
+    GUID: str = str(uuid.uuid4())
+    for k, v in ob.items():
+        print(k, v)
+        temp:str=""
+        if k == "TableName" or k == "Pk" or k == "UpDateWhere":
+            print("found " + k)
+        else:
+            if nameparams=="":
+                temp = k
+                tempv = "'" + v + "'"
+            else:
+                temp = " ," + k
+                tempv = " ,'" + v + "'"
+            nameparams = nameparams + temp
+            valueparams = valueparams + tempv
+    nameparams = nameparams + " ,GUID"
+    valueparams = valueparams + " ,'" + GUID + "'"
+    fullstring="INSERT INTO fred." + TableName + " (" + nameparams + ") VALUES (" + valueparams + ")"
+    print(fullstring)
+    dac_code.db_sql_write(fullstring)
+    sqlcode = "SELECT " + TableName + "." + Pk + " FROM fred." + TableName + " " + TableName + " WHERE (" + TableName + ".GUID = '" + str(GUID) + "')"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
 
 def generic_insert_command(para):
     quoteless = para.replace("\'", "\"")
@@ -83,7 +148,12 @@ def generic_update_command(para):
 
     fullstring = start_str + param_str + end_str
     print(fullstring)
-    return dac_code.db_sql_write(fullstring)
+    res = dac_code.db_sql_write(fullstring)
+    if res == 1:
+        returnstring: dict = {'result': 1}
+    else:
+        returnstring: dict = {'result': 0}
+    return returnstring
 
 
 def update_product_dataset(para):
