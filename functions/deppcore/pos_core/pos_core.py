@@ -11,6 +11,35 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+
+def update_product_stock_varience_dataset(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    product_stock_VID: str = str(ob['product_stock_VID'])  # Check if its an insert or update by looking at if there is a ProductID
+
+    if product_stock_VID == "0":
+        print("Performing varient insert product_stock_VID = " + str(product_stock_VID))
+        return generic_insert_command_with_GUID(para)
+    else:
+        print("Performing varient Update product_varient_ID = " + str(product_stock_VID))
+        return generic_update_command(para)
+
+
+
+def update_product_varience_dataset(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    Product_VarientID: str = str(ob['Product_VarientID'])  # Check if its an insert or update by looking at if there is a ProductID
+
+    if Product_VarientID == "0":
+        print("Performing varient insert product_varient_ID = " + str(Product_VarientID))
+        return generic_insert_command_with_GUID(para)
+    else:
+        print("Performing varient Update product_varient_ID = " + str(Product_VarientID))
+        return generic_update_command(para)
+
+
+
 def update_product_instance_dataset(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)

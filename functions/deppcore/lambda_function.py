@@ -369,6 +369,13 @@ def on_function_call(event):
     elif function_name == "update_product_instance_dataset":
         return pos_core.update_product_instance_dataset(function_params)
 
+    ############################## Product_Varience ############################
+    elif function_name == "update_product_varience_dataset":
+        return pos_core.update_product_varience_dataset(function_params)
+
+    ############################## Product_Stock_Varience ############################
+    elif function_name == "update_product_stock_varience_dataset":
+        return pos_core.update_product_stock_varience_dataset(function_params)
 
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
