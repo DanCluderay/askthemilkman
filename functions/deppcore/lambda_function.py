@@ -294,13 +294,16 @@ def on_function_call(event):
 
     elif function_name=="get_productview_by_prodID":
         return pos_core.get_productview_by_ProductID(function_params)
-    #
+    ######################## Location Grid ##################################update_locationgrid_dataset
     elif function_name=="get_gridlocations":
         return pos_core.get_gridlocations(function_params)
 
+    elif function_name == "update_locationgrid_dataset":
+        return pos_core.update_locationgrid_dataset(function_params)
+
     elif function_name=="add_node_to_loc_grid":
         return pos_core.add_node_to_loc_grid(function_params)
-    #
+
     elif function_name=="edit_node_to_loc_grid":
         return pos_core.edit_node_to_loc_grid(function_params)
     elif function_name=="get_location_types":

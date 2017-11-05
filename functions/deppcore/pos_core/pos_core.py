@@ -11,6 +11,16 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+def update_locationgrid_dataset(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    LocGridID: str = str(ob['LocGridID'])  # Check if its an insert or update by looking at if there is a ProductID
+    if LocGridID == "0":
+        print("Performing location grid insert LocGridID = " + str(LocGridID))
+        return generic_insert_command_with_GUID(para)
+    else:
+        print("Performing location grid Update LocGridID = " + str(LocGridID))
+        return generic_update_command(para)
 
 def get_product_store_full_view(para):
     quoteless = para.replace("\'", "\"")
