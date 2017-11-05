@@ -11,6 +11,60 @@ passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
 
+def get_product_store_full_view(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    productid: str = str(ob['productid'])
+    sqlcode: str = "SELECT Product_Instance.productID, Product_Instance.Item_costprice, SUM(Product_Varient_Location_Stock_qty.Varient_QTY) as Varient_QTY, Location_Grid.StoreName FROM ((fred.Product_Varient Product_Varient INNER JOIN fred.Product_Varient_Location_Stock_qty Product_Varient_Location_Stock_qty ON (Product_Varient.Product_VarientID = Product_Varient_Location_Stock_qty.Product_Instance_ID)) INNER JOIN fred.Product_Instance Product_Instance ON (Product_Instance.pv_autoID = Product_Varient.ProductInstanceID)) INNER JOIN fred.Location_Grid Location_Grid ON (Location_Grid.LocGridID = Product_Varient_Location_Stock_qty.Varient_Location_ID) WHERE Product_Instance.productID = " + productid + " GROUP BY Location_Grid.StoreName"
+    print(sqlcode)
+    result = dac_code.dbreadquery_sql(sqlcode)
+    print(result)
+    return result
+
+def get_product_store_instance_view(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    ProductInstanceID: str = str(ob['ProductInstanceID'])
+    sqlcode: str = "SELECT Product_Instance.productID, Product_Instance.Item_costprice, SUM(Product_Varient_Location_Stock_qty.Varient_QTY) as Varient_QTY, Location_Grid.StoreName FROM ((fred.Product_Varient Product_Varient INNER JOIN fred.Product_Varient_Location_Stock_qty Product_Varient_Location_Stock_qty ON (Product_Varient.Product_VarientID = Product_Varient_Location_Stock_qty.Product_Instance_ID)) INNER JOIN fred.Product_Instance Product_Instance ON (Product_Instance.pv_autoID = Product_Varient.ProductInstanceID)) INNER JOIN fred.Location_Grid Location_Grid ON (Location_Grid.LocGridID = Product_Varient_Location_Stock_qty.Varient_Location_ID) WHERE Product_Varient.ProductInstanceID = " + ProductInstanceID + " GROUP BY Location_Grid.StoreName"
+    print(sqlcode)
+    result = dac_code.dbreadquery_sql(sqlcode)
+    print(result)
+    return result
+
+
+def get_product_store_varience_view(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    Product_VarientID: str = str(ob['Product_VarientID'])
+    sqlcode: str = "SELECT Product_Instance.productID, Product_Instance.Item_costprice, SUM(Product_Varient_Location_Stock_qty.Varient_QTY) as Varient_QTY, Location_Grid.StoreName, Product_Varient.Product_VarientID FROM ((fred.Product_Varient Product_Varient INNER JOIN fred.Product_Varient_Location_Stock_qty Product_Varient_Location_Stock_qty ON (Product_Varient.Product_VarientID = Product_Varient_Location_Stock_qty.Product_Instance_ID)) INNER JOIN fred.Product_Instance Product_Instance ON (Product_Instance.pv_autoID = Product_Varient.ProductInstanceID)) INNER JOIN fred.Location_Grid Location_Grid ON (Location_Grid.LocGridID = Product_Varient_Location_Stock_qty.Varient_Location_ID) WHERE Product_Varient.Product_VarientID = " + Product_VarientID + " GROUP BY Location_Grid.StoreName"
+    print(sqlcode)
+    result = dac_code.dbreadquery_sql(sqlcode)
+    print(result)
+    return result
+
+
+def get_product_instance_history(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    productid: str = str(ob['productid'])
+    sqlcode: str = "SELECT Product_Instance.productID, Product_Instance.Item_costprice, DATE_FORMAT(Product_Varient.ProductBBE, '%d-%m-%Y') as ProductBBE FROM fred.Product_Instance Product_Instance INNER JOIN fred.Product_Varient Product_Varient ON (Product_Instance.pv_autoID = Product_Varient.ProductInstanceID) WHERE Product_Instance.productID = " + productid
+    print(sqlcode)
+    result = dac_code.dbreadquery_sql(sqlcode)
+    print(result)
+    return result
+
+
+def get_product_location_qty(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    productid: str = str(ob['productid'])
+    sqlcode: str = "SELECT Product_Instance.productID, Product_Instance.Item_costprice, DATE_FORMAT(Product_Varient.ProductBBE, '%d-%m-%Y') as ProductBBE, Product_Varient_Location_Stock_qty.Varient_QTY, Location_Grid.FullName,Product_Varient.ProductInstanceID,Product_Varient.Product_VarientID FROM ((fred.Product_Varient Product_Varient INNER JOIN fred.Product_Varient_Location_Stock_qty Product_Varient_Location_Stock_qty ON (Product_Varient.Product_VarientID = Product_Varient_Location_Stock_qty.Product_Instance_ID)) INNER JOIN fred.Product_Instance Product_Instance ON (Product_Instance.pv_autoID = Product_Varient.ProductInstanceID)) INNER JOIN fred.Location_Grid Location_Grid ON (Location_Grid.LocGridID = Product_Varient_Location_Stock_qty.Varient_Location_ID) WHERE Product_Instance.productID =" + productid
+    print(sqlcode)
+    result = dac_code.dbreadquery_sql(sqlcode)
+    print(result)
+    return result
+
+
 def update_product_stock_varience_dataset(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)

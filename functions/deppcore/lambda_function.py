@@ -365,13 +365,26 @@ def on_function_call(event):
     elif function_name == "get_product_stock":
         return pos_core.get_product_stock(function_params)
 
+    elif function_name == "get_product_store_full_view":
+        return pos_core.get_product_store_full_view(function_params)
+    elif function_name == "get_product_store_instance_view":
+        return pos_core.get_product_store_instance_view(function_params)
+    elif function_name == "get_product_store_varience_view":
+        return pos_core.get_product_store_varience_view(function_params)
+
     ############################## Product_Instance ############################
     elif function_name == "update_product_instance_dataset":
         return pos_core.update_product_instance_dataset(function_params)
+    elif function_name == "get_product_instance_history":
+        return pos_core.get_product_instance_history(function_params)
 
     ############################## Product_Varience ############################
     elif function_name == "update_product_varience_dataset":
         return pos_core.update_product_varience_dataset(function_params)
+
+    ############################## Product_Stock_Locations ############################
+    elif function_name == "get_product_location_qty":
+        return pos_core.get_product_location_qty(function_params)
 
     ############################## Product_Stock_Varience ############################
     elif function_name == "update_product_stock_varience_dataset":
