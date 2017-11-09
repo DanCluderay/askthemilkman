@@ -12,6 +12,14 @@ passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
 
+def get_store_locations_of_bis(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    bisid: str = str(ob['bisid'])
+    sqlcode: str = "SELECT Location_Grid.LocGridID, Location_Grid.LocName FROM fred.Location_Grid Location_Grid WHERE Location_Grid.LocParent = " + bisid
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
+
 def get_product_expiry_date_types(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
