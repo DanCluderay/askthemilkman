@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="962026f5-0681-4152-afeb-d105be148941" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions/deppcore/lambda_function.py" afterPath="$PROJECT_DIR$/functions/deppcore/lambda_function.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions/deppcore/pos_core.py" afterPath="$PROJECT_DIR$/functions/deppcore/pos_core.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py" afterPath="$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,8 +20,8 @@
       <file leaf-file-name="pos_core.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="159" column="668" lean-forward="false" selection-start-line="159" selection-start-column="668" selection-end-line="159" selection-end-column="668" />
+            <state relative-caret-position="180">
+              <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="30" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -29,8 +32,8 @@
       <file leaf-file-name="lambda_function.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions/deppcore/lambda_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="395" column="48" lean-forward="false" selection-start-line="395" selection-start-column="24" selection-end-line="395" selection-end-column="48" />
+            <state relative-caret-position="156">
+              <caret line="299" column="51" lean-forward="false" selection-start-line="299" selection-start-column="25" selection-end-line="299" selection-end-column="51" />
               <folding>
                 <element signature="e#42#79#0" expanded="true" />
               </folding>
@@ -41,8 +44,8 @@
       <file leaf-file-name="pos_core.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="17" column="30" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="30" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -153,9 +156,9 @@
         <option value="$PROJECT_DIR$/functions/deppcore/com_msg.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/local_shopify_code.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/dac/dac_code.py" />
-        <option value="$PROJECT_DIR$/functions/deppcore/lambda_function.py" />
-        <option value="$PROJECT_DIR$/functions/deppcore/pos_core.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/pos_core.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/lambda_function.py" />
       </list>
     </option>
   </component>
@@ -863,7 +866,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510127875699</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views">
+      <created>1510127884678</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1510127884678</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1267,8 +1277,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="159" column="668" lean-forward="false" selection-start-line="159" selection-start-column="668" selection-end-line="159" selection-end-column="668" />
+        <state relative-caret-position="180">
+          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="30" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -1277,8 +1287,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/lambda_function.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="395" column="48" lean-forward="false" selection-start-line="395" selection-start-column="24" selection-end-line="395" selection-end-column="48" />
+        <state relative-caret-position="156">
+          <caret line="299" column="51" lean-forward="false" selection-start-line="299" selection-start-column="25" selection-end-line="299" selection-end-column="51" />
           <folding>
             <element signature="e#42#79#0" expanded="true" />
           </folding>
@@ -1287,8 +1297,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+        <state relative-caret-position="255">
+          <caret line="17" column="30" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="30" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

@@ -297,7 +297,8 @@ def on_function_call(event):
     ######################## Location Grid ##################################update_locationgrid_dataset
     elif function_name=="get_gridlocations":
         return pos_core.get_gridlocations(function_params)
-
+    elif function_name=="get_store_locations_of_bis":
+        return pos_core.get_store_locations_of_bis(function_params)
     elif function_name == "update_locationgrid_dataset":
         return pos_core.update_locationgrid_dataset(function_params)
 
