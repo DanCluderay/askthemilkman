@@ -16,6 +16,8 @@
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/com_msg" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/class_obj" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/pos_core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/bill_core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/functions/deppcore/bill_dac" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

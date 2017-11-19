@@ -12,6 +12,7 @@ import local_shopify_code as l_shopify
 import customer_functions as cust
 import order_code
 import pos_core
+import bill_core
 
 def on_intent(intent_request, session, context):
     """ Called when the user specifies an intent for this skill """
@@ -396,16 +397,24 @@ def on_function_call(event):
         return pos_core.get_product_location_qty(function_params)
 
     ############################## Product_Stock_Varience ############################
-    elif function_name == "bill_update_brands":
-        return pos_core.bill_update_brands(function_params)
+    elif function_name == "update_product_stock_varience_dataset":
+        return pos_core.update_product_stock_varience_dataset(function_params)
+
     ###################################################################
     ###################################################################
     #############################   BILL   ############################
     ###################################################################
     ###################################################################
 
+    ############################## Brands ############################
 
 
+    ############################## brand_products #####################
+
+
+    ############################ generic update #####################
+    elif function_name == "generic_update":
+        return bill_core.bill_generic_update_check(function_params)
 
     ###################################################################
     ###################################################################
