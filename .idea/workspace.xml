@@ -30,8 +30,8 @@
       <file leaf-file-name="lambda_function.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/functions/deppcore/lambda_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="407" column="0" lean-forward="true" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="413" column="6" lean-forward="false" selection-start-line="413" selection-start-column="6" selection-end-line="413" selection-end-column="6" />
               <folding>
                 <element signature="e#42#79#0" expanded="true" />
               </folding>
@@ -907,7 +907,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511109941191</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;Signed-off-by: Dan Cluderay &lt;cluderayd@gmail.com&gt;&#10;&#10;##################### Connecting to Bill #############">
+      <created>1511110003227</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1511110003227</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TodoView">
@@ -981,7 +988,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="creating payment collections" />
     <MESSAGE value="Split the code into multipule files" />
     <MESSAGE value="Split the code into multipule files #2" />
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages" />
@@ -1006,7 +1012,8 @@
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved" />
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views" />
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;&#10;##################### Connecting to Bill #############" />
-    <option name="LAST_COMMIT_MESSAGE" value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;&#10;##################### Connecting to Bill #############" />
+    <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;Signed-off-by: Dan Cluderay &lt;cluderayd@gmail.com&gt;&#10;&#10;##################### Connecting to Bill #############" />
+    <option name="LAST_COMMIT_MESSAGE" value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;Signed-off-by: Dan Cluderay &lt;cluderayd@gmail.com&gt;&#10;&#10;##################### Connecting to Bill #############" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1403,8 +1410,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/lambda_function.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="407" column="0" lean-forward="true" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
+        <state relative-caret-position="324">
+          <caret line="413" column="6" lean-forward="false" selection-start-line="413" selection-start-column="6" selection-end-line="413" selection-end-column="6" />
           <folding>
             <element signature="e#42#79#0" expanded="true" />
           </folding>
