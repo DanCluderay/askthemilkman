@@ -1,4 +1,4 @@
-import dac_code
+import bill_dac
 import com_msg
 import json
 import random
@@ -6,16 +6,15 @@ import shopify
 import requests
 import uuid
 
-
-def bill_update_brands(para):
+def bill_generic_update_check(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
-    brands_ID: str = str(ob['brands_ID'])  # Check if its an insert or update by looking at if there is a ProductID
-    if brands_ID == "0":
-        print("Performing brands insert = " + str(brands_ID))
+    UpDateWhere: str = str(ob['UpDateWhere'])  # Check if its an insert or update by looking at if there is a ProductID
+    if UpDateWhere == "0":
+        print("Performing generic insert = " + str(UpDateWhere))
         return generic_insert_command_with_GUID(para)
     else:
-        print("Performing brands update = " + str(brands_ID))
+        print("Performing generic update = " + str(UpDateWhere))
         return generic_update_command(para)
 
 def generic_insert_command_with_GUID(para):
@@ -49,12 +48,25 @@ def generic_insert_command_with_GUID(para):
 
     nameparams = nameparams + " ,UpdatedDateTime"
     valueparams = valueparams + " , Now()"
-    fullstring="INSERT INTO fred." + TableName + " (" + nameparams + ") VALUES (" + valueparams + ")"
+    fullstring="INSERT INTO bill." + TableName + " (" + nameparams + ") VALUES (" + valueparams + ")"
     print(fullstring)
-    dac_code.db_sql_write(fullstring)
-    sqlcode = "SELECT " + TableName + "." + Pk + " FROM fred." + TableName + " " + TableName + " WHERE (" + TableName + ".GUID = '" + str(GUID) + "')"
-    result = dac_code.dbreadquery_sql(sqlcode)
-    return result
+    bill_dac.db_sql_write(fullstring)
+    sqlcode = "SELECT " + TableName + "." + Pk + " FROM bill." + TableName + " " + TableName + " WHERE (" + TableName + ".GUID = '" + str(GUID) + "')"
+    result = bill_dac.dbreadquery_sql(sqlcode)
+    returnid:int=0
+
+    #convert from json to dict
+    quoteless = str(result).replace("\'", "\"")
+    #quoteless = str(result).replace("[", "")
+    #quoteless = str(result).replace("]", "")
+    ob: dict = json.loads(quoteless)
+    print("results 2 " + str(ob))
+    for key, value in ob[0].items():
+        print("dict loop k=" + str(key) + " v=" + str(value))
+        returnid=value
+
+    return returnid
+
 
 def generic_update_command(para):
     quoteless = para.replace("\'", "\"")
@@ -63,7 +75,7 @@ def generic_update_command(para):
     Pk: str = str(ob['Pk'])  # THERE MUST BE A FEILD CALLED Pk
     UpDateWhere: str = str(ob['UpDateWhere'])  # THERE MUST BE A FEILD CALLED UpDateWhere
     # loop the dict
-    start_str = "UPDATE fred." + TableName + " SET "
+    start_str = "UPDATE bill." + TableName + " SET "
     param_str = ""
     end_str = " WHERE " + str(TableName) + "." + str(Pk) + " = " + str(UpDateWhere)
     for k, v in ob.items():
@@ -82,9 +94,11 @@ def generic_update_command(para):
     param_str = param_str + ", UpdatedDateTime= Now()"
     fullstring = start_str + param_str + end_str
     print(fullstring)
-    res = dac_code.db_sql_write(fullstring)
+    res = bill_dac.db_sql_write(fullstring)
     if res == 1:
-        returnstring: dict = {'result': 1}
+        print(UpDateWhere)
+        print(str(UpDateWhere).replace("'",""))
+        returnstring=int(UpDateWhere)
     else:
-        returnstring: dict = {'result': 0}
+        returnstring=0
     return returnstring
