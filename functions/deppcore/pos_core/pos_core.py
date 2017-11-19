@@ -11,6 +11,13 @@ keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 
+def get_store_locations_of_store(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    storename: str = str(ob['storename'])
+    sqlcode: str = "SELECT Location_Grid.LocGridID, Location_Grid.LocName, Location_Grid.LocType, Location_Grid.LocParent, Location_Grid.PickOrder, Location_Grid.FullName, Location_Grid.ShortName, Location_Grid.StoreName, Location_Grid.LocationUse, Location_Grid.EnviromentID FROM fred.Location_Grid Location_Grid WHERE (Location_Grid.StoreName = '" + storename + "')"
+    result = dac_code.dbreadquery_sql(sqlcode)
+    return result
 
 def get_store_locations_of_bis(para):
     quoteless = para.replace("\'", "\"")
@@ -500,6 +507,7 @@ def get_all_products():
                       auth=(keyp, passp))  # id,
 
     print(pd)
+    return pd
 
 
 def add_node_to_loc_grid(para):

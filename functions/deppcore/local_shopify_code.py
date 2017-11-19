@@ -6,18 +6,101 @@ import dac_code
 import customer_functions
 import hashlib
 import ast
-from class_obj import AnOrder,CustomerDetails, CustomerAddress
+from class_obj import AnOrder, CustomerDetails, CustomerAddress
+import shopify
+from shopify import Product
+
+keyp: str = "461824c0a06d4be0e94851deeabc3965"
+passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
+urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
+urldom:str="@dans-daily-deals.myshopify.com/admin"
+
+def shopify_create_new_product(para):
+
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    print(str(ob))
+    vendor = str(ob['vendor'])
+    title = str(ob['title'])
+    product_type = str(ob['product_type'])
+    body_html = str(ob['body_html'])
+
+    barcode = str(ob['barcode'])
+    compare_at_price = str(ob['compare_at_price'])
+    grams = str(ob['grams'])
+    inventory_quantity = str(ob['inventory_quantity'])
+    price = str(ob['price'])
+    sku = str(ob['sku'])
+    taxable = str(ob['taxable'])
+    weight = float(ob['weight'])
+    weight_unit = str(ob['weight_unit'])
+    inventory_management = str(ob['inventory_management'])
+    tags = str(ob['tags'])
+
+    shop_url = "https://%s:%s@dans-daily-deals.myshopify.com/admin" % (keyp, passp)
+    shopify.ShopifyResource.set_site(shop_url)
+    new_product = Product()
+    pid = 0
+    new_product.vendor = vendor
+    new_product.title = title
+    new_product.product_type = product_type
+    new_product.body_html = body_html
+
+    image_filename = "http://fthumb.approvedfood.co.uk/thumbs/75/1000/296/1/src_images/hersheys_creamy_milk_chocolate_with_almonds_43g.jpg"
+    image1 = shopify.Image()
+    image1.src = image_filename
+    print(image1.src)
+    new_product.images = [image1]
+
+    success = new_product.save()  # returns false if the record is invalid
+    new_product.attributes['tags'] = tags
+    new_product.attributes['variants'][0].attributes['tags'] = tags
+    new_product.attributes['variants'][0].attributes['barcode'] = barcode
+    new_product.attributes['variants'][0].attributes['compare_at_price'] = compare_at_price
+    new_product.attributes['variants'][0].attributes['grams'] = grams
+    new_product.attributes['variants'][0].attributes['inventory_quantity'] = inventory_quantity
+    new_product.attributes['variants'][0].attributes['price'] = price
+    new_product.attributes['variants'][0].attributes['sku'] = sku
+    new_product.attributes['variants'][0].attributes['taxable'] = taxable
+    new_product.attributes['variants'][0].attributes['title'] = title
+    new_product.attributes['variants'][0].attributes['weight'] = weight
+    new_product.attributes['variants'][0].attributes['weight_unit'] = weight_unit
+    new_product.attributes['variants'][0].attributes['inventory_management'] = inventory_management
+
+    # inventory-management>shopify
+
+    success = new_product.save()
+    print(success)
+    return new_product.attributes['variants'][0].id
+
+'''
+This function is called with a stock level varient ID
+'''
+
+
+def shopify_update_product(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    product_stock_VID: str = str(
+        ob['product_stock_VID'])  # Check if its an insert or update by looking at if there is a ProductID
+    # check if shopify is aware of this sku
+    # get the product details from the database required to create / update shopify
+    #
+    # if its not in the system create it
+
+
+    # if it IS in the system then update
 
 
 def Create_Order():
     print("order creating")
-    
-    #things we need to create an order
-    #+ get all the items in the list
-    #++ Product varient and qty
+
+    # things we need to create an order
+    # + get all the items in the list
+    # ++ Product varient and qty
 
     '''
-    
+
     orderjson = { 'order': { 'email': 'cluderayd@gmail.com', 'fulfillment_status': 'fulfilled', 'line_items': [ { 'variant_id': 49135009492, 'quantity': 1 } ] } } fullstring=gv. urlstart + "/orders.json"
 
     l = requests.post(url=fullstring,json =orderjson,
@@ -33,69 +116,103 @@ def Create_Order():
     should_end_session = False
     return responce_code.build_response(session_attributes, responce_code.build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
-    
+
     '''
+
+
 '''Updates the customer address table'''
-def update_customer_address_via_obj(ad:CustomerAddress):
-    sqlcode:str="UPDATE fred.Customer_Addresses SET BillingType = '0', CustomerID = " + str(ad.customer_id) + ", first_name = '" + str(ad.first_name) + "', last_name = '" + str(ad.last_name) + "', AddressLine1 = '" + str(ad.address1) + "', AddressLine2 = '" + str(ad.address2) + "', AddressLine3 = '', AddressCity = '" + str(ad.city) + "', AddressProvince = '" + str(ad.province) + "', AddressPostcode = '" + str(ad.zip) + "', contact_phone = '" + str(ad.phone) + "', AddressCountry = '" + str(ad.country) + "', Contact_name = '" + str(ad.name) + "', Company_name = '" + str(ad.company) + "', `Default_address` = '" + str(ad.default) + "', shopify_address_id = '" + str(ad.id) + "', AddressHash = '' WHERE shopify_address_id = '" + str(ad.id)  + "'"
+
+
+def update_customer_address_via_obj(ad: CustomerAddress):
+    sqlcode: str = "UPDATE fred.Customer_Addresses SET BillingType = '0', CustomerID = " + str(
+        ad.customer_id) + ", first_name = '" + str(ad.first_name) + "', last_name = '" + str(
+        ad.last_name) + "', AddressLine1 = '" + str(ad.address1) + "', AddressLine2 = '" + str(
+        ad.address2) + "', AddressLine3 = '', AddressCity = '" + str(ad.city) + "', AddressProvince = '" + str(
+        ad.province) + "', AddressPostcode = '" + str(ad.zip) + "', contact_phone = '" + str(
+        ad.phone) + "', AddressCountry = '" + str(ad.country) + "', Contact_name = '" + str(
+        ad.name) + "', Company_name = '" + str(ad.company) + "', `Default_address` = '" + str(
+        ad.default) + "', shopify_address_id = '" + str(
+        ad.id) + "', AddressHash = '' WHERE shopify_address_id = '" + str(ad.id) + "'"
     print(sqlcode)
     dac_code.db_sql_write(sqlcode)
+
+
 '''insterts new addresses'''
-def insert_customer_address_via_obj(ad:CustomerAddress):
-    sqlcode:str="INSERT INTO fred.Customer_Addresses(BillingType, CustomerID, first_name, last_name, AddressLine1, AddressLine2, AddressLine3, AddressCity, AddressProvince, AddressPostcode, contact_phone, AddressCountry, Contact_name, Company_name, `Default_address`, shopify_address_id, AddressHash) VALUES ('0'," + ad.customer_id + ",'" + ad.first_name + "','" + ad.last_name + "','" + ad.address1 + "','" + ad.address2 + "','','" + ad.city + "','" + ad.province + "','" + ad.zip + "','" + ad.phone + "','" + ad.country + "','" + ad.name + "','" + ad.company + "','" + ad.default + "','" + ad.id + "','');"
+
+
+def insert_customer_address_via_obj(ad: CustomerAddress):
+    sqlcode: str = "INSERT INTO fred.Customer_Addresses(BillingType, CustomerID, first_name, last_name, AddressLine1, AddressLine2, AddressLine3, AddressCity, AddressProvince, AddressPostcode, contact_phone, AddressCountry, Contact_name, Company_name, `Default_address`, shopify_address_id, AddressHash) VALUES ('0'," + ad.customer_id + ",'" + ad.first_name + "','" + ad.last_name + "','" + ad.address1 + "','" + ad.address2 + "','','" + ad.city + "','" + ad.province + "','" + ad.zip + "','" + ad.phone + "','" + ad.country + "','" + ad.name + "','" + ad.company + "','" + ad.default + "','" + ad.id + "','');"
     print(sqlcode)
     dac_code.db_sql_write(sqlcode)
 
 
-
-
-def update_customer_in_db_via_obj(ob:CustomerDetails):
-    sqlcode: str = "UPDATE fred.Customers SET title = '', fname = '" + str(ob.first_name) + "', sname = '" + str(ob.last_name) + "', websiteid='" + str(ob.websiteID) + "', email='" + str(ob.email1) +  "', hometel='" + str(ob.phone) + "', accepts_marketing='" + str(convert_string_to_int(ob.accepts_marketing)) + "', web_created_at='" + str(ob.created_at) + "', web_updated_at='" + str(ob.updated_at) + "', web_State='" + str(ob.state) + "', web_last_order_id='" + str(convert_int_for_sql(ob.last_order_id)) + "', web_note='" + str(ob.note) + "', verified_email=" + str(convert_string_to_int(ob.verified_email)) + ", multipass_identifier='" + str(ob.multipass_identifier) + "', tax_exempt=" + str(convert_string_to_int(ob.tax_exempt)) + ", web_tags='" + str(ob.tags) + "', web_Last_order_ID_str='" + str(ob.last_order_name) + "' WHERE (Customers.shopify_userid = " + str(ob.shopifyCustomerID) + ")"
+def update_customer_in_db_via_obj(ob: CustomerDetails):
+    sqlcode: str = "UPDATE fred.Customers SET title = '', fname = '" + str(ob.first_name) + "', sname = '" + str(
+        ob.last_name) + "', websiteid='" + str(ob.websiteID) + "', email='" + str(ob.email1) + "', hometel='" + str(
+        ob.phone) + "', accepts_marketing='" + str(
+        convert_string_to_int(ob.accepts_marketing)) + "', web_created_at='" + str(
+        ob.created_at) + "', web_updated_at='" + str(ob.updated_at) + "', web_State='" + str(
+        ob.state) + "', web_last_order_id='" + str(convert_int_for_sql(ob.last_order_id)) + "', web_note='" + str(
+        ob.note) + "', verified_email=" + str(
+        convert_string_to_int(ob.verified_email)) + ", multipass_identifier='" + str(
+        ob.multipass_identifier) + "', tax_exempt=" + str(convert_string_to_int(ob.tax_exempt)) + ", web_tags='" + str(
+        ob.tags) + "', web_Last_order_ID_str='" + str(
+        ob.last_order_name) + "' WHERE (Customers.shopify_userid = " + str(ob.shopifyCustomerID) + ")"
     print(sqlcode)
     dac_code.db_sql_write(sqlcode)
 
-def insert_customer_in_db_via_obj(ob:CustomerDetails):
+
+def insert_customer_in_db_via_obj(ob: CustomerDetails):
     print("updating address via object")
-    sqlcode: str = "INSERT INTO fred.Customers(fname, sname, websiteid, shopify_userid, email, hometel, accepts_marketing, web_created_at, web_updated_at, web_LifetimeOrderCount, web_LifeTimeOrderSpend, web_State, web_last_order_id, web_note, verified_email, multipass_identifier, tax_exempt, web_tags, web_Last_order_ID_str) VALUES ('" + str(ob.first_name) + "','" + str(ob.last_name) + "','" + str(ob.websiteID) + "','" + str(ob.shopifyCustomerID) + "','" + str(ob.email1) + "','" + str(ob.phone) + "','" + str(convert_string_to_int(ob.accepts_marketing)) + "','" + str(ob.created_at) + "','" + str(ob.updated_at) + "','" + str(ob.orders_count) + "','" + str(ob.total_spent) + "','" + str(ob.state) + "'," + str(convert_int_for_sql(ob.last_order_id)) + ",'" + str(ob.note) + "','" + str(convert_string_to_int(ob.verified_email)) + "','"  + "', '"+ str(convert_string_to_int(ob.tax_exempt)) + "','" + str(ob.tags) + "','" + str(ob.last_order_name) + "');"
+    sqlcode: str = "INSERT INTO fred.Customers(fname, sname, websiteid, shopify_userid, email, hometel, accepts_marketing, web_created_at, web_updated_at, web_LifetimeOrderCount, web_LifeTimeOrderSpend, web_State, web_last_order_id, web_note, verified_email, multipass_identifier, tax_exempt, web_tags, web_Last_order_ID_str) VALUES ('" + str(
+        ob.first_name) + "','" + str(ob.last_name) + "','" + str(ob.websiteID) + "','" + str(
+        ob.shopifyCustomerID) + "','" + str(ob.email1) + "','" + str(ob.phone) + "','" + str(
+        convert_string_to_int(ob.accepts_marketing)) + "','" + str(ob.created_at) + "','" + str(
+        ob.updated_at) + "','" + str(ob.orders_count) + "','" + str(ob.total_spent) + "','" + str(
+        ob.state) + "'," + str(convert_int_for_sql(ob.last_order_id)) + ",'" + str(ob.note) + "','" + str(
+        convert_string_to_int(ob.verified_email)) + "','" + "', '" + str(
+        convert_string_to_int(ob.tax_exempt)) + "','" + str(ob.tags) + "','" + str(ob.last_order_name) + "');"
     print(sqlcode)
     dac_code.db_sql_write(sqlcode)
 
 
-
-def convert_string_to_int(thestring:str):
-    ret_val:int=0
-    if thestring=="True":
-        ret_val=1
+def convert_string_to_int(thestring: str):
+    ret_val: int = 0
+    if thestring == "True":
+        ret_val = 1
     else:
-        ret_val=0
+        ret_val = 0
 
     return ret_val
 
-def convert_int_for_sql(theint:int):
-    ret_val:int=0
-    if theint==None:
-        ret_val=0
+
+def convert_int_for_sql(theint: int):
+    ret_val: int = 0
+    if theint == None:
+        ret_val = 0
     else:
-        ret_val=theint
+        ret_val = theint
     return ret_val
+
 
 def webhook_head(event):
     print("Entering shopify API code")
     if 'X-Shopify-Topic' in event['headers'].keys():
-        callingfunction:str =""
-        callingfunction=event['headers'].get('X-Shopify-Topic')
+        callingfunction: str = ""
+        callingfunction = event['headers'].get('X-Shopify-Topic')
         print("Function called 'X-Shopify-Topic: " + str(callingfunction))
-        bodytext:str=""
-        bodytext=event.get('body')
+        bodytext: str = ""
+        bodytext = event.get('body')
         print("body - " + bodytext)
 
-        if callingfunction=="carts/create":
+        if callingfunction == "carts/create":
             pass
         elif callingfunction == "carts/update":
             pass
 
         elif callingfunction == "customers/update" or callingfunction == "customers/create":
-            customer_object:CustomerDetails=CustomerDetails.convert_json_bodytext_to_Customer(self=CustomerDetails,bodytext=bodytext)
+            customer_object: CustomerDetails = CustomerDetails.convert_json_bodytext_to_Customer(self=CustomerDetails,
+                                                                                                 bodytext=bodytext)
             if customer_functions.check_if_customer_exists_shopify_customerid(customer_object.shopifyCustomerID):
                 print("calling object customer update")
                 print("email! " + str(customer_object.email1))
@@ -105,19 +222,20 @@ def webhook_head(event):
                 print("email! " + str(customer_object.email1))
                 insert_customer_in_db_via_obj(customer_object)
             print("Address Len " + str(len(CustomerDetails.iCustomerAddress)))
-            x:int=0
+            x: int = 0
             for ob in CustomerDetails.iCustomerAddress:
                 print(str(CustomerDetails.iCustomerAddress[x].first_name))
                 print(str(ob.first_name))
-                if customer_functions.check_if_customer_address_exists_shopifyID(CustomerDetails.iCustomerAddress[x].id) == True:
+                if customer_functions.check_if_customer_address_exists_shopifyID(
+                        CustomerDetails.iCustomerAddress[x].id) == True:
                     update_customer_address_via_obj(CustomerDetails.iCustomerAddress[x])
                 else:
                     insert_customer_address_via_obj(CustomerDetails.iCustomerAddress[x])
                 print("x value " + str(x))
-                x=x+1
+                x = x + 1
 
         elif callingfunction == "orders/paid":
-            #pull the order into the system
+            # pull the order into the system
             pass
         elif callingfunction == "":
             pass
@@ -131,7 +249,6 @@ def webhook_head(event):
 
 
 def proccess_order_updated(bodytext):
-
     # body -
     # {
 
@@ -404,4 +521,5 @@ def proccess_order_updated(bodytext):
 
     return bodytext
 
+#shopify_create_new_product()
 
