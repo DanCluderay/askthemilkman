@@ -411,7 +411,7 @@ def on_function_call(event):
 
     ############################## brand_products #####################
 
-    #
+    ##
     ############################ generic update #####################
     elif function_name == "generic_update":
         return bill_core.bill_generic_update_check(function_params)
