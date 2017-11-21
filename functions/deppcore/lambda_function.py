@@ -9,6 +9,7 @@ import customer_functions as customer_functions
 import responce_code
 import alexa_intent_function_code  as aifc
 import local_shopify_code as l_shopify
+import shopify_core
 import customer_functions as cust
 import order_code
 import pos_core
@@ -427,8 +428,8 @@ def on_function_call(event):
     elif function_name == "shopify_create_new_product":
         return l_shopify.shopify_create_new_product(function_params)
 
-
-
+    elif function_name == "shopify_dev_create_new_product":
+        return shopify_core.create_new_product(function_params)
 
 
     else:
