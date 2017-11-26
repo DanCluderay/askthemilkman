@@ -6,6 +6,35 @@ import shopify
 import requests
 import uuid
 
+
+def bill_generic_select(para):
+    quoteless = para.replace("\'", "\"")
+    ob: dict = json.loads(quoteless)
+    TableName: str = str(ob['TableName'])  # THERE MUST BE A FEILD CALLED TableName
+    Pk: str = str(ob['Pk'])  # THERE MUST BE A FEILD CALLED Pk
+    UpDateWhere: str = str(ob['UpDateWhere'])  # THERE MUST BE A FEILD CALLED Pk
+    # loop the dict
+    selectparams = ""
+
+
+    for k, v in ob.items():
+        print(k, v)
+        temp: str = ""
+        if k == "TableName" or k == "Pk" or k == "UpDateWhere":
+            print("found " + k)
+        else:
+            if selectparams == "":
+                selectparams=TableName + "." + v
+            else:
+                temp = " ," + k
+                selectparams =selectparams + " , " + TableName + "." + v
+
+
+
+    sqlcode = "SELECT " + selectparams + " FROM bill." + TableName + " WHERE (" + Pk + " = " + UpDateWhere + ")"
+    result = bill_dac.dbreadquery_sql(sqlcode)
+    return result
+
 def bill_generic_update_check(para):
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)
@@ -102,3 +131,5 @@ def generic_update_command(para):
     else:
         returnstring=0
     return returnstring
+
+#bill_generic_select("{'TableName':'product_varient_location_stock_qty','Pk':'product_varient_location_stock_qty_ID','UpDateWhere':'1','product_varient_location_stock_qty_ID':'product_varient_location_stock_qty_ID','product_instance_ID':'product_varient_location_stock_qty_ID','product_varient_location_ID':'product_varient_location_ID'}")
