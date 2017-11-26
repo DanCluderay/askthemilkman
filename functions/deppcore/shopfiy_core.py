@@ -10,12 +10,13 @@ from class_obj import AnOrder, CustomerDetails, CustomerAddress
 import shopify
 from shopify import Product
 
+
 keyp: str = "461824c0a06d4be0e94851deeabc3965"
 passp: str = "9bb4f551ba4888c9199b7a9509f0e872"
 urlstart: str = "https://dans-daily-deals.myshopify.com/admin"
 urldom:str="@dans-daily-deals.myshopify.com/admin"
 
-def create_new_product(para):
+def create_new_product2(para):
 
     quoteless = para.replace("\'", "\"")
     ob: dict = json.loads(quoteless)

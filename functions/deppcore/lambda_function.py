@@ -416,6 +416,8 @@ def on_function_call(event):
     ############################ generic update #####################
     elif function_name == "generic_update":
         return bill_core.bill_generic_update_check(function_params)
+    elif function_name == "generic_select":
+        return bill_core.bill_generic_select(function_params)
 
     ###################################################################
     ###################################################################
@@ -429,7 +431,7 @@ def on_function_call(event):
         return l_shopify.shopify_create_new_product(function_params)
 
     elif function_name == "shopify_dev_create_new_product":
-        return shopify_core.create_new_product(function_params)
+        return l_shopify.create_new_product2(function_params)
 
 
     else:
@@ -437,8 +439,7 @@ def on_function_call(event):
 
     return 1
 
-
-
+#shopify_core.create_new_product2("")
 
 #cust.find_customer_name('intent', 'session')
 #order_code.create_new_order(123)
