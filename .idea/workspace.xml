@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="962026f5-0681-4152-afeb-d105be148941" name="Default" comment="" />
+    <list default="true" id="962026f5-0681-4152-afeb-d105be148941" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions/deppcore/lambda_function.py" afterPath="$PROJECT_DIR$/functions/deppcore/lambda_function.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,38 +15,62 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pos_core.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="lambda_function.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/functions/deppcore/lambda_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-352">
-              <caret line="288" column="17" lean-forward="false" selection-start-line="288" selection-start-column="17" selection-end-line="288" selection-end-column="17" />
-              <folding>
-                <element signature="e#42#79#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="230">
+              <caret line="423" column="23" lean-forward="false" selection-start-line="423" selection-start-column="23" selection-end-line="423" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pos_core.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py">
+      <file leaf-file-name="project.json" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/askthemilkman/project.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="22" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="135">
+              <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pymysql/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1155">
+              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5265">
+              <caret line="353" column="0" lean-forward="false" selection-start-line="353" selection-start-column="0" selection-end-line="353" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="decoder.py" pinned="false" current-in-tab="false">
+        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json/decoder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5085">
+              <caret line="341" column="0" lean-forward="false" selection-start-line="341" selection-start-column="0" selection-end-line="341" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
+        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/codecs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4995">
+              <caret line="333" column="25" lean-forward="false" selection-start-line="333" selection-start-column="25" selection-end-line="333" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,6 +106,12 @@
       <find>gv</find>
       <find>dump</find>
       <find>edit</find>
+      <find>case</find>
+      <find>config</find>
+      <find>instan</find>
+      <find>get_product_from_product_id</find>
+      <find>get_store_locations_of_bis</find>
+      <find>fred</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -90,6 +123,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Dan Cluderay &lt;cluderayd@gmail.com&gt;" />
         <option value="Dan" />
       </list>
     </option>
@@ -97,14 +131,11 @@
     <option name="PUSH_TAGS">
       <GitPushTagMode />
     </option>
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/deepcore.py" />
-        <option value="$PROJECT_DIR$/lambda_function.py" />
-        <option value="$PROJECT_DIR$/functions/deppcore/fox.py" />
-        <option value="$PROJECT_DIR$/functions/deppcore/deepcore/common.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/deepcore.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/deepcore/deepcore.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/deepcore/__init__.py" />
@@ -130,7 +161,6 @@
         <option value="$PROJECT_DIR$/functions/deppcore/cust/customer_functions.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/alexa_responce/responce_code.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/global_vars/globalvars.py" />
-        <option value="$PROJECT_DIR$/functions/deppcore/local_shopify/local_shopify_code.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/OnlyOne.py" />
         <option value="/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/session_vars.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/session_vars/session_vars.py" />
@@ -142,13 +172,20 @@
         <option value="$PROJECT_DIR$/functions/deppcore/alexa_intent_function_code.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/order_code.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/class_obj.py" />
-        <option value="$PROJECT_DIR$/functions/deppcore/class_obj/class_obj.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/customer_functions.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/com_msg.py" />
-        <option value="$PROJECT_DIR$/functions/deppcore/local_shopify_code.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/dac/dac_code.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/pos_core.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/class_obj/class_obj.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/bill_dac/bill_dac.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/bill_dac.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/shopfiy_core.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/shopify_core/shopify_core.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/local_shopify_code.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/local_shopify/local_shopify_code.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/bill_core/bill_core.py" />
+        <option value="$PROJECT_DIR$/functions/deppcore/bill_core.py" />
         <option value="$PROJECT_DIR$/functions/deppcore/lambda_function.py" />
       </list>
     </option>
@@ -185,28 +222,6 @@
               <option name="myItemId" value="External Libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 3.6.1 (/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="deepretail" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 3.6.1 (/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -268,7 +283,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="pos_core" />
+              <option name="myItemId" value="urllib3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -290,7 +305,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="dac" />
+              <option name="myItemId" value="local_shopify" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -300,20 +315,21 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
     <property name="FullScreen" value="true" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/functions/deppcore" />
+      <recent name="$PROJECT_DIR$/functions/deppcore/dp" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/functions/deppcore/shopify_core" />
       <recent name="$PROJECT_DIR$/functions/deppcore" />
       <recent name="/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages" />
       <recent name="$PROJECT_DIR$/functions/deppcore/session_vars" />
       <recent name="$PROJECT_DIR$/functions/deppcore/lambda_start" />
-      <recent name="$PROJECT_DIR$/functions/deppcore/orders" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/functions/deppcore" />
-      <recent name="$PROJECT_DIR$/functions/deppcore/dp" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -328,61 +344,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.pos_core (1)">
-    <configuration default="false" name="com_msg" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/functions/deppcore" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="deepretail" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functions/deppcore/com_msg.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="class_obj" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/functions/deppcore" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="deepretail" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functions/deppcore/class_obj.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="class_obj (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/functions/deppcore/class_obj" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="deepretail" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functions/deppcore/class_obj/class_obj.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.bill_core">
     <configuration default="false" name="pos_core" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -414,6 +376,60 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="deepretail" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="local_shopify_code" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/functions/deppcore/local_shopify" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="deepretail" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functions/deppcore/local_shopify/local_shopify_code.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="lambda_function" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/functions/deppcore" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="deepretail" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functions/deppcore/lambda_function.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="bill_core" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/functions/deppcore/bill_core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="deepretail" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/functions/deppcore/bill_core/bill_core.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -533,24 +549,27 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Python.fox" />
       <item index="1" class="java.lang.String" itemvalue="Python.order_code" />
-      <item index="2" class="java.lang.String" itemvalue="Python.com_msg" />
-      <item index="3" class="java.lang.String" itemvalue="Python.class_obj" />
-      <item index="4" class="java.lang.String" itemvalue="Python.class_obj (1)" />
-      <item index="5" class="java.lang.String" itemvalue="Python.pos_core" />
-      <item index="6" class="java.lang.String" itemvalue="Python.pos_core (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Python.pos_core" />
+      <item index="3" class="java.lang.String" itemvalue="Python.pos_core (1)" />
+      <item index="4" class="java.lang.String" itemvalue="Python.local_shopify_code" />
+      <item index="5" class="java.lang.String" itemvalue="Python.lambda_function" />
+      <item index="6" class="java.lang.String" itemvalue="Python.bill_core" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.pos_core (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.pos_core" />
-        <item index="2" class="java.lang.String" itemvalue="Python.class_obj (1)" />
-        <item index="3" class="java.lang.String" itemvalue="Python.class_obj" />
-        <item index="4" class="java.lang.String" itemvalue="Python.com_msg" />
+        <item index="0" class="java.lang.String" itemvalue="Python.bill_core" />
+        <item index="1" class="java.lang.String" itemvalue="Python.lambda_function" />
+        <item index="2" class="java.lang.String" itemvalue="Python.local_shopify_code" />
+        <item index="3" class="java.lang.String" itemvalue="Python.pos_core" />
+        <item index="4" class="java.lang.String" itemvalue="Python.pos_core (1)" />
       </list>
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -562,34 +581,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1503566122913</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Big sync">
-      <created>1503864580596</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1503864580596</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Big sync">
-      <created>1503867089360</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1503867089360</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Big sync">
-      <created>1503992925036</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1503992925036</updated>
-    </task>
-    <task id="LOCAL-00004" summary="sage payment function">
-      <created>1504075367952</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1504075367952</updated>
     </task>
     <task id="LOCAL-00005" summary="creating payment collections">
       <created>1504166291374</created>
@@ -850,7 +841,91 @@
       <option name="project" value="LOCAL" />
       <updated>1509913628775</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views">
+      <created>1510127875699</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1510127875699</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views">
+      <created>1510127884678</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1510127884678</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views">
+      <created>1510221349313</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1510221349313</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views">
+      <created>1510221360825</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1510221360825</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views">
+      <created>1511077928161</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1511077928161</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;&#10;##################### Connecting to Bill #############">
+      <created>1511109941189</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1511109941191</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;Signed-off-by: Dan Cluderay &lt;cluderayd@gmail.com&gt;&#10;&#10;##################### Connecting to Bill #############">
+      <created>1511110003227</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1511110003227</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;Signed-off-by: Dan Cluderay &lt;cluderayd@gmail.com&gt;&#10;&#10;##################### Connecting to Bill #############">
+      <created>1511110051571</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1511110051571</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Merge remote-tracking branch 'askthemilkman/newbranch' into newbranch&#10;&#10;# Conflicts:&#10;#&#9;.idea/deepretail.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;functions/deppcore/lambda_function.py">
+      <created>1511274299168</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1511274299168</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Merge remote-tracking branch 'askthemilkman/newbranch' into newbranch&#10;&#10;# Conflicts:&#10;#&#9;.idea/deepretail.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;functions/deppcore/lambda_function.py">
+      <created>1511685289863</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1511685289864</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Merge remote-tracking branch 'askthemilkman/newbranch' into newbranch&#10;&#10;# Conflicts:&#10;#&#9;.idea/deepretail.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;functions/deppcore/lambda_function.py">
+      <created>1511990052790</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1511990052796</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Merge remote-tracking branch 'askthemilkman/newbranch' into newbranch&#10;&#10;# Conflicts:&#10;#&#9;.idea/deepretail.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;functions/deppcore/lambda_function.py">
+      <created>1511990162486</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1511990162486</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView">
@@ -867,25 +942,39 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26865673" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22014925" sideWeight="0.49713877" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21030043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48507464" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26865673" sideWeight="0.50858366" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32711443" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26865673" sideWeight="0.4914163" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2682927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21517412" sideWeight="0.48855507" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2353362" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24920128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2761194" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26616916" sideWeight="0.5114449" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32711443" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26865673" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2682927" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21517412" sideWeight="0.48855507" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2353362" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32825205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24920128" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2761194" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -894,29 +983,36 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5028612" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26616916" sideWeight="0.5114449" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26865673" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30780143" sideWeight="0.49713877" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21030043" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26616916" sideWeight="0.48855507" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3869814" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48507464" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20934959" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="sage payment function" />
-    <MESSAGE value="creating payment collections" />
-    <MESSAGE value="Split the code into multipule files" />
     <MESSAGE value="Split the code into multipule files #2" />
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages" />
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway" />
@@ -939,7 +1035,10 @@
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock" />
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved" />
     <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views" />
-    <option name="LAST_COMMIT_MESSAGE" value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views" />
+    <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;&#10;##################### Connecting to Bill #############" />
+    <MESSAGE value="Split the code into multipule files #2&#10;New file structure not using local packages&#10;working with aws api gateway&#10;&#10;Now with Mqtt msg after items added to basket&#10;&#10;now with webhook events from shopify&#10;&#10;Customer address updated with web hook&#10;&#10;class object to hold all classs types&#10;-- Classes now have iterations relationships CUstomer has Customer Address&#10;&#10;-- basics of store updates&#10;&#10;-- Now updating layout files with fix&#10;&#10;Quick reboot&#10;&#10;Now Saving Bay Name Changes&#10;&#10;-- Adding use case statement&#10;&#10;-- change to Products data table reflected in sql query&#10;&#10;--  products and brands considerations&#10;-- Adding Product Barcde support - More&#10;-- Now updating tables with generic insert and updates based on json dataset&#10;&#10;-- Get product stock&#10;&#10;-- Basics of Product Instance being saved&#10;&#10;-- Displaying of product detail stock views&#10;&#10;Signed-off-by: Dan Cluderay &lt;cluderayd@gmail.com&gt;&#10;&#10;##################### Connecting to Bill #############" />
+    <MESSAGE value="Merge remote-tracking branch 'askthemilkman/newbranch' into newbranch&#10;&#10;# Conflicts:&#10;#&#9;.idea/deepretail.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;functions/deppcore/lambda_function.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'askthemilkman/newbranch' into newbranch&#10;&#10;# Conflicts:&#10;#&#9;.idea/deepretail.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;functions/deppcore/lambda_function.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -948,11 +1047,6 @@
           <url>file://$PROJECT_DIR$/functions/deppcore/testingpage.py</url>
           <line>25</line>
           <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/functions/deppcore/local_shopify_code.py</url>
-          <line>11</line>
-          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/functions/deppcore/class_obj.py</url>
@@ -969,6 +1063,31 @@
           <line>425</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/deppcore/pos_core.py</url>
+          <line>723</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/deppcore/pos_core.py</url>
+          <line>519</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/deppcore/local_shopify/local_shopify_code.py</url>
+          <line>582</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/deppcore/lambda_function.py</url>
+          <line>441</line>
+          <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/functions/deppcore/bill_core/bill_core.py</url>
+          <line>134</line>
+          <option name="timeStamp" value="118" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -980,50 +1099,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="111" />
+      <option name="time" value="120" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/dac/customer.py" />
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/cust/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/sage_files/sage_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1575">
-          <caret line="105" column="0" lean-forward="true" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/alexa_intent_functions/alexa_intent_function_code.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/deepcore/dc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="38" lean-forward="false" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/global_vars/globalvars.py" />
-    <entry file="file://$USER_HOME$/Library/Python/3.6/lib/python/site-packages/local_shopify/local_shopify_code.py" />
-    <entry file="file://$USER_HOME$/Library/Python/3.6/lib/python/site-packages/orders/order_code.py" />
-    <entry file="file://$USER_HOME$/Library/Python/3.6/lib/python/site-packages/sage_files/sage_code.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/local_shopify/local_shopify_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/orders/order_code.py" />
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/system_code/orders.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/sage_files/sage_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/alexa_responce/responce_code.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/dac/dac_code.py" />
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/cust/customer_functions.py" />
     <entry file="file://$PROJECT_DIR$/project.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -1055,13 +1135,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/dacc.py" />
     <entry file="file://$PROJECT_DIR$/functions/deppcore/alexa_responce/responce_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/local_shopify/local_shopify_code.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1188,32 +1261,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/class_obj/class_obj.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="255" column="55" lean-forward="false" selection-start-line="255" selection-start-column="55" selection-end-line="255" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#45#8888#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/com_msg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/local_shopify_code.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="85" column="24" lean-forward="false" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#221#1131#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1231,13 +1282,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/dac_code.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -1245,40 +1289,175 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/dac/dac_code.py">
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/pyactiveresource/activeresource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        <state relative-caret-position="5205">
+          <caret line="355" column="0" lean-forward="false" selection-start-line="355" selection-start-column="0" selection-end-line="355" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/shopify/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1770">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/class_obj/class_obj.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="428" column="0" lean-forward="false" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#45#8888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core/pos_core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="22" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="519" column="34" lean-forward="false" selection-start-line="516" selection-start-column="3" selection-end-line="519" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/bill_core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1335">
+          <caret line="89" column="23" lean-forward="false" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/bill_core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/dac/dac_code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/bill_dac.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions/deppcore/pos_core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="31" />
+        <state relative-caret-position="6840">
+          <caret line="462" column="0" lean-forward="false" selection-start-line="462" selection-start-column="0" selection-end-line="463" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#15#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/shopify_core/shopfiy_core.py" />
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/local_shopify_code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="21" column="18" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="584" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/local_shopify/local_shopify_code.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8760">
+          <caret line="584" column="0" lean-forward="false" selection-start-line="584" selection-start-column="0" selection-end-line="584" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/shopfiy_core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="38" column="15" lean-forward="false" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json/decoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5085">
+          <caret line="341" column="0" lean-forward="false" selection-start-line="341" selection-start-column="0" selection-end-line="341" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5265">
+          <caret line="353" column="0" lean-forward="false" selection-start-line="353" selection-start-column="0" selection-end-line="353" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/shopify_core/shopify_core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="24" column="28" lean-forward="false" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/lambda_function.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="423" column="23" lean-forward="false" selection-start-line="423" selection-start-column="23" selection-end-line="423" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/bill_dac/bill_dac.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/pymysql/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1155">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/bill_core/bill_core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1965">
+          <caret line="131" column="10" lean-forward="false" selection-start-line="131" selection-start-column="10" selection-end-line="131" selection-end-column="10" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions/deppcore/lambda_function.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-352">
-          <caret line="288" column="17" lean-forward="false" selection-start-line="288" selection-start-column="17" selection-end-line="288" selection-end-column="17" />
-          <folding>
-            <element signature="e#42#79#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="4995">
+          <caret line="333" column="25" lean-forward="false" selection-start-line="333" selection-start-column="25" selection-end-line="333" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions/deppcore/bill_core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="28" column="38" lean-forward="false" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/askthemilkman/project.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>

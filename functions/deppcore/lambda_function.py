@@ -9,9 +9,11 @@ import customer_functions as customer_functions
 import responce_code
 import alexa_intent_function_code  as aifc
 import local_shopify_code as l_shopify
+import shopify_core
 import customer_functions as cust
 import order_code
 import pos_core
+import bill_core
 
 def on_intent(intent_request, session, context):
     """ Called when the user specifies an intent for this skill """
@@ -263,7 +265,7 @@ def on_function_call(event):
     function_params: str = ""
     function_name = event.get('func')
     function_params = event.get('val')
-    print('in on_function_call code:')
+    print('in on_function_call code:' + function_params)
     if function_name == 'test':
         return "here is a test"
     elif function_name == 'get_customers':
@@ -297,20 +299,20 @@ def on_function_call(event):
     ######################## Location Grid ##################################update_locationgrid_dataset
     elif function_name=="get_gridlocations":
         return pos_core.get_gridlocations(function_params)
-
+    elif function_name=="get_store_locations_of_bis":
+        return pos_core.get_store_locations_of_bis(function_params)
     elif function_name == "update_locationgrid_dataset":
         return pos_core.update_locationgrid_dataset(function_params)
-
     elif function_name=="add_node_to_loc_grid":
         return pos_core.add_node_to_loc_grid(function_params)
-
     elif function_name=="edit_node_to_loc_grid":
         return pos_core.edit_node_to_loc_grid(function_params)
     elif function_name=="get_location_types":
         return pos_core.get_location_types()
     elif function_name=="get_location_Store_Zone_Layout":
         return pos_core.get_location_Store_Zone_Layout(function_params)
-
+    elif function_name=="get_store_locations_of_store":
+        return pos_core.get_store_locations_of_store(function_params)
 
     ############################## Store Layout ###################################
     elif function_name=="add_store_layout_row":
@@ -380,10 +382,16 @@ def on_function_call(event):
         return pos_core.update_product_instance_dataset(function_params)
     elif function_name == "get_product_instance_history":
         return pos_core.get_product_instance_history(function_params)
+    elif function_name == "get_product_instance_instanceid":
+        return pos_core.get_product_instance_instanceid(function_params)
 
     ############################## Product_Varience ############################
     elif function_name == "update_product_varience_dataset":
         return pos_core.update_product_varience_dataset(function_params)
+
+    ############################## Product_Expiry_Date_Type ############################
+    elif function_name == "get_product_expiry_date_types":
+        return pos_core.get_product_expiry_date_types(function_params)
 
     ############################## Product_Stock_Locations ############################
     elif function_name == "get_product_location_qty":
@@ -393,13 +401,45 @@ def on_function_call(event):
     elif function_name == "update_product_stock_varience_dataset":
         return pos_core.update_product_stock_varience_dataset(function_params)
 
+    ###################################################################
+    ###################################################################
+    #############################   BILL   ############################
+    ###################################################################
+    ###################################################################
+
+    ############################## Brands ############################
+
+
+    ############################## brand_products #####################
+
+    ##
+    ############################ generic update #####################
+    elif function_name == "generic_update":
+        return bill_core.bill_generic_update_check(function_params)
+    elif function_name == "generic_select":
+        return bill_core.bill_generic_select(function_params)
+
+    ###################################################################
+    ###################################################################
+    ##################i########### SHOPIFY ############################
+    ###################################################################
+    ###################################################################
+    elif function_name == "shopify_get_all_products":
+        return pos_core.get_all_products()
+
+    elif function_name == "shopify_create_new_product":
+        return l_shopify.shopify_create_new_product(function_params)
+
+    elif function_name == "shopify_dev_create_new_product":
+        return l_shopify.create_new_product2(function_params)
+
+
     else:
         return "func = " + str(function_name) + " val= " + str(function_params)
 
     return 1
 
-
-
+#shopify_core.create_new_product2("")
 
 #cust.find_customer_name('intent', 'session')
 #order_code.create_new_order(123)
